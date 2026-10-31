@@ -12,7 +12,7 @@ import { JsonLd } from '@/components/ui/JsonLd'
 import { getNavigation, getServiceCategories, getServices, getSettings, getTeam } from '@/lib/data'
 import { clinicSchema, websiteSchema } from '@/lib/schema'
 import { formatAddress } from '@/lib/settings-helpers'
-import { getServerUrl } from '@/lib/utils'
+import { getServerUrl, isNoIndex } from '@/lib/utils'
 
 import './globals.css'
 
@@ -53,6 +53,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description: settings.description,
     applicationName: settings.clinicName,
     formatDetection: { telephone: false },
+    robots: isNoIndex() ? { index: false, follow: false } : undefined,
     openGraph: { siteName: settings.clinicName, locale: 'it_CH', type: 'website' },
     verification: {
       google: settings.googleSiteVerification || undefined,

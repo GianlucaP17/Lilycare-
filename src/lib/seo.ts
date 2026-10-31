@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import type { Media } from '@/payload-types'
 
 import { asMedia, mediaSrc } from './media'
-import { absoluteUrl, truncate } from './utils'
+import { absoluteUrl, isNoIndex, truncate } from './utils'
 
 type MetaInput = {
   /** Titolo della pagina (verrà aggiunto " | LilyCare"). */
@@ -46,7 +46,11 @@ export function buildMetadata(input: MetaInput): Metadata {
     title: customTitle ? { absolute: customTitle } : input.title,
     description,
     alternates: { canonical: url },
-    robots: input.noindex ? { index: false, follow: true } : undefined,
+    robots: isNoIndex()
+      ? { index: false, follow: false }
+      : input.noindex
+        ? { index: false, follow: true }
+        : undefined,
     openGraph: {
       title: ogTitle,
       description,

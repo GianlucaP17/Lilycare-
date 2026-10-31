@@ -1,6 +1,9 @@
 import type { MetadataRoute } from 'next'
 
-import { absoluteUrl } from '@/lib/utils'
+import { absoluteUrl, isNoIndex } from '@/lib/utils'
+
+// Calcolato a ogni richiesta: dipende da variabili lette all'avvio (NOINDEX, SERVER_URL)
+export const dynamic = 'force-dynamic'
 
 /**
  * Regole per i motori di ricerca e per gli assistenti AI.
@@ -27,15 +30,14 @@ const aiAndSearchBots = [
 export default function robots(): MetadataRoute.Robots {
   const disallow = ['/admin', '/api/', '/next/']
   const allow = ['/', '/api/media/']
-  // In sviluppo il sito non va indicizzato; in produzione sì.
-  const isProduction = process.env.NODE_ENV === 'production'
+  // In sviluppo e nelle demo (NOINDEX=true) il sito non va indicizzato; in produzione sì.
   return {
-    rules: isProduction
-      ? [
+    rules: isNoIndex()
+      ? [{ userAgent: '*', disallow: '/' }]
+      : [
           { userAgent: '*', allow, disallow },
           { userAgent: aiAndSearchBots, allow, disallow },
-        ]
-      : [{ userAgent: '*', disallow: '/' }],
+        ],
     sitemap: absoluteUrl('/sitemap.xml'),
   }
 }

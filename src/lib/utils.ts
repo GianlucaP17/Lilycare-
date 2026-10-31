@@ -19,10 +19,23 @@ export function slugify(value: unknown): string {
     .replace(/^-|-$/g, '')
 }
 
-/** URL pubblico del sito, senza slash finale. */
+/**
+ * URL pubblico del sito, senza slash finale.
+ * `SERVER_URL` viene letta all'avvio (si cambia da cPanel senza ricompilare, es. per una demo su
+ * un sottodominio) e ha la precedenza su `NEXT_PUBLIC_SERVER_URL`, fissata durante la build.
+ */
 export function getServerUrl(): string {
-  const url = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+  const url =
+    process.env.SERVER_URL || process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
   return url.replace(/\/$/, '')
+}
+
+/**
+ * `NOINDEX=true` (es. sito demo): Google e gli altri motori non indicizzano il sito.
+ * In sviluppo il sito non è mai indicizzabile.
+ */
+export function isNoIndex(): boolean {
+  return process.env.NOINDEX === 'true' || process.env.NODE_ENV !== 'production'
 }
 
 /** Rende assoluto un percorso relativo ("/servizi" → "https://lilycare.ch/servizi"). */

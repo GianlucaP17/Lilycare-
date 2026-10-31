@@ -220,6 +220,40 @@ curl -fsS -X POST -H "Authorization: Bearer IL_TUO_CRON_SECRET" https://lilycare
 
 e attiva l’opzione in _Notizie → Assistente AI_ nel pannello.
 
+### Demo su un sottodominio (prima della messa online)
+
+Per vedere e provare il nuovo sito **senza toccare il sito attuale né le email**, installalo su un
+sottodominio, ad esempio `demo.lilycare.ch`. Servono circa 15 minuti:
+
+1. **cPanel → Domains** (o _Subdomains_) → crea `demo.lilycare.ch`.
+2. **File Manager**, nella cartella home: crea `lilycare-demo` e `lilycare-demo-data` (con dentro la
+   cartella `media`). Carica `lilycare-namecheap.zip` in `lilycare-demo` e usa **Extract**.
+3. **Setup Node.js App → Create Application**: _Application root_ `lilycare-demo`, _Application
+   URL_ `demo.lilycare.ch`, _Application startup file_ `app.js`, _Application mode_ Production,
+   Node.js 24.x o 22.x (la più recente).
+4. **Environment variables**:
+
+   | Nome             | Valore                                             |
+   | ---------------- | -------------------------------------------------- |
+   | `SERVER_URL`     | `https://demo.lilycare.ch`                         |
+   | `NOINDEX`        | `true` (Google non indicizza la demo)              |
+   | `PAYLOAD_SECRET` | stringa lunga e casuale                            |
+   | `DATABASE_URL`   | `file:/home/UTENTE/lilycare-demo-data/lilycare.db` |
+   | `MEDIA_DIR`      | `/home/UTENTE/lilycare-demo-data/media`            |
+
+   Facoltative: le variabili `SMTP_*` (per ricevere davvero le email delle richieste di prova) e
+   `ANTHROPIC_API_KEY` (per provare l’assistente AI).
+
+5. **Create** → **Start**. Apri `https://demo.lilycare.ch` (al primo avvio carica foto e contenuti
+   in qualche secondo) e **subito dopo** `https://demo.lilycare.ch/admin` per creare il tuo utente
+   amministratore: il primo che lo apre diventa amministratore.
+6. Se il browser segnala il certificato: **cPanel → SSL/TLS Status → Run AutoSSL**. Se dopo 30 minuti
+   il sottodominio non si apre, in Namecheap → _Domain List → Advanced DNS_ aggiungi un record **A**
+   con host `demo` verso l’IP del server (in cPanel, colonna a destra: _Shared IP Address_).
+
+I contenuti modificati nella demo restano nella cartella `lilycare-demo-data`: al momento della
+messa online si possono riutilizzare.
+
 ### Aggiornamenti
 
 - **Manuale**: scarica il nuovo zip da GitHub Actions, estrailo sopra `lilycare-app` (sovrascrivendo)
@@ -352,8 +386,6 @@ I testi iniziali sono stati scritti con un tono prudente (nessuna promessa di ri
 richiesto per la pubblicità delle professioni mediche). **Vanno riletti e approvati dai
 professionisti** di LilyCare, in particolare:
 
-- [ ] Indirizzo: è indicato **“3° piano”** (ripreso dal vecchio sito): confermalo o cancellalo in
-      _Impostazioni studio_.
 - [ ] Curriculum del **Dr. med. Mauro Binda** (fonti: OneDoc, ozonoterapiaticino.ch, SIOOT) e lingue
       parlate. Il link a OneDoc è stato tolto perché la scheda riporta ancora l’indirizzo di Coldrerio:
       aggiornala e poi aggiungila di nuovo nel profilo.
