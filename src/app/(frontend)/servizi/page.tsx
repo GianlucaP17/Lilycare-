@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import React from 'react'
 
-import { ServiceCard } from '@/components/cards/ServiceCard'
+import { ServiceCardGrid } from '@/components/cards/ServiceCard'
 import { PageHeader } from '@/components/page/PageHeader'
 import { CtaBand } from '@/components/sections/CtaBand'
 import { Container } from '@/components/ui/Container'
@@ -89,11 +89,7 @@ export default async function ServicesPage() {
                   </p>
                 ) : null}
               </div>
-              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {items.map((s) => (
-                  <ServiceCard key={s.id} service={s} />
-                ))}
-              </div>
+              <ServiceCardGrid services={items} />
             </section>
           ))}
         </Container>

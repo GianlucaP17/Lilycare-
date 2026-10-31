@@ -1,7 +1,7 @@
 import { ArrowRight } from 'lucide-react'
 import React from 'react'
 
-import { ServiceCard } from '@/components/cards/ServiceCard'
+import { ServiceCardGrid } from '@/components/cards/ServiceCard'
 import { Button } from '@/components/ui/Button'
 import { Container, Section, SectionHeading } from '@/components/ui/Container'
 import { getServiceCategories, getServices } from '@/lib/data'
@@ -49,21 +49,13 @@ export async function ServicesGridBlock({ block }: { block: Block }) {
                       <p className="hidden text-muted md:block">{cat.description}</p>
                     ) : null}
                   </div>
-                  <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                    {items.map((s) => (
-                      <ServiceCard key={s.id} service={s} />
-                    ))}
-                  </div>
+                  <ServiceCardGrid services={items} />
                 </div>
               )
             })}
           </div>
         ) : (
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((s) => (
-              <ServiceCard key={s.id} service={s} />
-            ))}
-          </div>
+          <ServiceCardGrid services={services} align="center" className="mt-14" />
         )}
       </Container>
     </Section>

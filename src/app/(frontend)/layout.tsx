@@ -104,7 +104,7 @@ export default async function FrontendLayout({ children }: { children: React.Rea
         <PreviewBanner />
         <TopBar settings={settings} />
         <Header
-          logo={<Logo logo={settings.logo} name={settings.clinicName} height={44} />}
+          logo={<Logo logo={settings.logo} name={settings.clinicName} height={44} heightLg={54} />}
           nav={nav}
           groups={groups}
           phone={settings.phone}

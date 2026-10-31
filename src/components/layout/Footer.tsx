@@ -35,7 +35,13 @@ export function Footer({
       <div className="mx-auto max-w-7xl px-5 pt-20 pb-28 sm:px-8 lg:pb-12">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <Logo logo={settings.logoOnDark} name={settings.clinicName} invert height={52} />
+            <Logo
+              logo={settings.logoOnDark}
+              name={settings.clinicName}
+              invert
+              height={52}
+              heightLg={60}
+            />
             <p className="mt-6 max-w-sm leading-relaxed text-navy-200">{settings.description}</p>
             {settings.socialLinks?.length ? (
               <ul className="mt-6 flex gap-2">

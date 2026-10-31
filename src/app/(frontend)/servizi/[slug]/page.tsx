@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import React from 'react'
 
 import { ArticleCard } from '@/components/cards/ArticleCard'
-import { ServiceCard } from '@/components/cards/ServiceCard'
+import { ServiceCardGrid } from '@/components/cards/ServiceCard'
 import { BookingAside } from '@/components/page/BookingAside'
 import { MemberMini } from '@/components/page/MemberMini'
 import { CtaBand } from '@/components/sections/CtaBand'
@@ -270,11 +270,7 @@ export default async function ServicePage({ params }: Props) {
         <section className="bg-sand-100 py-20">
           <Container>
             <h2 className="text-3xl font-normal md:text-4xl">Altri servizi: {category?.title}</h2>
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {related.map((s) => (
-                <ServiceCard key={s.id} service={s} />
-              ))}
-            </div>
+            <ServiceCardGrid services={related} className="mt-10" />
           </Container>
         </section>
       ) : null}

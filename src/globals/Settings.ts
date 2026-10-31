@@ -82,10 +82,13 @@ export const Settings: GlobalConfig = {
             },
             {
               name: 'defaultOgImage',
-              label: 'Immagine predefinita per condivisioni',
+              label: 'Foto principale del centro',
               type: 'upload',
               relationTo: 'media',
-              admin: { description: '1200×630 px. Se vuota viene generata automaticamente.' },
+              admin: {
+                description:
+                  'Foto rappresentativa (es. la reception), usata da Google nei dati del centro. Le anteprime di condivisione delle pagine (WhatsApp, Facebook…) vengono create automaticamente con logo e titolo, oppure con l’immagine indicata nella scheda SEO della pagina.',
+              },
             },
           ],
         },

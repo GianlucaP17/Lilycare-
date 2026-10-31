@@ -17,6 +17,7 @@ export function Logo({
   name = 'LilyCare',
   invert = false,
   height = 46,
+  heightLg,
   className,
 }: {
   logo?: unknown
@@ -24,10 +25,17 @@ export function Logo({
   /** @deprecated il sottotitolo fa parte del logo ufficiale ("Medical Center") */
   tagline?: string | null
   invert?: boolean
+  /** Altezza in px su mobile (e su desktop se `heightLg` non è indicata). */
   height?: number
+  /** Altezza in px da 1024 px di larghezza in su. */
+  heightLg?: number
   className?: string
 }) {
   const media = asMedia(logo)
+  const size = {
+    '--logo-h': `${height}px`,
+    '--logo-h-lg': `${heightLg ?? height}px`,
+  } as React.CSSProperties
   return (
     <Link
       href="/"
@@ -35,7 +43,10 @@ export function Logo({
       aria-label={`${name} Medical Center – torna alla homepage`}
     >
       {media ? (
-        <span className="relative block" style={{ height, width: Math.round(height * RATIO) }}>
+        <span
+          className="relative block aspect-[1288/302] h-(--logo-h) lg:h-(--logo-h-lg)"
+          style={size}
+        >
           <MediaImage media={media} sizes="220px" className="object-contain object-left" priority />
         </span>
       ) : (
@@ -49,8 +60,8 @@ export function Logo({
           alt={`${name} Medical Center`}
           width={Math.round(height * RATIO)}
           height={height}
-          className="block h-auto max-w-full"
-          style={{ height, width: 'auto' }}
+          className="block h-(--logo-h) w-auto max-w-full lg:h-(--logo-h-lg)"
+          style={size}
           fetchPriority="high"
         />
       )}

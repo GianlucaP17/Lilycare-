@@ -36,7 +36,11 @@ export const Users: CollectionConfig = {
         { label: 'Redattore (contenuti e richieste)', value: 'editor' },
       ],
       access: { update: isAdminField },
-      admin: { position: 'sidebar' },
+      admin: {
+        position: 'sidebar',
+        description:
+          'Il primo utente creato diventa sempre Amministratore. Solo gli amministratori possono gestire gli utenti e cancellare le richieste di appuntamento.',
+      },
     },
   ],
   hooks: {

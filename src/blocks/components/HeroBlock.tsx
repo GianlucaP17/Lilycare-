@@ -115,7 +115,7 @@ export async function HeroBlock({ block, isFirst }: { block: HeroBlockType; isFi
               <HeroArt />
             )}
           </div>
-          <div className="absolute -bottom-6 -left-2 max-w-[17rem] rounded-2xl bg-white/95 p-4 shadow-lift ring-1 ring-line backdrop-blur sm:-left-8">
+          <div className="absolute -right-2 -bottom-6 max-w-[17rem] rounded-2xl bg-white/95 p-4 shadow-lift ring-1 ring-line backdrop-blur sm:-right-8">
             <div className="flex gap-3">
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-orchid-50 text-orchid-700">
                 <MapPin size={18} aria-hidden />

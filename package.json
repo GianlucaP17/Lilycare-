@@ -17,6 +17,7 @@
     "migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
     "migrate:create": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:create",
     "seed": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/run.ts",
+    "brand": "node scripts/build-brand-assets.mjs",
     "package:namecheap": "node scripts/package-namecheap.mjs",
     "start:standalone": "node .next/standalone/server.js"
   },

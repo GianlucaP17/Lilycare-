@@ -914,6 +914,9 @@ export interface BookingRequest {
 export interface User {
   id: number;
   name: string;
+  /**
+   * Il primo utente creato diventa sempre Amministratore. Solo gli amministratori possono gestire gli utenti e cancellare le richieste di appuntamento.
+   */
   role: 'admin' | 'editor';
   updatedAt: string;
   createdAt: string;
@@ -1637,7 +1640,7 @@ export interface Setting {
   logo?: (number | null) | Media;
   logoOnDark?: (number | null) | Media;
   /**
-   * 1200×630 px. Se vuota viene generata automaticamente.
+   * Foto rappresentativa (es. la reception), usata da Google nei dati del centro. Le anteprime di condivisione delle pagine (WhatsApp, Facebook…) vengono create automaticamente con logo e titolo, oppure con l’immagine indicata nella scheda SEO della pagina.
    */
   defaultOgImage?: (number | null) | Media;
   /**

@@ -35,6 +35,9 @@ export const Media: CollectionConfig = {
     staticDir: process.env.MEDIA_DIR || 'media',
     mimeTypes: ['image/*'],
     focalPoint: true,
+    // Le foto dello smartphone (4000+ px) vengono ridotte a max 2400 px, raddrizzate secondo
+    // l'orientamento EXIF e salvate SENZA metadati (posizione GPS, modello del telefono).
+    resizeOptions: { width: 2400, height: 2400, fit: 'inside', withoutEnlargement: true },
     adminThumbnail: 'thumbnail',
     imageSizes: [
       { name: 'thumbnail', width: 480, height: 360, position: 'centre' },

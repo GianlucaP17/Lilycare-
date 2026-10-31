@@ -45,3 +45,38 @@ export function ServiceCard({ service, className }: { service: Service; classNam
     </Link>
   )
 }
+
+/**
+ * Griglia di card servizio. Con `align="center"` l'ultima riga incompleta
+ * resta centrata (es. 10 servizi su 3 colonne: la decima card non finisce
+ * sola a sinistra).
+ */
+export function ServiceCardGrid({
+  services,
+  align = 'start',
+  className,
+}: {
+  services: Service[]
+  align?: 'start' | 'center'
+  className?: string
+}) {
+  return (
+    <ul
+      role="list"
+      className={cn(
+        'flex flex-wrap gap-5',
+        align === 'center' ? 'justify-center' : 'justify-start',
+        className,
+      )}
+    >
+      {services.map((s) => (
+        <li
+          key={s.id}
+          className="w-full sm:w-[calc((100%_-_1.25rem)/2)] lg:w-[calc((100%_-_2.5rem)/3)]"
+        >
+          <ServiceCard service={s} />
+        </li>
+      ))}
+    </ul>
+  )
+}

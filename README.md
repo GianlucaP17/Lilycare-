@@ -56,19 +56,27 @@ pranzo: una riga per la mattina e una per il pomeriggio), zona, logo, social, av
 (es. chiusure per ferie), email che ricevono le richieste. Si modificano una volta sola e vengono
 aggiornati ovunque (intestazione, piè di pagina, contatti, dati per Google e per gli assistenti AI).
 
-> **Logo ufficiale**: caricalo in _Impostazioni studio → Studio → Logo_ (PNG trasparente o SVG).
-> Finché non lo carichi viene mostrato il marchio grafico provvisorio a forma di giglio.
+> **Logo ufficiale**: è già integrato nel sito, in versione vettoriale nitida a ogni dimensione
+> (intestazione, piè di pagina, pannello admin, email, icone e immagini di condivisione). Solo se in
+> futuro cambiasse, carica il nuovo file in _Impostazioni studio → Studio → Logo_ (SVG o PNG
+> trasparente) e _Logo (su sfondo scuro)_ per il piè di pagina.
 
 ### Foto
 
-Ogni immagine si carica direttamente dal campo dove serve (o da **Sistema → Immagini e file**):
+Le **9 foto dello studio** sono già caricate (in **Sistema → Immagini e file**) e usate nella
+testata della homepage, nelle gallerie della homepage e di _Chi siamo_ e nelle pagine dei servizi.
+Sono state ridimensionate, ottimizzate e ripulite dai dati nascosti (posizione GPS, modello del
+telefono). Ogni immagine si cambia direttamente dal campo dove serve:
 
-- **Team** → apri la persona → _Foto_ (ritratto verticale, sfondo neutro).
-- **Homepage** → _Pagine → Homepage → Testata (hero) → Immagine_ (foto dello studio).
-- **Servizi** → _Immagine_ (facoltativa) · **Articoli** → _Immagine di copertina_.
+- **Homepage** → _Pagine → Homepage → Testata (hero) → Immagine_ e blocco _Galleria fotografica_.
+- **Servizi** → _Immagine_ · **Articoli** → _Immagine di copertina_.
+- **Team** → apri la persona → _Foto_ (ritratto verticale, sfondo neutro): **ancora da caricare**;
+  finché manca viene mostrato un riquadro elegante con le iniziali.
 
 Compila sempre il **testo alternativo** (descrizione della foto): serve ad accessibilità e Google.
-Se una foto manca, il sito mostra un’illustrazione elegante al suo posto.
+Nel caricamento puoi indicare il **punto focale** (il soggetto da non tagliare): il sito ritaglia
+la foto attorno a quel punto nei vari formati. Puoi caricare le foto direttamente dallo smartphone:
+vengono ridotte in automatico (max 2400 px) e ripulite dai dati nascosti, come la posizione GPS.
 
 ### Servizi e team
 
@@ -119,7 +127,8 @@ degli articoli) e le indicazioni scritte dallo staff; **mai dati dei pazienti**.
 ### Homepage e pagine (struttura modulare)
 
 Ogni pagina è composta da **blocchi** (testata, elenco servizi, team, punti di forza, passaggi,
-mappa, ultime notizie, domande frequenti, invito all’azione, testo, immagine+testo, numeri).
+mappa, ultime notizie, domande frequenti, invito all’azione, testo, immagine+testo, numeri,
+galleria fotografica).
 Da **Pagine → Homepage** puoi aggiungere, togliere e trascinare i blocchi per riordinarli. Con
 **Pagine → Crea nuovo** crei nuove pagine (es. `/convenzioni`) con la stessa struttura.
 Nei titoli puoi evidenziare parole scrivendole tra asterischi: `Diagnosi e cura, *in un unico centro*`.
@@ -293,6 +302,10 @@ src/
 ├── lib/ai/                assistente AI (Claude): istruzioni, formato della risposta, bozze
 ├── seed/                  contenuti iniziali (caricati da soli al primo avvio)
 └── migrations/            migrazioni del database (applicate da sole all’avvio)
+public/brand/              logo ufficiale in SVG (orizzontale, verticale, fiore, versioni chiare)
+public/images/studio/      foto dello studio usate dai contenuti iniziali
+assets/brand/              file originale del logo
+scripts/build-brand-assets.mjs  rigenera logo SVG, icone e favicon dal file originale
 scripts/package-namecheap.mjs   crea il pacchetto per cPanel
 .github/workflows/namecheap.yml compila e (se configurato) pubblica su Namecheap
 ```
@@ -302,7 +315,7 @@ scripts/package-namecheap.mjs   crea il pacchetto per cPanel
 `src/blocks/RenderBlocks.tsx`, poi esegui `npm run generate:types` e `npm run migrate:create`.
 
 **Colori e caratteri**: sono definiti in un unico punto, `src/app/(frontend)/globals.css`
-(blocco `@theme`): per adattarli al logo ufficiale basta cambiare quei valori.
+(blocco `@theme`). Il blu (`navy`) e il rosa orchidea (`orchid`) sono ricavati dal logo ufficiale.
 
 ## App futura
 
@@ -329,6 +342,7 @@ POST /api/graphql
 | `npm run migrate:create`             | crea una migrazione dopo aver modificato i tipi di contenuto         |
 | `npm run generate:types`             | rigenera i tipi TypeScript dal CMS                                   |
 | `npm run lint` / `npm run typecheck` | controlli di qualità del codice                                      |
+| `npm run brand`                      | rigenera logo SVG, icone e favicon da `assets/brand/`                |
 
 ---
 
@@ -349,4 +363,5 @@ professionisti** di LilyCare, in particolare:
 - [ ] Elenco delle prestazioni infermieristiche e dei distretti ecografici effettivamente offerti.
 - [ ] Testi dei servizi e degli articoli; poi assegna _Autore_ e _Revisione medica_ agli articoli.
 - [ ] Privacy e note legali (ragione sociale, eventuale numero IDI): da far verificare.
-- [ ] Foto del team, dello studio e logo ufficiale.
+- [ ] Foto del team (ritratti di Mauro Binda e Monica Gaiga). Foto dello studio e logo ufficiale:
+      ✓ già integrati.
