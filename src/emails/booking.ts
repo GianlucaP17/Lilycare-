@@ -30,7 +30,7 @@ const layout = emailLayout
 
 const row = (label: string, value: string) => `
   <tr>
-    <td style="padding:10px 0;border-bottom:1px solid #eee7dd;color:#5b6b6f;width:38%;vertical-align:top;">${escapeHtml(label)}</td>
+    <td style="padding:10px 0;border-bottom:1px solid #eee7dd;color:#586178;width:38%;vertical-align:top;">${escapeHtml(label)}</td>
     <td style="padding:10px 0;border-bottom:1px solid #eee7dd;font-weight:600;vertical-align:top;">${value}</td>
   </tr>`
 
@@ -42,8 +42,8 @@ export function clinicNotificationEmail(data: BookingEmailData, clinic: ClinicIn
     <p style="margin:0 0 16px;">È arrivata una nuova richiesta di appuntamento dal sito.</p>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;">
       ${row('Nome', escapeHtml(data.name))}
-      ${row('Telefono', `<a href="${escapeHtml(telHref)}" style="color:#1e5257;">${escapeHtml(data.phone)}</a>`)}
-      ${row('Email', `<a href="mailto:${escapeHtml(data.email)}" style="color:#1e5257;">${escapeHtml(data.email)}</a>`)}
+      ${row('Telefono', `<a href="${escapeHtml(telHref)}" style="color:#2f55b4;">${escapeHtml(data.phone)}</a>`)}
+      ${row('Email', `<a href="mailto:${escapeHtml(data.email)}" style="color:#2f55b4;">${escapeHtml(data.email)}</a>`)}
       ${row('Prestazione', escapeHtml(data.serviceLabel || 'Da definire'))}
       ${row('Professionista', escapeHtml(data.professionalLabel || 'Nessuna preferenza'))}
       ${row('Giorni preferiti', escapeHtml(formatDays(data.preferredDays)))}
@@ -52,7 +52,7 @@ export function clinicNotificationEmail(data: BookingEmailData, clinic: ClinicIn
     </table>
     ${
       clinic.adminUrl
-        ? `<p style="margin:24px 0 0;"><a href="${escapeHtml(clinic.adminUrl)}" style="display:inline-block;background:#163e42;color:#ffffff;text-decoration:none;padding:12px 20px;border-radius:999px;font-size:14px;">Apri nel pannello admin</a></p>`
+        ? `<p style="margin:24px 0 0;"><a href="${escapeHtml(clinic.adminUrl)}" style="display:inline-block;background:#284a9f;color:#ffffff;text-decoration:none;padding:12px 20px;border-radius:999px;font-size:14px;">Apri nel pannello admin</a></p>`
         : ''
     }`
   const footer = `Rispondi direttamente a questa email per scrivere al paziente. La richiesta è salvata anche nel pannello admin, sezione "Richieste di appuntamento".`
@@ -86,19 +86,19 @@ export function patientConfirmationEmail(
     <p style="margin:0 0 16px;">${escapeHtml(
       responseTime || 'Ti ricontatteremo al più presto per concordare data e ora della visita.',
     )}</p>
-    <p style="margin:0 0 16px;padding:14px 16px;background:#f1f7f7;border-radius:10px;font-size:14px;">
+    <p style="margin:0 0 16px;padding:14px 16px;background:#f3f6fc;border-radius:10px;font-size:14px;">
       <strong>Nota:</strong> questa email conferma la ricezione della richiesta, non l’appuntamento. L’appuntamento è fissato solo dopo il nostro contatto.
     </p>
     ${
       clinic.phone
         ? `<p style="margin:0 0 16px;">Per qualsiasi necessità puoi chiamarci al <a href="tel:${escapeHtml(
             clinic.phone.replace(/[^\d+]/g, ''),
-          )}" style="color:#1e5257;font-weight:600;">${escapeHtml(clinic.phone)}</a>.</p>`
+          )}" style="color:#2f55b4;font-weight:600;">${escapeHtml(clinic.phone)}</a>.</p>`
         : ''
     }
     <p style="margin:24px 0 0;">Cordiali saluti,<br>il team di ${escapeHtml(clinic.clinicName)}</p>`
   const footer = `${escapeHtml(clinic.clinicName)}${clinic.address ? ` · ${escapeHtml(clinic.address)}` : ''}<br>
-    <a href="${escapeHtml(clinic.siteUrl)}" style="color:#5b6b6f;">${escapeHtml(clinic.siteUrl.replace(/^https?:\/\//, ''))}</a><br>
+    <a href="${escapeHtml(clinic.siteUrl)}" style="color:#586178;">${escapeHtml(clinic.siteUrl.replace(/^https?:\/\//, ''))}</a><br>
     In caso di emergenza chiama il 144.`
   const text = [
     `Gentile ${firstName},`,

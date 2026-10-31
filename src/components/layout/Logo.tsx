@@ -1,63 +1,58 @@
 import Link from 'next/link'
 import React from 'react'
 
-import { LilyMark } from '@/components/icons/LilyMark'
 import { MediaImage } from '@/components/ui/MediaImage'
 import { asMedia } from '@/lib/media'
 import { cn } from '@/lib/utils'
 
+/** Proporzioni del logo orizzontale ufficiale (viewBox 1288 × 302). */
+const RATIO = 1288 / 302
+
 /**
- * Logo del sito. Se nel pannello admin (Impostazioni studio → Logo) è stato caricato
- * il logo ufficiale, viene usato quello; altrimenti il marchio grafico predefinito.
+ * Logo del sito: versione orizzontale del logo ufficiale (public/brand).
+ * Se nel pannello admin (Impostazioni studio → Logo) viene caricato un altro file, si usa quello.
  */
 export function Logo({
   logo,
   name = 'LilyCare',
-  tagline,
   invert = false,
+  height = 46,
   className,
 }: {
   logo?: unknown
   name?: string
+  /** @deprecated il sottotitolo fa parte del logo ufficiale ("Medical Center") */
   tagline?: string | null
   invert?: boolean
+  height?: number
   className?: string
 }) {
   const media = asMedia(logo)
   return (
     <Link
       href="/"
-      className={cn('group inline-flex items-center gap-3', className)}
-      aria-label={`${name} – torna alla homepage`}
+      className={cn('group inline-flex shrink-0 items-center', className)}
+      aria-label={`${name} Medical Center – torna alla homepage`}
     >
       {media ? (
-        <span className="relative block h-11 w-40">
-          <MediaImage media={media} sizes="160px" className="object-contain object-left" priority />
+        <span className="relative block" style={{ height, width: Math.round(height * RATIO) }}>
+          <MediaImage media={media} sizes="220px" className="object-contain object-left" priority />
         </span>
       ) : (
-        <>
-          <LilyMark size={38} mono={invert} className={invert ? 'text-white' : undefined} />
-          <span className="flex flex-col leading-none">
-            <span
-              className={cn(
-                'font-serif text-[1.6rem] font-normal tracking-tight',
-                invert ? 'text-white' : 'text-petrol-950',
-              )}
-            >
-              {name}
-            </span>
-            {tagline ? (
-              <span
-                className={cn(
-                  'mt-1 text-[0.68rem] font-medium tracking-[0.16em] whitespace-nowrap uppercase',
-                  invert ? 'text-petrol-200' : 'text-muted',
-                )}
-              >
-                {tagline}
-              </span>
-            ) : null}
-          </span>
-        </>
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={
+            invert
+              ? '/brand/lilycare-logo-orizzontale-chiaro.svg'
+              : '/brand/lilycare-logo-orizzontale.svg'
+          }
+          alt={`${name} Medical Center`}
+          width={Math.round(height * RATIO)}
+          height={height}
+          className="block h-auto max-w-full"
+          style={{ height, width: 'auto' }}
+          fetchPriority="high"
+        />
       )}
     </Link>
   )

@@ -29,7 +29,7 @@ export default async function NewsPage({ searchParams }: Props) {
         eyebrow="Notizie"
         title={
           <>
-            Notizie e <em className="text-blush-600 italic">approfondimenti</em>
+            Notizie e <em className="text-orchid-600 italic">approfondimenti</em>
           </>
         }
         intro="Spiegazioni chiare sugli esami e sulle terapie, consigli per la salute e novità dal centro, scritti dai nostri professionisti."

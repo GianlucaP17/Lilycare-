@@ -48,8 +48,8 @@ export function Section({
         tone === 'cream' && 'bg-cream',
         tone === 'white' && 'bg-white',
         tone === 'sand' && 'bg-sand-100',
-        tone === 'petrol' && 'bg-petrol-900 text-petrol-50',
-        tone === 'blush' && 'bg-blush-50',
+        tone === 'petrol' && 'bg-navy-900 text-navy-50',
+        tone === 'blush' && 'bg-orchid-50',
         className,
       )}
     >
@@ -88,7 +88,9 @@ export function SectionHeading({
         className,
       )}
     >
-      {eyebrow ? <p className={cn('eyebrow mb-4', invert && 'text-blush-200')}>{eyebrow}</p> : null}
+      {eyebrow ? (
+        <p className={cn('eyebrow mb-4', invert && 'text-orchid-200')}>{eyebrow}</p>
+      ) : null}
       {heading ? (
         <As
           id={id}
@@ -98,7 +100,7 @@ export function SectionHeading({
         </As>
       ) : null}
       {intro ? (
-        <p className={cn('mt-5 text-lg leading-relaxed text-muted', invert && 'text-petrol-100')}>
+        <p className={cn('mt-5 text-lg leading-relaxed text-muted', invert && 'text-navy-100')}>
           {intro}
         </p>
       ) : null}

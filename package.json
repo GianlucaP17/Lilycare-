@@ -50,6 +50,7 @@
     "@types/react-dom": "19.2.3",
     "eslint": "9.39.1",
     "eslint-config-next": "16.4.3",
+    "potrace": "2.1.8",
     "prettier": "3.6.2",
     "tailwindcss": "4.3.3",
     "tsx": "4.23.15",

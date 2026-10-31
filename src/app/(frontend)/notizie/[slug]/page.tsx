@@ -76,7 +76,7 @@ export default async function ArticlePage({ params }: Props) {
                 {category ? (
                   <Link
                     href={paths.newsCategory(category.slug as string)}
-                    className="font-semibold text-blush-700 hover:underline"
+                    className="font-semibold text-orchid-700 hover:underline"
                   >
                     {category.title}
                   </Link>
@@ -134,7 +134,7 @@ export default async function ArticlePage({ params }: Props) {
                 className="mt-16 rounded-3xl bg-white p-8 ring-1 ring-line"
                 aria-labelledby="servizi-correlati"
               >
-                <p id="servizi-correlati" className="font-serif text-2xl text-petrol-950">
+                <p id="servizi-correlati" className="font-serif text-2xl text-navy-950">
                   Servizi correlati a LilyCare
                 </p>
                 <ul className="mt-5 grid gap-3 sm:grid-cols-2">
@@ -142,15 +142,15 @@ export default async function ArticlePage({ params }: Props) {
                     <li key={s.id}>
                       <Link
                         href={paths.service(s.slug as string)}
-                        className="group flex items-center gap-3 rounded-2xl bg-cream p-4 ring-1 ring-line transition-colors hover:ring-petrol-300"
+                        className="group flex items-center gap-3 rounded-2xl bg-cream p-4 ring-1 ring-line transition-colors hover:ring-navy-300"
                       >
-                        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-petrol-50 text-petrol-700">
+                        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-navy-50 text-navy-700">
                           <Icon name={s.icon} size={20} />
                         </span>
-                        <span className="flex-1 font-medium text-petrol-950">{s.title}</span>
+                        <span className="flex-1 font-medium text-navy-950">{s.title}</span>
                         <ArrowRight
                           size={16}
-                          className="text-petrol-400 group-hover:text-petrol-700"
+                          className="text-navy-400 group-hover:text-navy-700"
                           aria-hidden
                         />
                       </Link>
@@ -161,7 +161,7 @@ export default async function ArticlePage({ params }: Props) {
             ) : null}
 
             <p className="mt-12 flex gap-3 rounded-2xl bg-sand-100 p-5 text-sm leading-relaxed text-muted">
-              <Info size={18} className="mt-0.5 shrink-0 text-petrol-600" aria-hidden />
+              <Info size={18} className="mt-0.5 shrink-0 text-navy-600" aria-hidden />
               <span>
                 Questo articolo ha scopo informativo e non sostituisce il parere del medico. Per una
                 valutazione del tuo caso prenota una visita. Pubblicato il{' '}

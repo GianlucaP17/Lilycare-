@@ -1,30 +1,24 @@
 import React from 'react'
 
-import { LilyMark } from '@/components/icons/LilyMark'
-
-/** Logo mostrato nella pagina di accesso del pannello admin. */
+/** Logo ufficiale nella pagina di accesso del pannello admin. */
 export function AdminLogo() {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-      <LilyMark size={48} />
-      <div>
-        <div
-          style={{
-            fontFamily: 'Georgia, "Times New Roman", serif',
-            fontSize: 30,
-            lineHeight: 1,
-            letterSpacing: 0.2,
-          }}
-        >
-          LilyCare
-        </div>
-        <div style={{ fontSize: 13, opacity: 0.7, marginTop: 6 }}>Pannello di amministrazione</div>
-      </div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/brand/lilycare-logo.svg"
+        alt="LilyCare Medical Center"
+        style={{ width: 220, height: 'auto' }}
+      />
+      <div style={{ fontSize: 13, opacity: 0.7 }}>Pannello di amministrazione</div>
     </div>
   )
 }
 
-/** Icona piccola nella barra di navigazione del pannello admin. */
+/** Fiore di loto nella barra di navigazione del pannello admin. */
 export function AdminIcon() {
-  return <LilyMark size={28} />
+  // eslint-disable-next-line @next/next/no-img-element
+  return (
+    <img src="/brand/lilycare-fiore.svg" alt="LilyCare" style={{ width: 30, height: 'auto' }} />
+  )
 }

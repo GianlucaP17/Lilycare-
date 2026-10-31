@@ -11,7 +11,7 @@ export function Emphasis({ text }: { text?: string | null }) {
     <>
       {parts.map((part, i) =>
         part.startsWith('*') && part.endsWith('*') && part.length > 2 ? (
-          <em key={i} className="font-serif text-blush-600 italic">
+          <em key={i} className="font-serif text-orchid-600 italic">
             {part.slice(1, -1)}
           </em>
         ) : (

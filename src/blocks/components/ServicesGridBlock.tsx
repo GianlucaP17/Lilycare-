@@ -44,7 +44,7 @@ export async function ServicesGridBlock({ block }: { block: Block }) {
               return (
                 <div key={cat.id}>
                   <div className="mb-6 flex items-baseline gap-4 border-b border-line pb-4">
-                    <h3 className="font-serif text-3xl text-petrol-950">{cat.title}</h3>
+                    <h3 className="font-serif text-3xl text-navy-950">{cat.title}</h3>
                     {cat.description ? (
                       <p className="hidden text-muted md:block">{cat.description}</p>
                     ) : null}

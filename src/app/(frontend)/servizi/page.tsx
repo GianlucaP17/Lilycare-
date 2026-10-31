@@ -47,7 +47,7 @@ export default async function ServicesPage() {
         eyebrow="Servizi"
         title={
           <>
-            Le nostre <em className="text-blush-600 italic">specialità</em>
+            Le nostre <em className="text-orchid-600 italic">specialità</em>
           </>
         }
         intro="Dalla diagnostica per immagini alla terapia del dolore, fino alle cure infermieristiche e all’agopuntura: a LilyCare trovi in un unico centro esami e trattamenti, con professionisti che collaborano sul tuo percorso."
@@ -59,7 +59,7 @@ export default async function ServicesPage() {
               <a
                 key={category.id}
                 href={`#${category.slug}`}
-                className="rounded-full bg-white px-4 py-2 text-sm font-medium text-petrol-900 ring-1 ring-line transition-colors hover:ring-petrol-300"
+                className="rounded-full bg-white px-4 py-2 text-sm font-medium text-navy-900 ring-1 ring-line transition-colors hover:ring-navy-300"
               >
                 {category.title}
               </a>

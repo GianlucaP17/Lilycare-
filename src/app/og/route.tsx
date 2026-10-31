@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises'
 
 import { ImageResponse } from 'next/og'
 
+import { LOTUS_PATH, LOTUS_VIEWBOX } from '@/components/icons/brand-paths'
 import { getSettings } from '@/lib/data'
 import { placeLabel } from '@/lib/settings-helpers'
 
@@ -10,11 +11,11 @@ export const dynamic = 'force-dynamic'
 /**
  * Immagine di condivisione (1200×630) generata automaticamente per ogni pagina
  * senza una foto dedicata: /og?title=…&subtitle=…
- * Font: Fraunces e Inter (SIL Open Font License).
+ * Font: Fraunces e Inter (SIL Open Font License). Logo: logo ufficiale LilyCare.
  */
-
 const fraunces = readFile(new URL('./fraunces-400.woff', import.meta.url))
 const inter = readFile(new URL('./inter-500.woff', import.meta.url))
+const logo = readFile(new URL('./logo-orizzontale.svg', import.meta.url))
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -26,7 +27,8 @@ export async function GET(request: Request) {
   ).slice(0, 110)
   const subtitle = (searchParams.get('subtitle') || place).slice(0, 90)
 
-  const [frauncesData, interData] = await Promise.all([fraunces, inter])
+  const [frauncesData, interData, logoData] = await Promise.all([fraunces, inter, logo])
+  const logoSrc = `data:image/svg+xml;base64,${logoData.toString('base64')}`
 
   return new ImageResponse(
     (
@@ -37,53 +39,39 @@ export async function GET(request: Request) {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          padding: '72px 80px',
-          background: 'linear-gradient(135deg, #faf7f2 0%, #f6f1e9 55%, #f8e9e5 100%)',
+          padding: '64px 80px',
+          background: 'linear-gradient(135deg, #ffffff 0%, #fbf9f6 55%, #f8e7f2 100%)',
           position: 'relative',
           fontFamily: 'Inter',
         }}
       >
         <svg
-          width="520"
-          height="520"
-          viewBox="0 0 48 48"
-          style={{ position: 'absolute', right: -60, bottom: -90, opacity: 0.12 }}
+          width="560"
+          height="444"
+          viewBox={LOTUS_VIEWBOX}
+          style={{ position: 'absolute', right: -70, bottom: -90, opacity: 0.18 }}
         >
-          <path d="M24 41.5c-6.8-8.3-7.6-21.6 0-33.5 7.6 11.9 6.8 25.2 0 33.5Z" fill="#1e5257" />
-          <path d="M22.6 41.4C14 40.6 6.2 33 5 20.6c8.4 1.8 15.5 9.4 17.6 20.8Z" fill="#c98a7f" />
-          <path
-            d="M25.4 41.4c8.6-.8 16.4-8.4 17.6-20.8-8.4 1.8-15.5 9.4-17.6 20.8Z"
-            fill="#c98a7f"
-          />
+          <path d={LOTUS_PATH} fill="#cf7eb4" fillRule="evenodd" />
         </svg>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-          <svg width="64" height="64" viewBox="0 0 48 48">
-            <path d="M24 41.5c-6.8-8.3-7.6-21.6 0-33.5 7.6 11.9 6.8 25.2 0 33.5Z" fill="#1e5257" />
-            <path d="M22.6 41.4C14 40.6 6.2 33 5 20.6c8.4 1.8 15.5 9.4 17.6 20.8Z" fill="#c98a7f" />
-            <path
-              d="M25.4 41.4c8.6-.8 16.4-8.4 17.6-20.8-8.4 1.8-15.5 9.4-17.6 20.8Z"
-              fill="#c98a7f"
-            />
-          </svg>
-          <div style={{ fontFamily: 'Fraunces', fontSize: 46, color: '#0a2023' }}>{name}</div>
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={logoSrc} width={364} height={85} alt="" />
         <div style={{ display: 'flex', flexDirection: 'column', maxWidth: 940 }}>
           <div
             style={{
               fontFamily: 'Fraunces',
-              fontSize: title.length > 60 ? 62 : 76,
+              fontSize: title.length > 60 ? 60 : 74,
               lineHeight: 1.08,
-              color: '#0a2023',
+              color: '#152856',
               letterSpacing: -1,
             }}
           >
             {title}
           </div>
-          <div style={{ marginTop: 28, fontSize: 30, color: '#8e564d' }}>{subtitle}</div>
+          <div style={{ marginTop: 26, fontSize: 30, color: '#934b7d' }}>{subtitle}</div>
         </div>
-        <div style={{ display: 'flex', fontSize: 24, color: '#55666a' }}>
-          {`Centro medico · ${place}`}
-        </div>
+        <div
+          style={{ display: 'flex', fontSize: 24, color: '#586178' }}
+        >{`Centro medico · ${place}`}</div>
       </div>
     ),
     {

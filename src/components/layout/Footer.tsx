@@ -28,20 +28,15 @@ export function Footer({
       ]
 
   return (
-    <footer className="bg-petrol-950 text-petrol-100" aria-labelledby="footer-title">
+    <footer className="bg-navy-950 text-navy-100" aria-labelledby="footer-title">
       <h2 id="footer-title" className="sr-only">
         Informazioni su {settings.clinicName}
       </h2>
       <div className="mx-auto max-w-7xl px-5 pt-20 pb-28 sm:px-8 lg:pb-12">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <Logo
-              logo={settings.logoOnDark}
-              name={settings.clinicName}
-              tagline={settings.tagline}
-              invert
-            />
-            <p className="mt-6 max-w-sm leading-relaxed text-petrol-200">{settings.description}</p>
+            <Logo logo={settings.logoOnDark} name={settings.clinicName} invert height={52} />
+            <p className="mt-6 max-w-sm leading-relaxed text-navy-200">{settings.description}</p>
             {settings.socialLinks?.length ? (
               <ul className="mt-6 flex gap-2">
                 {settings.socialLinks.map((s) => (
@@ -51,7 +46,7 @@ export function Footer({
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={socialLabel(s.platform)}
-                      className="flex h-10 w-10 items-center justify-center rounded-full ring-1 ring-petrol-700 transition-colors hover:bg-petrol-800"
+                      className="flex h-10 w-10 items-center justify-center rounded-full ring-1 ring-navy-700 transition-colors hover:bg-navy-800"
                     >
                       <SocialIcon platform={s.platform} />
                     </a>
@@ -62,7 +57,7 @@ export function Footer({
           </div>
 
           <nav aria-label="Servizi" className="lg:col-span-3">
-            <p className="mb-5 text-xs font-semibold tracking-[0.16em] text-blush-200 uppercase">
+            <p className="mb-5 text-xs font-semibold tracking-[0.16em] text-orchid-200 uppercase">
               Servizi
             </p>
             <ul className="space-y-2.5">
@@ -70,7 +65,7 @@ export function Footer({
                 <li key={s.id}>
                   <Link
                     href={`/servizi/${s.slug}`}
-                    className="text-petrol-100 transition-colors hover:text-white"
+                    className="text-navy-100 transition-colors hover:text-white"
                   >
                     {s.title}
                   </Link>
@@ -80,7 +75,7 @@ export function Footer({
           </nav>
 
           <nav aria-label="Lo studio" className="lg:col-span-2">
-            <p className="mb-5 text-xs font-semibold tracking-[0.16em] text-blush-200 uppercase">
+            <p className="mb-5 text-xs font-semibold tracking-[0.16em] text-orchid-200 uppercase">
               Lo studio
             </p>
             <ul className="space-y-2.5">
@@ -92,7 +87,7 @@ export function Footer({
                 { label: 'Prenota una visita', url: '/prenota' },
               ].map((l) => (
                 <li key={l.url}>
-                  <Link href={l.url} className="text-petrol-100 transition-colors hover:text-white">
+                  <Link href={l.url} className="text-navy-100 transition-colors hover:text-white">
                     {l.label}
                   </Link>
                 </li>
@@ -101,7 +96,7 @@ export function Footer({
           </nav>
 
           <div className="lg:col-span-3">
-            <p className="mb-5 text-xs font-semibold tracking-[0.16em] text-blush-200 uppercase">
+            <p className="mb-5 text-xs font-semibold tracking-[0.16em] text-orchid-200 uppercase">
               Contatti
             </p>
             <address className="space-y-3 not-italic">
@@ -109,9 +104,9 @@ export function Footer({
                 href={mapsUrl(settings)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex gap-3 text-petrol-100 hover:text-white"
+                className="flex gap-3 text-navy-100 hover:text-white"
               >
-                <MapPin size={18} className="mt-0.5 shrink-0 text-blush-300" aria-hidden />
+                <MapPin size={18} className="mt-0.5 shrink-0 text-orchid-300" aria-hidden />
                 <span>
                   {settings.address?.street}
                   {settings.address?.addressNote ? (
@@ -126,16 +121,16 @@ export function Footer({
               </a>
               <a
                 href={toTelHref(settings.phone)}
-                className="flex gap-3 text-petrol-100 hover:text-white"
+                className="flex gap-3 text-navy-100 hover:text-white"
               >
-                <Phone size={18} className="mt-0.5 shrink-0 text-blush-300" aria-hidden />
+                <Phone size={18} className="mt-0.5 shrink-0 text-orchid-300" aria-hidden />
                 {settings.phone}
               </a>
               <a
                 href={`mailto:${settings.email}`}
-                className="flex gap-3 text-petrol-100 hover:text-white"
+                className="flex gap-3 text-navy-100 hover:text-white"
               >
-                <Mail size={18} className="mt-0.5 shrink-0 text-blush-300" aria-hidden />
+                <Mail size={18} className="mt-0.5 shrink-0 text-orchid-300" aria-hidden />
                 {settings.email}
               </a>
             </address>
@@ -143,13 +138,13 @@ export function Footer({
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-4 border-t border-petrol-800 pt-8 text-sm text-petrol-300 md:flex-row md:items-center md:justify-between">
+        <div className="mt-16 flex flex-col gap-4 border-t border-navy-800 pt-8 text-sm text-navy-300 md:flex-row md:items-center md:justify-between">
           <p>
             © {year} {settings.legalName || settings.clinicName} ·{' '}
             {formatAddress(settings.address)}
           </p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <p className="font-medium text-blush-200">Emergenze: 144</p>
+            <p className="font-medium text-orchid-200">Emergenze: 144</p>
             {legal.map((l) => (
               <Link key={l.url} href={l.url} className="hover:text-white">
                 {l.label}

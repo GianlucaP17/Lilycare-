@@ -30,7 +30,7 @@ export default async function TeamPage() {
         eyebrow="Il team"
         title={
           <>
-            Persone, prima che <em className="text-blush-600 italic">professionisti</em>
+            Persone, prima che <em className="text-orchid-600 italic">professionisti</em>
           </>
         }
         intro="Medici e personale sanitario che collaborano ogni giorno, dalla diagnosi al trattamento. Scopri il percorso, le competenze e le prestazioni di ciascuno."

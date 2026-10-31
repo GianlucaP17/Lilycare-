@@ -61,7 +61,7 @@ export default async function BookingPage({ searchParams }: Props) {
         eyebrow="Prenotazioni"
         title={
           <>
-            Prenota una <em className="text-blush-600 italic">visita</em>
+            Prenota una <em className="text-orchid-600 italic">visita</em>
           </>
         }
         intro={
@@ -72,9 +72,9 @@ export default async function BookingPage({ searchParams }: Props) {
       >
         <a
           href={toTelHref(settings.phone)}
-          className="mt-8 inline-flex items-center gap-3 rounded-full bg-white py-2 pr-5 pl-2 font-medium text-petrol-900 shadow-soft ring-1 ring-line hover:ring-petrol-300"
+          className="mt-8 inline-flex items-center gap-3 rounded-full bg-white py-2 pr-5 pl-2 font-medium text-navy-900 shadow-soft ring-1 ring-line hover:ring-navy-300"
         >
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-petrol-800 text-white">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-navy-800 text-white">
             <Phone size={16} aria-hidden />
           </span>
           Preferisci telefonare? {settings.phone}
@@ -95,7 +95,7 @@ export default async function BookingPage({ searchParams }: Props) {
           </div>
           <aside className="space-y-6 lg:col-span-4">
             <div className="rounded-3xl bg-white p-7 ring-1 ring-line">
-              <p className="font-serif text-2xl text-petrol-950">Cosa succede dopo?</p>
+              <p className="font-serif text-2xl text-navy-950">Cosa succede dopo?</p>
               <ol className="mt-5 space-y-4">
                 {[
                   'Riceviamo la tua richiesta e ti inviamo un’email di conferma di ricezione.',
@@ -103,7 +103,7 @@ export default async function BookingPage({ searchParams }: Props) {
                   'Ti diamo le indicazioni per prepararti alla visita o all’esame.',
                 ].map((text, i) => (
                   <li key={i} className="flex gap-3">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blush-50 font-serif text-sm text-blush-700 ring-1 ring-blush-200">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-orchid-50 font-serif text-sm text-orchid-700 ring-1 ring-orchid-200">
                       {i + 1}
                     </span>
                     <span className="leading-relaxed text-muted">{text}</span>
@@ -113,33 +113,33 @@ export default async function BookingPage({ searchParams }: Props) {
             </div>
 
             <div className="rounded-3xl bg-white p-7 ring-1 ring-line">
-              <p className="font-serif text-2xl text-petrol-950">Contatti</p>
+              <p className="font-serif text-2xl text-navy-950">Contatti</p>
               <ul className="mt-5 space-y-3 text-[0.95rem]">
                 <li className="flex gap-3">
-                  <Phone size={18} className="mt-0.5 shrink-0 text-petrol-600" aria-hidden />
+                  <Phone size={18} className="mt-0.5 shrink-0 text-navy-600" aria-hidden />
                   <a
                     href={toTelHref(settings.phone)}
-                    className="font-medium text-petrol-950 hover:text-petrol-700"
+                    className="font-medium text-navy-950 hover:text-navy-700"
                   >
                     {settings.phone}
                   </a>
                 </li>
                 <li className="flex gap-3">
-                  <Mail size={18} className="mt-0.5 shrink-0 text-petrol-600" aria-hidden />
+                  <Mail size={18} className="mt-0.5 shrink-0 text-navy-600" aria-hidden />
                   <a
                     href={`mailto:${settings.email}`}
-                    className="font-medium text-petrol-950 hover:text-petrol-700"
+                    className="font-medium text-navy-950 hover:text-navy-700"
                   >
                     {settings.email}
                   </a>
                 </li>
                 <li className="flex gap-3">
-                  <MapPin size={18} className="mt-0.5 shrink-0 text-petrol-600" aria-hidden />
+                  <MapPin size={18} className="mt-0.5 shrink-0 text-navy-600" aria-hidden />
                   <span>{formatAddress(settings.address)}</span>
                 </li>
               </ul>
               <div className="mt-6 border-t border-line pt-5">
-                <p className="mb-3 flex items-center gap-2 text-sm font-medium text-petrol-950">
+                <p className="mb-3 flex items-center gap-2 text-sm font-medium text-navy-950">
                   <Clock size={16} aria-hidden /> Orari
                 </p>
                 <HoursList hours={settings.openingHours} className="text-sm" />
@@ -147,13 +147,13 @@ export default async function BookingPage({ searchParams }: Props) {
             </div>
 
             {settings.insuranceNote ? (
-              <div className="flex gap-3 rounded-3xl bg-petrol-50 p-6 text-sm leading-relaxed text-petrol-900 ring-1 ring-petrol-100">
+              <div className="flex gap-3 rounded-3xl bg-navy-50 p-6 text-sm leading-relaxed text-navy-900 ring-1 ring-navy-100">
                 <Info size={18} className="mt-0.5 shrink-0" aria-hidden />
                 <p>{settings.insuranceNote}</p>
               </div>
             ) : null}
 
-            <div className="flex gap-3 rounded-3xl bg-blush-50 p-6 text-sm leading-relaxed text-blush-700 ring-1 ring-blush-200">
+            <div className="flex gap-3 rounded-3xl bg-orchid-50 p-6 text-sm leading-relaxed text-orchid-700 ring-1 ring-orchid-200">
               <Siren size={18} className="mt-0.5 shrink-0" aria-hidden />
               <p>
                 <strong>In caso di emergenza</strong> non usare questo modulo: chiama subito il{' '}

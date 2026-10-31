@@ -12,7 +12,7 @@ type Option = { value: string; label: string }
 type Group = { label: string; options: Option[] }
 
 const fieldBase =
-  'block w-full rounded-2xl border-0 bg-white px-4 py-3.5 text-base text-ink ring-1 ring-line transition-shadow placeholder:text-muted/60 focus:ring-2 focus:ring-petrol-500 focus:outline-none'
+  'block w-full rounded-2xl border-0 bg-white px-4 py-3.5 text-base text-ink ring-1 ring-line transition-shadow placeholder:text-muted/60 focus:ring-2 focus:ring-navy-500 focus:outline-none'
 
 function Field({
   label,
@@ -33,10 +33,10 @@ function Field({
 }) {
   return (
     <div className={className}>
-      <label htmlFor={htmlFor} className="mb-2 block text-sm font-medium text-petrol-950">
+      <label htmlFor={htmlFor} className="mb-2 block text-sm font-medium text-navy-950">
         {label}
         {required ? (
-          <span className="text-blush-600"> *</span>
+          <span className="text-orchid-600"> *</span>
         ) : (
           <span className="font-normal text-muted"> (facoltativo)</span>
         )}
@@ -96,7 +96,7 @@ export function BookingForm({
         className="rounded-[2rem] bg-white p-10 text-center ring-1 ring-line outline-none md:p-14"
         role="status"
       >
-        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-petrol-50 text-petrol-700">
+        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-navy-50 text-navy-700">
           <CircleCheck size={32} aria-hidden />
         </span>
         <h2 className="mt-6 text-3xl font-normal md:text-4xl">
@@ -113,14 +113,14 @@ export function BookingForm({
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link
             href="/"
-            className="rounded-full bg-petrol-800 px-6 py-3 font-medium text-white hover:bg-petrol-700"
+            className="rounded-full bg-navy-800 px-6 py-3 font-medium text-white hover:bg-navy-700"
           >
             Torna alla homepage
           </Link>
           {phone ? (
             <a
               href={toTelHref(phone)}
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-medium text-petrol-900 ring-1 ring-line hover:bg-petrol-50"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-medium text-navy-900 ring-1 ring-line hover:bg-navy-50"
             >
               <Phone size={17} aria-hidden /> {phone}
             </a>
@@ -163,7 +163,7 @@ export function BookingForm({
       <input type="hidden" name="sourcePage" value="/prenota" />
 
       <fieldset>
-        <legend className="font-serif text-2xl text-petrol-950">1. Di cosa hai bisogno?</legend>
+        <legend className="font-serif text-2xl text-navy-950">1. Di cosa hai bisogno?</legend>
         <div className="mt-6 grid gap-5 md:grid-cols-2">
           <Field label="Prestazione" htmlFor="service">
             <select
@@ -211,12 +211,12 @@ export function BookingForm({
 
       <div className="mt-10 border-t border-line pt-8">
         <fieldset>
-          <legend className="font-serif text-2xl text-petrol-950">2. Quando preferisci?</legend>
+          <legend className="font-serif text-2xl text-navy-950">2. Quando preferisci?</legend>
           <p className="mt-2 text-sm text-muted">
             Facoltativo: ci aiuta a proporti l’appuntamento più comodo.
           </p>
           <div className="mt-6">
-            <p className="mb-3 text-sm font-medium text-petrol-950">Giorni</p>
+            <p className="mb-3 text-sm font-medium text-navy-950">Giorni</p>
             <div className="flex flex-wrap gap-2">
               {dayOptions.map((d) => (
                 <label key={d.value} className="cursor-pointer">
@@ -227,7 +227,7 @@ export function BookingForm({
                     defaultChecked={values?.preferredDays.includes(d.value)}
                     className="peer sr-only"
                   />
-                  <span className="inline-flex rounded-full bg-cream px-4 py-2.5 text-sm font-medium text-petrol-900 ring-1 ring-line transition-colors peer-checked:bg-petrol-800 peer-checked:text-white peer-checked:ring-petrol-800 peer-focus-visible:ring-2 peer-focus-visible:ring-petrol-500">
+                  <span className="inline-flex rounded-full bg-cream px-4 py-2.5 text-sm font-medium text-navy-900 ring-1 ring-line transition-colors peer-checked:bg-navy-800 peer-checked:text-white peer-checked:ring-navy-800 peer-focus-visible:ring-2 peer-focus-visible:ring-navy-500">
                     {d.label}
                   </span>
                 </label>
@@ -235,7 +235,7 @@ export function BookingForm({
             </div>
           </div>
           <div className="mt-6">
-            <p className="mb-3 text-sm font-medium text-petrol-950">Fascia oraria</p>
+            <p className="mb-3 text-sm font-medium text-navy-950">Fascia oraria</p>
             <div className="flex flex-wrap gap-2">
               {timeOptions.map((t) => (
                 <label key={t.value} className="cursor-pointer">
@@ -246,7 +246,7 @@ export function BookingForm({
                     defaultChecked={(values?.preferredTime || 'indifferente') === t.value}
                     className="peer sr-only"
                   />
-                  <span className="inline-flex rounded-full bg-cream px-4 py-2.5 text-sm font-medium text-petrol-900 ring-1 ring-line transition-colors peer-checked:bg-petrol-800 peer-checked:text-white peer-checked:ring-petrol-800 peer-focus-visible:ring-2 peer-focus-visible:ring-petrol-500">
+                  <span className="inline-flex rounded-full bg-cream px-4 py-2.5 text-sm font-medium text-navy-900 ring-1 ring-line transition-colors peer-checked:bg-navy-800 peer-checked:text-white peer-checked:ring-navy-800 peer-focus-visible:ring-2 peer-focus-visible:ring-navy-500">
                     {t.label}
                   </span>
                 </label>
@@ -258,7 +258,7 @@ export function BookingForm({
 
       <div className="mt-10 border-t border-line pt-8">
         <fieldset>
-          <legend className="font-serif text-2xl text-petrol-950">3. I tuoi dati</legend>
+          <legend className="font-serif text-2xl text-navy-950">3. I tuoi dati</legend>
           <div className="mt-6 grid gap-5 md:grid-cols-2">
             <Field
               label="Nome e cognome"
@@ -342,19 +342,19 @@ export function BookingForm({
             defaultChecked={values?.consent}
             aria-invalid={Boolean(errors.consent)}
             aria-describedby={describedBy('consent')}
-            className="mt-0.5 h-5 w-5 shrink-0 rounded border-line accent-petrol-800"
+            className="mt-0.5 h-5 w-5 shrink-0 rounded border-line accent-navy-800"
           />
           <span>
             Acconsento al trattamento dei miei dati per essere ricontattato/a in merito alla
             richiesta, secondo l’
             <Link
               href="/privacy"
-              className="font-medium text-petrol-800 underline underline-offset-4"
+              className="font-medium text-navy-800 underline underline-offset-4"
               target="_blank"
             >
               informativa sulla privacy
             </Link>
-            . <span className="text-blush-600">*</span>
+            . <span className="text-orchid-600">*</span>
           </span>
         </label>
         {errors.consent ? (
@@ -371,7 +371,7 @@ export function BookingForm({
         <button
           type="submit"
           disabled={pending}
-          className="inline-flex h-13 shrink-0 items-center justify-center gap-2.5 rounded-full bg-petrol-800 px-8 font-medium text-white shadow-soft transition-colors hover:bg-petrol-700 disabled:opacity-60"
+          className="inline-flex h-13 shrink-0 items-center justify-center gap-2.5 rounded-full bg-navy-800 px-8 font-medium text-white shadow-soft transition-colors hover:bg-navy-700 disabled:opacity-60"
         >
           {pending ? (
             <>

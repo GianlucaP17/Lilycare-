@@ -70,7 +70,7 @@ export default async function ServicePage({ params }: Props) {
       {/* Intestazione */}
       <section className="relative overflow-hidden bg-sand-100">
         <div
-          className="pointer-events-none absolute -top-40 -right-24 h-[32rem] w-[32rem] rounded-full bg-[radial-gradient(circle,var(--color-blush-100),transparent_70%)]"
+          className="pointer-events-none absolute -top-40 -right-24 h-[32rem] w-[32rem] rounded-full bg-[radial-gradient(circle,var(--color-orchid-100),transparent_70%)]"
           aria-hidden
         />
         <Container className="relative pt-8 pb-16 md:pb-20">
@@ -85,7 +85,7 @@ export default async function ServicePage({ params }: Props) {
               {category ? <p className="eyebrow mb-5">{category.title}</p> : null}
               <h1 className="text-5xl leading-[1.04] font-light md:text-6xl">{service.title}</h1>
               <div className="mt-8 rounded-3xl bg-white/80 p-6 ring-1 ring-line backdrop-blur md:p-7">
-                <p className="text-xs font-semibold tracking-[0.16em] text-blush-700 uppercase">
+                <p className="text-xs font-semibold tracking-[0.16em] text-orchid-700 uppercase">
                   In breve
                 </p>
                 <p className="mt-3 text-lg leading-relaxed text-ink md:text-xl">
@@ -139,7 +139,7 @@ export default async function ServicePage({ params }: Props) {
                       key={item.id ?? item.text}
                       className="flex gap-3 rounded-2xl bg-cream p-4 ring-1 ring-line"
                     >
-                      <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-petrol-800 text-white">
+                      <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-navy-800 text-white">
                         <Check size={14} strokeWidth={2.5} aria-hidden />
                       </span>
                       <span className="leading-snug">{item.text}</span>
@@ -163,11 +163,11 @@ export default async function ServicePage({ params }: Props) {
                           aria-hidden
                         />
                       ) : null}
-                      <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-blush-50 font-serif text-lg text-blush-700 ring-1 ring-blush-200">
+                      <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-orchid-50 font-serif text-lg text-orchid-700 ring-1 ring-orchid-200">
                         {i + 1}
                       </span>
                       <div className="pt-1.5">
-                        <h3 className="font-sans text-lg font-semibold text-petrol-950">
+                        <h3 className="font-sans text-lg font-semibold text-navy-950">
                           {step.title}
                         </h3>
                         {step.text ? (
@@ -183,7 +183,7 @@ export default async function ServicePage({ params }: Props) {
             {service.preparation ? (
               <section
                 aria-labelledby="preparazione"
-                className="rounded-3xl bg-petrol-50 p-8 ring-1 ring-petrol-100"
+                className="rounded-3xl bg-navy-50 p-8 ring-1 ring-navy-100"
               >
                 <h2 id="preparazione" className="text-2xl font-normal md:text-3xl">
                   Come prepararsi
@@ -204,7 +204,7 @@ export default async function ServicePage({ params }: Props) {
             ) : null}
 
             <p className="flex gap-3 rounded-2xl bg-sand-100 p-5 text-sm leading-relaxed text-muted">
-              <Info size={18} className="mt-0.5 shrink-0 text-petrol-600" aria-hidden />
+              <Info size={18} className="mt-0.5 shrink-0 text-navy-600" aria-hidden />
               <span>
                 Le informazioni in questa pagina hanno carattere divulgativo e non sostituiscono la
                 valutazione medica: l’indicazione a esami e trattamenti viene sempre stabilita
@@ -218,12 +218,12 @@ export default async function ServicePage({ params }: Props) {
             <div className="space-y-6 lg:sticky lg:top-28">
               {service.facts?.length ? (
                 <div className="rounded-3xl bg-cream p-7 ring-1 ring-line">
-                  <p className="font-serif text-2xl text-petrol-950">Informazioni utili</p>
+                  <p className="font-serif text-2xl text-navy-950">Informazioni utili</p>
                   <dl className="mt-5 divide-y divide-line">
                     {service.facts.map((f) => (
                       <div key={f.id ?? f.label} className="flex justify-between gap-6 py-3">
                         <dt className="text-muted">{f.label}</dt>
-                        <dd className="text-right font-medium text-petrol-950">{f.value}</dd>
+                        <dd className="text-right font-medium text-navy-950">{f.value}</dd>
                       </div>
                     ))}
                   </dl>
@@ -232,7 +232,7 @@ export default async function ServicePage({ params }: Props) {
 
               {professionals.length ? (
                 <div className="rounded-3xl bg-cream p-7 ring-1 ring-line">
-                  <p className="font-serif text-2xl text-petrol-950">
+                  <p className="font-serif text-2xl text-navy-950">
                     {professionals.length > 1 ? 'I professionisti' : 'Il professionista'}
                   </p>
                   <div className="mt-5 space-y-5">

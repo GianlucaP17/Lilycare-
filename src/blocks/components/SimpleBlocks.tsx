@@ -47,10 +47,10 @@ export function FeaturesBlock({ block }: { block: FeaturesBlockType }) {
                   i % 2 === 1 && 'sm:translate-y-10',
                 )}
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blush-50 text-blush-700">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-orchid-50 text-orchid-700">
                   <Icon name={item.icon} size={24} />
                 </span>
-                <h3 className="mt-6 font-serif text-2xl text-petrol-950">{item.title}</h3>
+                <h3 className="mt-6 font-serif text-2xl text-navy-950">{item.title}</h3>
                 {item.text ? <p className="mt-3 leading-relaxed text-muted">{item.text}</p> : null}
               </div>
             ))}
@@ -73,15 +73,15 @@ export function StepsBlock({ block }: { block: StepsBlockType }) {
         />
         <ol className="relative mt-16 grid gap-10 md:grid-cols-3 md:gap-8">
           <div
-            className="absolute top-7 right-[16%] left-[16%] hidden h-px bg-[linear-gradient(90deg,transparent,var(--color-blush-300),transparent)] md:block"
+            className="absolute top-7 right-[16%] left-[16%] hidden h-px bg-[linear-gradient(90deg,transparent,var(--color-orchid-300),transparent)] md:block"
             aria-hidden
           />
           {block.items?.map((step, i) => (
             <li key={step.id ?? i} className="relative text-center">
-              <span className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-petrol-800 font-serif text-xl text-white ring-8 ring-white">
+              <span className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-navy-800 font-serif text-xl text-white ring-8 ring-white">
                 {i + 1}
               </span>
-              <h3 className="mt-6 font-serif text-2xl text-petrol-950">{step.title}</h3>
+              <h3 className="mt-6 font-serif text-2xl text-navy-950">{step.title}</h3>
               {step.text ? (
                 <p className="mx-auto mt-3 max-w-xs leading-relaxed text-muted">{step.text}</p>
               ) : null}
@@ -220,10 +220,10 @@ export function StatsBlock({ block }: { block: StatsBlockType }) {
   return (
     <section className="py-12 md:py-16">
       <Container>
-        <dl className="grid gap-8 rounded-[2rem] bg-petrol-900 px-8 py-12 text-center sm:grid-cols-2 md:px-12 lg:grid-cols-4">
+        <dl className="grid gap-8 rounded-[2rem] bg-navy-900 px-8 py-12 text-center sm:grid-cols-2 md:px-12 lg:grid-cols-4">
           {block.items?.map((s, i) => (
             <div key={s.id ?? i} className="flex flex-col-reverse">
-              <dt className="mt-2 text-sm text-petrol-200">{s.label}</dt>
+              <dt className="mt-2 text-sm text-navy-200">{s.label}</dt>
               <dd className="font-serif text-5xl font-light text-white">{s.value}</dd>
             </div>
           ))}

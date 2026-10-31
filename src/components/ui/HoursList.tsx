@@ -19,17 +19,17 @@ export function HoursList({
     <dl className={cn('space-y-2 text-[0.95rem]', className)}>
       {rows.map((row) => (
         <div key={row.label} className="flex items-baseline justify-between gap-6">
-          <dt className={invert ? 'text-petrol-100' : 'text-muted'}>{row.label}</dt>
+          <dt className={invert ? 'text-navy-100' : 'text-muted'}>{row.label}</dt>
           <dd
             className={cn(
               'text-right font-medium tabular-nums',
               row.value === 'Chiuso'
                 ? invert
-                  ? 'text-petrol-300'
+                  ? 'text-navy-300'
                   : 'text-muted'
                 : invert
                   ? 'text-white'
-                  : 'text-petrol-950',
+                  : 'text-navy-950',
             )}
           >
             {row.value.split(', ').map((slot) => (

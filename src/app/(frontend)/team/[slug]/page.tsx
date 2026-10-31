@@ -62,13 +62,13 @@ function Timeline({
       {items.map((item, i) => (
         <li key={item.id ?? i} className="relative">
           <span
-            className="absolute top-1.5 -left-[2.3rem] h-3 w-3 rounded-full bg-blush-400 ring-4 ring-white"
+            className="absolute top-1.5 -left-[2.3rem] h-3 w-3 rounded-full bg-orchid-400 ring-4 ring-white"
             aria-hidden
           />
           {item.when ? (
-            <p className="text-sm font-semibold tracking-wide text-blush-700">{item.when}</p>
+            <p className="text-sm font-semibold tracking-wide text-orchid-700">{item.when}</p>
           ) : null}
-          <p className="mt-1 text-lg font-medium text-petrol-950">{item.title}</p>
+          <p className="mt-1 text-lg font-medium text-navy-950">{item.title}</p>
           {item.subtitle ? <p className="text-muted">{item.subtitle}</p> : null}
           {item.text ? <p className="mt-2 leading-relaxed text-muted">{item.text}</p> : null}
         </li>
@@ -90,7 +90,7 @@ export default async function MemberPage({ params }: Props) {
     <>
       <section className="relative overflow-hidden bg-sand-100">
         <div
-          className="pointer-events-none absolute -top-40 -left-24 h-[32rem] w-[32rem] rounded-full bg-[radial-gradient(circle,var(--color-blush-100),transparent_70%)]"
+          className="pointer-events-none absolute -top-40 -left-24 h-[32rem] w-[32rem] rounded-full bg-[radial-gradient(circle,var(--color-orchid-100),transparent_70%)]"
           aria-hidden
         />
         <Container className="relative pt-8 pb-16 md:pb-24">
@@ -126,7 +126,7 @@ export default async function MemberPage({ params }: Props) {
                   {member.specialties.map((s) => (
                     <li
                       key={s.id ?? s.text}
-                      className="rounded-full bg-white px-4 py-2 text-sm font-medium text-petrol-900 ring-1 ring-line"
+                      className="rounded-full bg-white px-4 py-2 text-sm font-medium text-navy-900 ring-1 ring-line"
                     >
                       {s.text}
                     </li>
@@ -174,7 +174,7 @@ export default async function MemberPage({ params }: Props) {
                   <GraduationCap
                     size={28}
                     strokeWidth={1.3}
-                    className="text-blush-600"
+                    className="text-orchid-600"
                     aria-hidden
                   />{' '}
                   Formazione
@@ -196,7 +196,7 @@ export default async function MemberPage({ params }: Props) {
                   id="esperienza"
                   className="mb-8 flex items-center gap-3 text-3xl font-normal md:text-4xl"
                 >
-                  <Briefcase size={26} strokeWidth={1.3} className="text-blush-600" aria-hidden />{' '}
+                  <Briefcase size={26} strokeWidth={1.3} className="text-orchid-600" aria-hidden />{' '}
                   Esperienza
                 </h2>
                 <Timeline
@@ -217,7 +217,7 @@ export default async function MemberPage({ params }: Props) {
                   id="affiliazioni"
                   className="mb-6 flex items-center gap-3 text-3xl font-normal md:text-4xl"
                 >
-                  <Award size={26} strokeWidth={1.3} className="text-blush-600" aria-hidden />{' '}
+                  <Award size={26} strokeWidth={1.3} className="text-orchid-600" aria-hidden />{' '}
                   Società e albi
                 </h2>
                 <ul className="space-y-3">
@@ -231,12 +231,12 @@ export default async function MemberPage({ params }: Props) {
                           href={m.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 font-medium text-petrol-900 hover:text-petrol-700"
+                          className="inline-flex items-center gap-2 font-medium text-navy-900 hover:text-navy-700"
                         >
                           {m.name} <ExternalLink size={14} aria-hidden />
                         </a>
                       ) : (
-                        <span className="font-medium text-petrol-900">{m.name}</span>
+                        <span className="font-medium text-navy-900">{m.name}</span>
                       )}
                     </li>
                   ))}
@@ -249,7 +249,7 @@ export default async function MemberPage({ params }: Props) {
             <div className="space-y-6 lg:sticky lg:top-28">
               {services.length ? (
                 <div className="rounded-3xl bg-cream p-7 ring-1 ring-line">
-                  <p className="font-serif text-2xl text-petrol-950">Prestazioni</p>
+                  <p className="font-serif text-2xl text-navy-950">Prestazioni</p>
                   <ul className="mt-5 space-y-1">
                     {services.map((s) => (
                       <li key={s.id}>
@@ -257,10 +257,10 @@ export default async function MemberPage({ params }: Props) {
                           href={paths.service(s.slug as string)}
                           className="group -mx-2 flex items-center gap-3 rounded-xl px-2 py-2 transition-colors hover:bg-white"
                         >
-                          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-petrol-50 text-petrol-700">
+                          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-navy-50 text-navy-700">
                             <Icon name={s.icon} size={18} />
                           </span>
-                          <span className="font-medium text-petrol-950 group-hover:text-petrol-700">
+                          <span className="font-medium text-navy-950 group-hover:text-navy-700">
                             {s.title}
                           </span>
                         </Link>
@@ -272,7 +272,7 @@ export default async function MemberPage({ params }: Props) {
 
               {member.profiles?.length ? (
                 <div className="rounded-3xl bg-cream p-7 ring-1 ring-line">
-                  <p className="font-serif text-2xl text-petrol-950">Profili</p>
+                  <p className="font-serif text-2xl text-navy-950">Profili</p>
                   <ul className="mt-4 space-y-2">
                     {member.profiles.map((p) => (
                       <li key={p.id ?? p.url}>
@@ -280,7 +280,7 @@ export default async function MemberPage({ params }: Props) {
                           href={p.url}
                           target="_blank"
                           rel="noopener noreferrer me"
-                          className="inline-flex items-center gap-2 text-petrol-800 underline-offset-4 hover:underline"
+                          className="inline-flex items-center gap-2 text-navy-800 underline-offset-4 hover:underline"
                         >
                           {p.label} <ExternalLink size={14} aria-hidden />
                         </a>

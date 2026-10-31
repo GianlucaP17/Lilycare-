@@ -42,8 +42,8 @@ export async function NewsListing({
               className={cn(
                 'rounded-full px-4 py-2 text-sm font-medium ring-1 transition-colors',
                 !activeSlug
-                  ? 'bg-petrol-800 text-white ring-petrol-800'
-                  : 'bg-white text-petrol-900 ring-line hover:ring-petrol-300',
+                  ? 'bg-navy-800 text-white ring-navy-800'
+                  : 'bg-white text-navy-900 ring-line hover:ring-navy-300',
               )}
             >
               Tutte
@@ -56,8 +56,8 @@ export async function NewsListing({
                 className={cn(
                   'rounded-full px-4 py-2 text-sm font-medium ring-1 transition-colors',
                   activeSlug === c.slug
-                    ? 'bg-petrol-800 text-white ring-petrol-800'
-                    : 'bg-white text-petrol-900 ring-line hover:ring-petrol-300',
+                    ? 'bg-navy-800 text-white ring-navy-800'
+                    : 'bg-white text-navy-900 ring-line hover:ring-navy-300',
                 )}
               >
                 {c.title}
@@ -91,7 +91,7 @@ export async function NewsListing({
             {result.hasPrevPage ? (
               <Link
                 href={result.prevPage === 1 ? basePath : `${basePath}?pagina=${result.prevPage}`}
-                className="inline-flex items-center gap-2 font-medium text-petrol-800 hover:text-petrol-950"
+                className="inline-flex items-center gap-2 font-medium text-navy-800 hover:text-navy-950"
                 rel="prev"
               >
                 <ArrowLeft size={16} aria-hidden /> Più recenti
@@ -105,7 +105,7 @@ export async function NewsListing({
             {result.hasNextPage ? (
               <Link
                 href={`${basePath}?pagina=${result.nextPage}`}
-                className="inline-flex items-center gap-2 font-medium text-petrol-800 hover:text-petrol-950"
+                className="inline-flex items-center gap-2 font-medium text-navy-800 hover:text-navy-950"
                 rel="next"
               >
                 Meno recenti <ArrowRight size={16} aria-hidden />

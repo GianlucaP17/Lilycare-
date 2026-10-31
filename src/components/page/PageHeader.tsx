@@ -23,7 +23,7 @@ export function PageHeader({
   return (
     <section className={cn('relative overflow-hidden bg-sand-100', className)}>
       <div
-        className="pointer-events-none absolute -top-40 -right-24 h-[32rem] w-[32rem] rounded-full bg-[radial-gradient(circle,var(--color-blush-100),transparent_70%)]"
+        className="pointer-events-none absolute -top-40 -right-24 h-[32rem] w-[32rem] rounded-full bg-[radial-gradient(circle,var(--color-orchid-100),transparent_70%)]"
         aria-hidden
       />
       <Container className="relative pt-8 pb-16 md:pb-24">

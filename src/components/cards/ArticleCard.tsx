@@ -27,7 +27,7 @@ export function ArticleCard({
     >
       <div
         className={cn(
-          'relative aspect-[16/10] overflow-hidden rounded-3xl bg-petrol-50 ring-1 ring-line',
+          'relative aspect-[16/10] overflow-hidden rounded-3xl bg-navy-50 ring-1 ring-line',
           featured && 'lg:aspect-auto lg:min-h-[22rem] lg:w-3/5',
         )}
       >
@@ -47,7 +47,7 @@ export function ArticleCard({
       </div>
       <div className={cn('flex flex-1 flex-col pt-6', featured && 'lg:justify-center lg:pt-0')}>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
-          {category ? <span className="font-medium text-blush-700">{category.title}</span> : null}
+          {category ? <span className="font-medium text-orchid-700">{category.title}</span> : null}
           <time dateTime={article.publishedAt ?? undefined}>{formatDate(article.publishedAt)}</time>
           {featured && article.readingTime ? (
             <span>· {article.readingTime} min di lettura</span>
@@ -55,7 +55,7 @@ export function ArticleCard({
         </div>
         <h3
           className={cn(
-            'mt-3 font-serif leading-snug text-petrol-950 transition-colors group-hover:text-petrol-700',
+            'mt-3 font-serif leading-snug text-navy-950 transition-colors group-hover:text-navy-700',
             featured ? 'text-3xl md:text-4xl' : 'text-2xl',
           )}
         >

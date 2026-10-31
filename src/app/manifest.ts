@@ -21,8 +21,8 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
       `${services.map((s) => s.title).join(', ')}${place ? ` a ${place}` : ''}.`,
     start_url: '/',
     display: 'standalone',
-    background_color: '#faf7f2',
-    theme_color: '#163e42',
+    background_color: '#fbf9f6',
+    theme_color: '#2f55b4',
     lang: 'it-CH',
     icons: [
       { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },

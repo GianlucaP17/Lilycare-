@@ -20,9 +20,9 @@ export function BookingAside({
   text?: string
 }) {
   return (
-    <div className="rounded-3xl bg-petrol-900 p-7 text-petrol-50">
+    <div className="rounded-3xl bg-navy-900 p-7 text-navy-50">
       <p className="font-serif text-2xl text-white">{title}</p>
-      <p className="mt-2 leading-relaxed text-petrol-100">{text}</p>
+      <p className="mt-2 leading-relaxed text-navy-100">{text}</p>
       <div className="mt-6 space-y-2.5">
         <Button href={bookingUrl} variant="light" className="w-full">
           <CalendarCheck size={18} aria-hidden /> Richiedi appuntamento
@@ -30,12 +30,12 @@ export function BookingAside({
         <Button
           href={toTelHref(settings.phone)}
           variant="ghost"
-          className="w-full text-white ring-1 ring-petrol-600 hover:bg-petrol-800"
+          className="w-full text-white ring-1 ring-navy-600 hover:bg-navy-800"
         >
           <Phone size={18} aria-hidden /> {settings.phone}
         </Button>
       </div>
-      <div className="mt-6 space-y-1 border-t border-petrol-700 pt-5 text-sm text-petrol-200">
+      <div className="mt-6 space-y-1 border-t border-navy-700 pt-5 text-sm text-navy-200">
         <OpenStatus hours={settings.openingHours} />
         <p>{formatAddress(settings.address)}</p>
       </div>

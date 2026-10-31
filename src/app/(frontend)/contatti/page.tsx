@@ -54,7 +54,7 @@ export default async function ContactsPage() {
         eyebrow="Contatti"
         title={
           <>
-            Siamo a <em className="text-blush-600 italic">{settings.address?.city}</em>
+            Siamo a <em className="text-orchid-600 italic">{settings.address?.city}</em>
           </>
         }
         intro={`Ci trovi in ${formatAddress(settings.address, true)}${settings.areaNote ? `, ${settings.areaNote}` : ''}.`}
@@ -67,12 +67,12 @@ export default async function ContactsPage() {
             const isInternal = c.href.startsWith('/')
             const content = (
               <>
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-petrol-50 text-petrol-700 transition-colors group-hover:bg-petrol-800 group-hover:text-white">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-navy-50 text-navy-700 transition-colors group-hover:bg-navy-800 group-hover:text-white">
                   <c.icon size={22} aria-hidden />
                 </span>
-                <p className="mt-5 font-serif text-2xl text-petrol-950">{c.title}</p>
+                <p className="mt-5 font-serif text-2xl text-navy-950">{c.title}</p>
                 <p className="mt-1 text-muted">{c.text}</p>
-                <p className="mt-4 font-semibold text-petrol-800">{c.action}</p>
+                <p className="mt-4 font-semibold text-navy-800">{c.action}</p>
               </>
             )
             const className =

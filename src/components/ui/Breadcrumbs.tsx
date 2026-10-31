@@ -17,13 +17,13 @@ export function Breadcrumbs({ items, className }: { items: Crumb[]; className?: 
         <ol className="flex flex-wrap items-center gap-1.5">
           {all.map((item, i) => (
             <li key={item.href} className="flex items-center gap-1.5">
-              {i > 0 ? <ChevronRight size={14} className="text-petrol-300" aria-hidden /> : null}
+              {i > 0 ? <ChevronRight size={14} className="text-navy-300" aria-hidden /> : null}
               {i === all.length - 1 ? (
-                <span aria-current="page" className="text-petrol-900">
+                <span aria-current="page" className="text-navy-900">
                   {item.label}
                 </span>
               ) : (
-                <Link href={item.href} className="hover:text-petrol-800">
+                <Link href={item.href} className="hover:text-navy-800">
                   {item.label}
                 </Link>
               )}

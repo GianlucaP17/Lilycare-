@@ -40,7 +40,7 @@ export function clinicSchema(settings: Setting, services: Service[], team: Team[
     legalName: settings.legalName || undefined,
     description: settings.description,
     url: getServerUrl(),
-    logo: imageUrl(settings.logo) ?? absoluteUrl('/icon.svg'),
+    logo: imageUrl(settings.logo) ?? absoluteUrl('/brand/lilycare-logo-email.png'),
     image: imageUrl(settings.defaultOgImage) ?? imageUrl(settings.logo) ?? absoluteUrl('/og'),
     telephone: settings.phone,
     email: settings.email,

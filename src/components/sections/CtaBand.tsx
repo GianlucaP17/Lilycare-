@@ -27,17 +27,17 @@ export function CtaBand({
         <div
           className={cn(
             'relative overflow-hidden rounded-[2rem] px-8 py-14 md:px-16 md:py-20',
-            dark && 'bg-petrol-900 text-white',
+            dark && 'bg-navy-900 text-white',
             style === 'light' && 'bg-white ring-1 ring-line',
-            style === 'blush' && 'bg-blush-100',
+            style === 'blush' && 'bg-orchid-100',
           )}
         >
           <LilyMark
             size={420}
-            mono
+            mono={dark}
             className={cn(
-              'pointer-events-none absolute -right-20 -bottom-24 opacity-[0.07]',
-              dark ? 'text-white' : 'text-petrol-900',
+              'pointer-events-none absolute -right-16 -bottom-20',
+              dark ? 'opacity-[0.07]' : 'opacity-20',
             )}
           />
           <div className="relative max-w-2xl">
@@ -50,7 +50,7 @@ export function CtaBand({
               <p
                 className={cn(
                   'mt-5 text-lg leading-relaxed',
-                  dark ? 'text-petrol-100' : 'text-muted',
+                  dark ? 'text-navy-100' : 'text-muted',
                 )}
               >
                 {text}
@@ -69,9 +69,7 @@ export function CtaBand({
                   href={toTelHref(phone)}
                   variant={dark ? 'ghost' : 'secondary'}
                   size="lg"
-                  className={
-                    dark ? 'text-white ring-1 ring-petrol-600 hover:bg-petrol-800' : undefined
-                  }
+                  className={dark ? 'text-white ring-1 ring-navy-600 hover:bg-navy-800' : undefined}
                 >
                   <Phone size={18} aria-hidden /> {phone}
                 </Button>

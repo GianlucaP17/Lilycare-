@@ -76,7 +76,7 @@ export function OpenStatus({ hours, className }: { hours: OpeningHoursLike; clas
         <span
           className={cn(
             'relative inline-flex h-2.5 w-2.5 rounded-full',
-            status.open ? 'bg-emerald-500' : 'bg-blush-500',
+            status.open ? 'bg-emerald-500' : 'bg-orchid-500',
           )}
         />
       </span>

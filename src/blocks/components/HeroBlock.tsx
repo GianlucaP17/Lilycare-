@@ -22,7 +22,7 @@ export async function HeroBlock({ block, isFirst }: { block: HeroBlockType; isFi
     return (
       <section className="relative overflow-hidden bg-sand-100">
         <div
-          className="pointer-events-none absolute -top-32 -right-32 h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,var(--color-blush-100),transparent_70%)]"
+          className="pointer-events-none absolute -top-32 -right-32 h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,var(--color-orchid-100),transparent_70%)]"
           aria-hidden
         />
         <Container className="relative py-20 md:py-28">
@@ -61,14 +61,14 @@ export async function HeroBlock({ block, isFirst }: { block: HeroBlockType; isFi
   return (
     <section className="relative overflow-hidden">
       <div
-        className="pointer-events-none absolute top-0 right-0 h-[46rem] w-[46rem] translate-x-1/3 -translate-y-1/4 rounded-full bg-[radial-gradient(circle,var(--color-blush-100),transparent_65%)]"
+        className="pointer-events-none absolute top-0 right-0 h-[46rem] w-[46rem] translate-x-1/3 -translate-y-1/4 rounded-full bg-[radial-gradient(circle,var(--color-orchid-100),transparent_65%)]"
         aria-hidden
       />
       <Container className="relative grid items-center gap-14 pt-10 pb-14 md:pt-16 lg:grid-cols-12 lg:gap-10 lg:pb-20">
         <div className="animate-fade-up lg:col-span-7">
           {block.eyebrow ? (
-            <p className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-petrol-800 shadow-soft ring-1 ring-line">
-              <span className="h-1.5 w-1.5 rounded-full bg-blush-500" aria-hidden />
+            <p className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-navy-800 shadow-soft ring-1 ring-line">
+              <span className="h-1.5 w-1.5 rounded-full bg-orchid-500" aria-hidden />
               {block.eyebrow}
             </p>
           ) : null}
@@ -97,7 +97,7 @@ export async function HeroBlock({ block, isFirst }: { block: HeroBlockType; isFi
                   key={h.id ?? h.text}
                   className="flex items-start gap-3 text-[0.95rem] leading-snug text-ink"
                 >
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-petrol-100 text-petrol-700">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-navy-100 text-navy-700">
                     <Check size={13} strokeWidth={2.5} aria-hidden />
                   </span>
                   {h.text}
@@ -117,18 +117,18 @@ export async function HeroBlock({ block, isFirst }: { block: HeroBlockType; isFi
           </div>
           <div className="absolute -bottom-6 -left-2 max-w-[17rem] rounded-2xl bg-white/95 p-4 shadow-lift ring-1 ring-line backdrop-blur sm:-left-8">
             <div className="flex gap-3">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blush-50 text-blush-700">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-orchid-50 text-orchid-700">
                 <MapPin size={18} aria-hidden />
               </span>
               <div className="text-sm leading-snug">
-                <p className="font-semibold text-petrol-950">
+                <p className="font-semibold text-navy-950">
                   {settings.address?.city}, {settings.address?.region || 'Ticino'}
                 </p>
                 <p className="text-muted">{settings.address?.street}</p>
               </div>
             </div>
           </div>
-          <div className="absolute top-8 -right-2 rounded-full bg-white/95 px-4 py-2.5 text-sm font-medium text-petrol-900 shadow-lift ring-1 ring-line backdrop-blur sm:-right-6">
+          <div className="absolute top-8 -right-2 rounded-full bg-white/95 px-4 py-2.5 text-sm font-medium text-navy-900 shadow-lift ring-1 ring-line backdrop-blur sm:-right-6">
             <OpenStatus hours={settings.openingHours} />
           </div>
         </div>
@@ -145,9 +145,9 @@ export async function HeroBlock({ block, isFirst }: { block: HeroBlockType; isFi
                 <li key={s.id} className="snap-start">
                   <Link
                     href={paths.service(s.slug as string)}
-                    className="flex items-center gap-2.5 rounded-full px-4 py-2.5 text-sm font-medium whitespace-nowrap text-petrol-900 transition-colors hover:bg-petrol-50"
+                    className="flex items-center gap-2.5 rounded-full px-4 py-2.5 text-sm font-medium whitespace-nowrap text-navy-900 transition-colors hover:bg-navy-50"
                   >
-                    <Icon name={s.icon} size={18} className="text-petrol-600" />
+                    <Icon name={s.icon} size={18} className="text-navy-600" />
                     {s.title}
                   </Link>
                 </li>

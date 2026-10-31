@@ -65,7 +65,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#faf7f2',
+  themeColor: '#fbf9f6',
   width: 'device-width',
   initialScale: 1,
 }
@@ -97,14 +97,14 @@ export default async function FrontendLayout({ children }: { children: React.Rea
       <body>
         <a
           href="#contenuto"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-petrol-800 focus:px-5 focus:py-3 focus:text-white"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-navy-800 focus:px-5 focus:py-3 focus:text-white"
         >
           Vai al contenuto
         </a>
         <PreviewBanner />
         <TopBar settings={settings} />
         <Header
-          logo={<Logo logo={settings.logo} name={settings.clinicName} tagline={settings.tagline} />}
+          logo={<Logo logo={settings.logo} name={settings.clinicName} height={44} />}
           nav={nav}
           groups={groups}
           phone={settings.phone}

@@ -35,7 +35,7 @@ export function MemberCard({
     >
       <div
         className={cn(
-          'arch relative aspect-[4/5] overflow-hidden bg-petrol-100 ring-1 ring-line transition-shadow duration-300',
+          'arch relative aspect-[4/5] overflow-hidden bg-navy-100 ring-1 ring-line transition-shadow duration-300',
           !horizontal && 'group-hover:shadow-lift',
         )}
       >
@@ -55,24 +55,24 @@ export function MemberCard({
         )}
       </div>
       <div className={horizontal ? undefined : 'mt-6'}>
-        <h3 className="font-serif text-2xl text-petrol-950 transition-colors group-hover:text-petrol-700 md:text-[1.7rem]">
+        <h3 className="font-serif text-2xl text-navy-950 transition-colors group-hover:text-navy-700 md:text-[1.7rem]">
           {fullName}
         </h3>
-        <p className="mt-1 text-sm font-medium tracking-wide text-blush-700">{member.role}</p>
+        <p className="mt-1 text-sm font-medium tracking-wide text-orchid-700">{member.role}</p>
         <p className="mt-3 leading-relaxed text-muted">{member.shortBio}</p>
         {horizontal && member.specialties?.length ? (
           <ul className="mt-5 flex flex-wrap gap-1.5">
             {member.specialties.slice(0, 4).map((s) => (
               <li
                 key={s.id ?? s.text}
-                className="rounded-full bg-cream px-3 py-1 text-xs font-medium text-petrol-800 ring-1 ring-line"
+                className="rounded-full bg-cream px-3 py-1 text-xs font-medium text-navy-800 ring-1 ring-line"
               >
                 {s.text}
               </li>
             ))}
           </ul>
         ) : null}
-        <span className="mt-5 inline-block text-sm font-semibold text-petrol-700 underline-offset-4 group-hover:underline">
+        <span className="mt-5 inline-block text-sm font-semibold text-navy-700 underline-offset-4 group-hover:underline">
           Curriculum e prestazioni →
         </span>
       </div>

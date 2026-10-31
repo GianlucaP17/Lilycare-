@@ -19,7 +19,7 @@ export function MobileActionBar({
         {phone ? (
           <a
             href={toTelHref(phone)}
-            className="flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-white font-medium text-petrol-900 ring-1 ring-line"
+            className="flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-white font-medium text-navy-900 ring-1 ring-line"
           >
             <Phone size={18} aria-hidden /> Chiama
           </a>
@@ -30,14 +30,14 @@ export function MobileActionBar({
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Scrivici su WhatsApp"
-            className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-petrol-900 ring-1 ring-line"
+            className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-navy-900 ring-1 ring-line"
           >
             <MessageCircle size={20} aria-hidden />
           </a>
         ) : null}
         <Link
           href="/prenota"
-          className="flex h-12 flex-[1.4] items-center justify-center gap-2 rounded-full bg-petrol-800 font-medium text-white"
+          className="flex h-12 flex-[1.4] items-center justify-center gap-2 rounded-full bg-navy-800 font-medium text-white"
         >
           <CalendarCheck size={18} aria-hidden /> Prenota
         </Link>

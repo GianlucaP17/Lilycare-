@@ -288,9 +288,9 @@ export async function generateIntoDraft(
       `<p style="margin:0 0 16px;">L’assistente AI ha preparato una nuova bozza:</p>
        <p style="margin:0 0 16px;font-family:Georgia,serif;font-size:20px;">${escapeHtml(updated.title)}</p>
        <p style="margin:0 0 8px;"><strong>Punti da verificare prima di pubblicare:</strong></p>
-       <p style="margin:0 0 24px;padding:14px 16px;background:#f1f7f7;border-radius:10px;font-size:14px;white-space:pre-line;">${escapeHtml(notes)}</p>
+       <p style="margin:0 0 24px;padding:14px 16px;background:#f3f6fc;border-radius:10px;font-size:14px;white-space:pre-line;">${escapeHtml(notes)}</p>
        <p style="margin:0 0 24px;">${emailButton(adminUrl, 'Apri la bozza nel pannello')}</p>
-       <p style="margin:0;font-size:13px;color:#5b6b6f;">La bozza non è visibile sul sito finché non viene riletta e pubblicata.</p>`,
+       <p style="margin:0;font-size:13px;color:#586178;">La bozza non è visibile sul sito finché non viene riletta e pubblicata.</p>`,
     )
     payload.logger.info(`[AI] Bozza pronta: ${updated.title} (id ${id})`)
   } catch (error) {

@@ -101,8 +101,8 @@ export function Header({ logo, nav, groups, phone, address }: Props) {
                     className={cn(
                       'flex items-center gap-1 rounded-full px-4 py-2 text-[0.95rem] font-medium transition-colors',
                       isActive(item.url) || megaOpen
-                        ? 'text-petrol-800'
-                        : 'text-ink/80 hover:text-petrol-800',
+                        ? 'text-navy-800'
+                        : 'text-ink/80 hover:text-navy-800',
                     )}
                   >
                     {item.label}
@@ -120,13 +120,13 @@ export function Header({ logo, nav, groups, phone, address }: Props) {
                     aria-current={isActive(item.url) ? 'page' : undefined}
                     className={cn(
                       'relative rounded-full px-4 py-2 text-[0.95rem] font-medium transition-colors',
-                      isActive(item.url) ? 'text-petrol-800' : 'text-ink/80 hover:text-petrol-800',
+                      isActive(item.url) ? 'text-navy-800' : 'text-ink/80 hover:text-navy-800',
                     )}
                   >
                     {item.label}
                     {isActive(item.url) ? (
                       <span
-                        className="absolute inset-x-4 -bottom-0.5 h-px bg-blush-400"
+                        className="absolute inset-x-4 -bottom-0.5 h-px bg-orchid-400"
                         aria-hidden
                       />
                     ) : null}
@@ -141,7 +141,7 @@ export function Header({ logo, nav, groups, phone, address }: Props) {
           {phone ? (
             <a
               href={toTelHref(phone)}
-              className="hidden items-center gap-2 rounded-full px-3 py-2 text-[0.95rem] font-medium text-petrol-800 transition-colors hover:bg-petrol-50 xl:inline-flex"
+              className="hidden items-center gap-2 rounded-full px-3 py-2 text-[0.95rem] font-medium text-navy-800 transition-colors hover:bg-navy-50 xl:inline-flex"
             >
               <Phone size={17} aria-hidden />
               {phone}
@@ -154,7 +154,7 @@ export function Header({ logo, nav, groups, phone, address }: Props) {
           </div>
           <button
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full text-petrol-900 ring-1 ring-line lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full text-navy-900 ring-1 ring-line lg:hidden"
             aria-label={mobileOpen ? 'Chiudi menu' : 'Apri menu'}
             aria-expanded={mobileOpen}
             aria-controls="menu-mobile"
@@ -182,12 +182,12 @@ export function Header({ logo, nav, groups, phone, address }: Props) {
         <div className="mx-auto grid max-w-7xl grid-cols-12 gap-8 px-8 py-10">
           <div className="col-span-3">
             <p className="eyebrow mb-3">Le nostre specialità</p>
-            <p className="font-serif text-2xl leading-snug text-petrol-950">
+            <p className="font-serif text-2xl leading-snug text-navy-950">
               Diagnosi e cura nello stesso centro.
             </p>
             <Link
               href="/servizi"
-              className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-petrol-700 hover:text-petrol-900"
+              className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-navy-700 hover:text-navy-900"
             >
               Tutti i servizi <ArrowRight size={16} aria-hidden />
             </Link>
@@ -205,7 +205,7 @@ export function Header({ logo, nav, groups, phone, address }: Props) {
                         href={`/servizi/${s.slug}`}
                         className="group flex items-center gap-3 rounded-xl px-2 py-2 -mx-2 text-[0.95rem] text-ink transition-colors hover:bg-white"
                       >
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-petrol-50 text-petrol-700 transition-colors group-hover:bg-petrol-100">
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy-50 text-navy-700 transition-colors group-hover:bg-navy-100">
                           <Icon name={s.icon} size={18} />
                         </span>
                         {s.title}
@@ -234,7 +234,7 @@ export function Header({ logo, nav, groups, phone, address }: Props) {
               item.servicesMenu && groups.length ? (
                 <li key={item.url} className="py-2">
                   <details className="group">
-                    <summary className="flex cursor-pointer list-none items-center justify-between py-3 font-serif text-2xl text-petrol-950">
+                    <summary className="flex cursor-pointer list-none items-center justify-between py-3 font-serif text-2xl text-navy-950">
                       {item.label}
                       <ChevronDown
                         size={20}
@@ -255,7 +255,7 @@ export function Header({ logo, nav, groups, phone, address }: Props) {
                                   href={`/servizi/${s.slug}`}
                                   className="flex items-center gap-3 py-1.5 text-base text-ink"
                                 >
-                                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-petrol-50 text-petrol-700">
+                                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-navy-50 text-navy-700">
                                     <Icon name={s.icon} size={16} />
                                   </span>
                                   {s.title}
@@ -267,7 +267,7 @@ export function Header({ logo, nav, groups, phone, address }: Props) {
                       ))}
                       <Link
                         href="/servizi"
-                        className="inline-flex items-center gap-2 text-sm font-semibold text-petrol-700"
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-navy-700"
                       >
                         Tutti i servizi <ArrowRight size={16} aria-hidden />
                       </Link>
@@ -278,7 +278,7 @@ export function Header({ logo, nav, groups, phone, address }: Props) {
                 <li key={item.url}>
                   <Link
                     href={item.url}
-                    className="block py-5 font-serif text-2xl text-petrol-950"
+                    className="block py-5 font-serif text-2xl text-navy-950"
                     aria-current={isActive(item.url) ? 'page' : undefined}
                   >
                     {item.label}

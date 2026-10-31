@@ -34,12 +34,12 @@ export function LocationPanel({
       >
         <ul className="space-y-6">
           <li className="flex gap-4">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-petrol-50 text-petrol-700">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-navy-50 text-navy-700">
               <MapPin size={20} aria-hidden />
             </span>
             <div>
               <p className="text-sm text-muted">Indirizzo</p>
-              <p className="mt-0.5 text-lg font-medium text-petrol-950">
+              <p className="mt-0.5 text-lg font-medium text-navy-950">
                 {settings.address?.street}
                 <br />
                 {settings.address?.postalCode} {settings.address?.city} (
@@ -51,28 +51,28 @@ export function LocationPanel({
             </div>
           </li>
           <li className="flex gap-4">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-petrol-50 text-petrol-700">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-navy-50 text-navy-700">
               <Phone size={20} aria-hidden />
             </span>
             <div>
               <p className="text-sm text-muted">Telefono</p>
               <a
                 href={toTelHref(settings.phone)}
-                className="mt-0.5 block text-lg font-medium text-petrol-950 hover:text-petrol-700"
+                className="mt-0.5 block text-lg font-medium text-navy-950 hover:text-navy-700"
               >
                 {settings.phone}
               </a>
             </div>
           </li>
           <li className="flex gap-4">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-petrol-50 text-petrol-700">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-navy-50 text-navy-700">
               <Mail size={20} aria-hidden />
             </span>
             <div>
               <p className="text-sm text-muted">Email</p>
               <a
                 href={`mailto:${settings.email}`}
-                className="mt-0.5 block text-lg font-medium text-petrol-950 hover:text-petrol-700"
+                className="mt-0.5 block text-lg font-medium text-navy-950 hover:text-navy-700"
               >
                 {settings.email}
               </a>
@@ -82,7 +82,7 @@ export function LocationPanel({
 
         <div className="mt-8 border-t border-line pt-6">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-            <p className="font-serif text-xl text-petrol-950">Orari</p>
+            <p className="font-serif text-xl text-navy-950">Orari</p>
             <OpenStatus hours={settings.openingHours} className="text-sm text-muted" />
           </div>
           <HoursList hours={settings.openingHours} />
@@ -114,10 +114,10 @@ export function LocationPanel({
         <div className="grid gap-4 sm:grid-cols-2 lg:col-span-12 lg:grid-cols-4">
           {settings.directions.map((d) => (
             <div key={d.id ?? d.title} className="rounded-3xl bg-white p-6 ring-1 ring-line">
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-blush-50 text-blush-700">
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-orchid-50 text-orchid-700">
                 <Icon name={d.icon} size={20} />
               </span>
-              <p className="mt-4 font-serif text-xl text-petrol-950">{d.title}</p>
+              <p className="mt-4 font-serif text-xl text-navy-950">{d.title}</p>
               <p className="mt-2 leading-relaxed text-muted">{d.text}</p>
             </div>
           ))}
