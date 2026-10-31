@@ -1,0 +1,152 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* ─────────────────────────────────────────────
+   LilyCare – design system
+   Palette: petrolio (fiducia, medicina) · cipria (cura, il giglio) · sabbia (calore)
+   Per adattare i colori al logo ufficiale basta cambiare i valori qui sotto.
+   ───────────────────────────────────────────── */
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: var(--font-fraunces), ui-serif, Georgia, 'Times New Roman', serif;
+
+  --color-ink: #1b2a2e;
+  --color-muted: #55666a;
+  --color-line: #e8e1d6;
+  --color-cream: #faf7f2;
+
+  --color-sand-50: #fcfaf7;
+  --color-sand-100: #f6f1e9;
+  --color-sand-200: #ece4d6;
+  --color-sand-300: #dccfba;
+
+  --color-petrol-50: #eef5f4;
+  --color-petrol-100: #d8e8e6;
+  --color-petrol-200: #b2d1ce;
+  --color-petrol-300: #82b1ad;
+  --color-petrol-400: #548f8b;
+  --color-petrol-500: #3a7673;
+  --color-petrol-600: #2b6264;
+  --color-petrol-700: #1e5257;
+  --color-petrol-800: #163e42;
+  --color-petrol-900: #0f2e31;
+  --color-petrol-950: #0a2023;
+
+  --color-blush-50: #fcf6f4;
+  --color-blush-100: #f8e9e5;
+  --color-blush-200: #f0d2ca;
+  --color-blush-300: #e4b3a8;
+  --color-blush-400: #d69b8f;
+  --color-blush-500: #c98a7f;
+  --color-blush-600: #b06f64;
+  --color-blush-700: #8e564d;
+
+  --shadow-soft: 0 1px 2px rgb(15 46 49 / 0.04), 0 10px 30px -12px rgb(15 46 49 / 0.12);
+  --shadow-lift: 0 2px 6px rgb(15 46 49 / 0.05), 0 28px 56px -20px rgb(15 46 49 / 0.22);
+
+  --animate-fade-up: fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif text-petrol-950;
+    font-optical-sizing: auto;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-blush-200);
+    color: var(--color-petrol-950);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-petrol-600);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+@layer components {
+  /* Testi lunghi (articoli, descrizioni) */
+  .prose-lily {
+    --tw-prose-body: var(--color-ink);
+    --tw-prose-headings: var(--color-petrol-950);
+    --tw-prose-lead: var(--color-muted);
+    --tw-prose-links: var(--color-petrol-700);
+    --tw-prose-bold: var(--color-petrol-950);
+    --tw-prose-counters: var(--color-blush-600);
+    --tw-prose-bullets: var(--color-blush-500);
+    --tw-prose-hr: var(--color-line);
+    --tw-prose-quotes: var(--color-petrol-900);
+    --tw-prose-quote-borders: var(--color-blush-300);
+    --tw-prose-captions: var(--color-muted);
+    --tw-prose-th-borders: var(--color-line);
+    --tw-prose-td-borders: var(--color-line);
+  }
+
+  .prose-lily :where(h2, h3) {
+    font-weight: 500;
+  }
+
+  .prose-lily :where(a) {
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold tracking-[0.18em] uppercase text-blush-700;
+  }
+
+  .eyebrow::before {
+    content: '';
+    @apply inline-block h-px w-6 bg-blush-400;
+  }
+
+  /* Cornice ad arco, elegante e riconoscibile */
+  .arch {
+    border-radius: 999px 999px 1.75rem 1.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

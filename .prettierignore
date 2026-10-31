@@ -1,0 +1,6 @@
+src/payload-types.ts
+src/app/(payload)/
+src/migrations/
+.next/
+node_modules/
+package-lock.json
