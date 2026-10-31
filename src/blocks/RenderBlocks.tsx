@@ -2,6 +2,7 @@ import React from 'react'
 
 import type { Page } from '@/payload-types'
 
+import { GalleryBlock } from './components/GalleryBlock'
 import { HeroBlock } from './components/HeroBlock'
 import { ServicesGridBlock } from './components/ServicesGridBlock'
 import {
@@ -41,6 +42,7 @@ const components: {
   content: ContentBlock,
   imageText: ImageTextBlock,
   stats: StatsBlock,
+  gallery: GalleryBlock,
 }
 
 export function RenderBlocks({ blocks }: { blocks: Page['layout'] | null | undefined }) {

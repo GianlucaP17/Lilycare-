@@ -161,6 +161,7 @@ export interface Page {
     | ContentBlock
     | ImageTextBlock
     | StatsBlock
+    | GalleryBlock
   )[];
   meta?: {
     title?: string | null;
@@ -779,6 +780,28 @@ export interface StatsBlock {
   blockType: 'stats';
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock".
+ */
+export interface GalleryBlock {
+  eyebrow?: string | null;
+  heading?: string | null;
+  intro?: string | null;
+  /**
+   * La prima foto viene mostrata più grande.
+   */
+  images?:
+    | {
+        image: number | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gallery';
+}
+/**
  * Notizie e approfondimenti. Puoi programmare la pubblicazione: l’articolo comparirà sul sito dalla data indicata.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1035,6 +1058,7 @@ export interface PagesSelect<T extends boolean = true> {
         content?: T | ContentBlockSelect<T>;
         imageText?: T | ImageTextBlockSelect<T>;
         stats?: T | StatsBlockSelect<T>;
+        gallery?: T | GalleryBlockSelect<T>;
       };
   meta?:
     | T
@@ -1246,6 +1270,24 @@ export interface StatsBlockSelect<T extends boolean = true> {
     | {
         value?: T;
         label?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock_select".
+ */
+export interface GalleryBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  intro?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
         id?: T;
       };
   id?: T;

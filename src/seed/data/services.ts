@@ -34,7 +34,7 @@ export const categories: SeedCategory[] = [
     title: 'Cure infermieristiche',
     slug: 'cure-infermieristiche',
     description: 'Prestazioni infermieristiche ambulatoriali, in collaborazione con il medico.',
-    order: 8,
+    order: 3,
   },
   {
     key: 'agopuntura',
@@ -63,12 +63,15 @@ export type SeedService = {
   faqs: Array<{ question: string; answer: string }>
   metaTitle: string
   metaDescription: string
+  /** chiave di una foto in data/photos.ts */
+  photo?: string
 }
 
 export const services: SeedService[] = [
   {
     title: 'Radiografia',
     slug: 'radiografia',
+    photo: 'radiologia',
     category: 'diagnostica',
     icon: 'xray',
     schemaType: 'ImagingTest',
@@ -146,6 +149,7 @@ La dose di radiazioni di una radiografia è bassa. Ogni esame viene eseguito sol
   {
     title: 'Ecografia',
     slug: 'ecografia',
+    photo: 'ecografia',
     category: 'diagnostica',
     icon: 'ultrasound',
     schemaType: 'ImagingTest',
@@ -225,6 +229,7 @@ Il distretto da esaminare e le modalità vengono definiti in base alla tua situa
   {
     title: 'Ecodoppler',
     slug: 'ecodoppler',
+    photo: 'ecografia',
     category: 'diagnostica',
     icon: 'doppler',
     schemaType: 'ImagingTest',
@@ -299,6 +304,7 @@ Come per ogni ecografia, la qualità dell’ecodoppler dipende molto dall’espe
   {
     title: 'Ossigeno-ozonoterapia',
     slug: 'ozonoterapia',
+    photo: 'trattamenti',
     category: 'dolore',
     icon: 'ozone',
     schemaType: 'TherapeuticProcedure',
@@ -391,6 +397,7 @@ La risposta alla terapia varia da persona a persona: durante la visita il medico
   {
     title: 'GAET – Grande autoemoterapia',
     slug: 'gaet',
+    photo: 'luminoso',
     category: 'dolore',
     icon: 'ozone',
     schemaType: 'TherapeuticProcedure',
@@ -468,6 +475,7 @@ La GAET è proposta come trattamento complementare e le evidenze scientifiche di
   {
     title: 'Infiltrazioni antidolorifiche',
     slug: 'infiltrazioni',
+    photo: 'ambulatorio',
     category: 'dolore',
     icon: 'syringe',
     schemaType: 'TherapeuticProcedure',
@@ -551,6 +559,7 @@ In alternativa o in associazione, in alcuni casi il medico può proporre l’**o
   {
     title: 'Onde d’urto',
     slug: 'onde-d-urto',
+    photo: 'ecografia',
     category: 'dolore',
     icon: 'shockwave',
     schemaType: 'TherapeuticProcedure',
@@ -627,6 +636,7 @@ Prima di iniziare, il medico conferma la diagnosi – se necessario con un’eco
   {
     title: 'Cure infermieristiche',
     slug: 'cure-infermieristiche',
+    photo: 'luminoso',
     category: 'infermieristica',
     icon: 'nursing',
     schemaType: 'MedicalProcedure',
@@ -695,6 +705,7 @@ Le prestazioni disponibili e le modalità vanno concordate al momento della pren
   {
     title: 'Agopuntura',
     slug: 'agopuntura',
+    photo: 'consulenza',
     category: 'agopuntura',
     icon: 'acupuncture',
     schemaType: 'TherapeuticProcedure',
@@ -769,6 +780,7 @@ Lavorando in un centro medico, l’agopuntura a LilyCare si inserisce in un cont
   {
     title: 'Agopuntura estetica',
     slug: 'agopuntura-estetica',
+    photo: 'consulenza',
     category: 'agopuntura',
     icon: 'aesthetic',
     schemaType: 'TherapeuticProcedure',

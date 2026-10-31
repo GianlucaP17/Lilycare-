@@ -2,11 +2,15 @@
  * Caricamento dei contenuti iniziali (servizi, team, articoli, pagine, impostazioni).
  * Usato da `npm run seed` e, in produzione, automaticamente al primo avvio con database vuoto.
  */
+import fs from 'node:fs'
+import path from 'node:path'
+
 import { convertMarkdownToLexical, editorConfigFactory } from '@payloadcms/richtext-lexical'
 import type { CollectionSlug, Payload } from 'payload'
 
 import { articleCategories, articles } from './data/articles'
 import { pages } from './data/pages'
+import { photos } from './data/photos'
 import { categories, services } from './data/services'
 import { navigation, settings } from './data/site'
 import { team } from './data/team'
@@ -43,8 +47,52 @@ export async function seedDatabase(
     }
   }
 
+  /* Foto dello studio (riutilizzate se già presenti nella libreria) */
+  const photoIds: Record<string, number> = {}
+  const photoDir = path.join(process.cwd(), 'public', 'images', 'studio')
+  for (const p of photos) {
+    const existingPhoto = await payload.find({
+      collection: 'media',
+      where: { filename: { equals: p.file } },
+      limit: 1,
+      depth: 0,
+    })
+    if (existingPhoto.docs[0]) {
+      photoIds[p.key] = existingPhoto.docs[0].id
+      continue
+    }
+    const filePath = path.join(photoDir, p.file)
+    if (!fs.existsSync(filePath)) {
+      log(`Foto non trovata, saltata: ${filePath}`)
+      continue
+    }
+    const doc = await payload.create({
+      collection: 'media',
+      context,
+      filePath,
+      data: { alt: p.alt, caption: p.caption, focalX: p.focalX, focalY: p.focalY },
+    })
+    photoIds[p.key] = doc.id
+  }
+  log(`Foto dello studio: ${Object.keys(photoIds).length}`)
+
+  /** Sostituisce i riferimenti "@photo:chiave" con l'id dell'immagine caricata. */
+  const withPhotos = (value: unknown): unknown => {
+    if (typeof value === 'string' && value.startsWith('@photo:'))
+      return photoIds[value.slice(7)] ?? null
+    if (Array.isArray(value)) return value.map(withPhotos)
+    if (value && typeof value === 'object') {
+      return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, withPhotos(v)]))
+    }
+    return value
+  }
+
   /* Impostazioni e menu */
-  await payload.updateGlobal({ slug: 'settings', data: settings, context })
+  await payload.updateGlobal({
+    slug: 'settings',
+    data: { ...settings, defaultOgImage: photoIds.reception ?? null },
+    context,
+  })
   await payload.updateGlobal({ slug: 'navigation', data: navigation, context })
   log('Impostazioni dello studio e menu salvati')
 
@@ -103,6 +151,7 @@ export async function seedDatabase(
         professionals: s.professionals.map((slug) => memberIds[slug]).filter(Boolean),
         order: s.order,
         featured: s.featured,
+        image: s.photo ? (photoIds[s.photo] ?? null) : null,
         summary: s.summary,
         content: md(s.content),
         indications: s.indications.map((text) => ({ text })),
@@ -149,9 +198,12 @@ export async function seedDatabase(
 
   /* Pagine (i blocchi con testo formattato sono in Markdown) */
   for (const p of pages) {
-    const layout = p.layout.map((block) =>
-      typeof block.content === 'string' ? { ...block, content: md(block.content) } : block,
-    )
+    const layout = p.layout.map((block) => {
+      const resolved = withPhotos(block) as typeof block
+      return typeof resolved.content === 'string'
+        ? { ...resolved, content: md(resolved.content) }
+        : resolved
+    })
     await payload.create({
       collection: 'pages',
       context,

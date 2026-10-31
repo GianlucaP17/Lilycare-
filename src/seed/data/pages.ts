@@ -25,6 +25,7 @@ export const pages: SeedPage[] = [
         eyebrow: 'Centro medico · Chiasso, Ticino',
         heading: 'Diagnosi e terapia del dolore, *in un unico centro*',
         text: 'Radiografie, ecografie ed ecodoppler, ozonoterapia e GAET, infiltrazioni e onde d’urto, cure infermieristiche e agopuntura: a LilyCare, a Chiasso, ti seguiamo dalla diagnosi al trattamento.',
+        image: '@photo:reception',
         primaryCta: { label: 'Prenota una visita', url: '/prenota' },
         showPhoneButton: true,
         highlights: [
@@ -69,6 +70,19 @@ export const pages: SeedPage[] = [
             title: 'Ascolto e attenzione',
             text: 'Spiegazioni chiare, tempi dedicati e un percorso costruito sulla persona, non solo sul sintomo.',
           },
+        ],
+      },
+      {
+        blockType: 'gallery',
+        eyebrow: 'Il centro',
+        heading: 'Spazi luminosi, pensati per accoglierti',
+        intro: 'Reception, sala d’attesa e ambulatori in Corso San Gottardo 89, a Chiasso.',
+        images: [
+          { image: '@photo:reception' },
+          { image: '@photo:attesa' },
+          { image: '@photo:radiologia' },
+          { image: '@photo:ecografia' },
+          { image: '@photo:trattamenti' },
         ],
       },
       {
@@ -194,6 +208,24 @@ Il centro si trova in Corso San Gottardo 89 a Chiasso, nel Mendrisiotto, al conf
           { value: '10', label: 'prestazioni specialistiche' },
           { value: '1', label: 'centro per diagnosi e terapia' },
           { value: 'Lun–Ven', label: 'su appuntamento, mattina e pomeriggio' },
+        ],
+      },
+      {
+        blockType: 'gallery',
+        eyebrow: 'Il centro',
+        heading: 'I nostri spazi',
+        intro:
+          'Ambienti luminosi e curati, con la diagnostica per immagini e gli spazi per i trattamenti nello stesso centro.',
+        images: [
+          { image: '@photo:reception' },
+          { image: '@photo:attesa' },
+          { image: '@photo:corridoio' },
+          { image: '@photo:radiologia' },
+          { image: '@photo:ecografia' },
+          { image: '@photo:trattamenti' },
+          { image: '@photo:ambulatorio' },
+          { image: '@photo:luminoso' },
+          { image: '@photo:consulenza' },
         ],
       },
       {

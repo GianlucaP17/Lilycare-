@@ -302,6 +302,28 @@ export const StatsBlock: Block = {
   ],
 }
 
+export const GalleryBlock: Block = {
+  slug: 'gallery',
+  interfaceName: 'GalleryBlock',
+  labels: { singular: 'Galleria foto', plural: 'Gallerie foto' },
+  fields: [
+    ...sectionIntro,
+    {
+      name: 'images',
+      label: 'Foto',
+      type: 'array',
+      minRows: 1,
+      maxRows: 12,
+      labels: { singular: 'Foto', plural: 'Foto' },
+      admin: { description: 'La prima foto viene mostrata più grande.' },
+      fields: [
+        { name: 'image', label: 'Immagine', type: 'upload', relationTo: 'media', required: true },
+        { name: 'caption', label: 'Didascalia (facoltativa)', type: 'text' },
+      ],
+    },
+  ],
+}
+
 export const pageBlocks: Block[] = [
   HeroBlock,
   ServicesGridBlock,
@@ -315,4 +337,5 @@ export const pageBlocks: Block[] = [
   ContentBlock,
   ImageTextBlock,
   StatsBlock,
+  GalleryBlock,
 ]

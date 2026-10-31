@@ -17,8 +17,8 @@ export function AdminLogo() {
 
 /** Fiore di loto nella barra di navigazione del pannello admin. */
 export function AdminIcon() {
-  // eslint-disable-next-line @next/next/no-img-element
   return (
+    // eslint-disable-next-line @next/next/no-img-element
     <img src="/brand/lilycare-fiore.svg" alt="LilyCare" style={{ width: 30, height: 'auto' }} />
   )
 }
