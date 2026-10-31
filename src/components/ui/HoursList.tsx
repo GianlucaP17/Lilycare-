@@ -32,7 +32,11 @@ export function HoursList({
                   : 'text-petrol-950',
             )}
           >
-            {row.value.replaceAll('–', ' – ')}
+            {row.value.split(', ').map((slot) => (
+              <span key={slot} className="block whitespace-nowrap">
+                {slot.replaceAll('–', ' – ')}
+              </span>
+            ))}
           </dd>
         </div>
       ))}

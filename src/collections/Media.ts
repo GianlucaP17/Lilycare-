@@ -31,7 +31,7 @@ export const Media: CollectionConfig = {
     { name: 'caption', label: 'Didascalia (facoltativa)', type: 'text' },
   ],
   upload: {
-    // Cartella dei file caricati (in Docker è un volume persistente)
+    // Cartella dei file caricati: sul server è fuori dalla cartella dell'app (variabile MEDIA_DIR)
     staticDir: process.env.MEDIA_DIR || 'media',
     mimeTypes: ['image/*'],
     focalPoint: true,

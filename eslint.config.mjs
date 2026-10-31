@@ -24,6 +24,7 @@ export default defineConfig([
   },
   globalIgnores([
     '.next/**',
+    'dist-namecheap/**',
     'node_modules/**',
     'src/payload-types.ts',
     'src/app/(payload)/**',

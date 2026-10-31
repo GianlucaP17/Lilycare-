@@ -18,11 +18,14 @@ const securityHeaders = [
 ]
 
 const nextConfig: NextConfig = {
+  // Pacchetto autosufficiente (server.js + dipendenze minime) da caricare su Namecheap/cPanel
+  output: 'standalone',
   poweredByHeader: false,
   images: {
     formats: ['image/avif', 'image/webp'],
     localPatterns: [{ pathname: '/api/media/file/**' }, { pathname: '/images/**' }],
-    remotePatterns: [{ protocol: 'https', hostname: '*.public.blob.vercel-storage.com' }],
+    // Imposta IMAGES_UNOPTIMIZED=true in fase di build se il server non supporta "sharp"
+    unoptimized: process.env.IMAGES_UNOPTIMIZED === 'true',
   },
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }]

@@ -21,11 +21,7 @@ export function slugify(value: unknown): string {
 
 /** URL pubblico del sito, senza slash finale. */
 export function getServerUrl(): string {
-  const url =
-    process.env.NEXT_PUBLIC_SERVER_URL ||
-    (process.env.VERCEL_PROJECT_PRODUCTION_URL
-      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-      : 'http://localhost:3000')
+  const url = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
   return url.replace(/\/$/, '')
 }
 
@@ -49,7 +45,7 @@ export function formatDate(value?: string | null): string {
   return dateFormatter.format(date)
 }
 
-/** Normalizza un numero di telefono per i link `tel:` (es. "+41 78 335 51 53" → "+41783355153"). */
+/** Normalizza un numero di telefono per i link `tel:` (es. "+41 21 988 70 95" → "+41219887095"). */
 export function toTelHref(phone?: string | null): string {
   if (!phone) return ''
   const cleaned = phone.replace(/[^\d+]/g, '')

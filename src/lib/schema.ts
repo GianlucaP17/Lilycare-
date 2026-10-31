@@ -2,7 +2,12 @@ import type { Article, Service, Setting, Team } from '@/payload-types'
 
 import { asMedia, mediaSrc } from './media'
 import { paths } from './paths'
-import { formatAddress, mapsUrl, openingHoursSpecification } from './settings-helpers'
+import {
+  areaServedList,
+  formatAddress,
+  mapsUrl,
+  openingHoursSpecification,
+} from './settings-helpers'
 import { absoluteUrl, getServerUrl } from './utils'
 
 /**
@@ -24,17 +29,6 @@ const imageUrl = (value: unknown) => {
   const src = m ? mediaSrc(m) : null
   return src ? absoluteUrl(src) : undefined
 }
-
-const areaServed = [
-  'Coldrerio',
-  'Mendrisio',
-  'Chiasso',
-  'Balerna',
-  'Novazzano',
-  'Stabio',
-  'Mendrisiotto',
-  'Ticino',
-].map((name) => ({ '@type': 'Place', name }))
 
 export function clinicSchema(settings: Setting, services: Service[], team: Team[]) {
   const sameAs = (settings.socialLinks ?? []).map((s) => s.url).filter(Boolean)
@@ -72,7 +66,7 @@ export function clinicSchema(settings: Setting, services: Service[], team: Team[
     medicalSpecialty: ['Radiography', 'Musculoskeletal', 'Nursing'],
     isAcceptingNewPatients: true,
     availableLanguage: [{ '@type': 'Language', name: 'Italiano', alternateName: 'it' }],
-    areaServed,
+    areaServed: areaServedList(settings).map((name) => ({ '@type': 'Place', name })),
     availableService: services.map((s) => ({
       '@type': s.schemaType || 'MedicalProcedure',
       '@id': ids.service(s.slug as string),

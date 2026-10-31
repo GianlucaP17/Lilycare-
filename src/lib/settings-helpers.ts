@@ -30,7 +30,7 @@ export const DAY_LABELS: Record<DayKey, { long: string; short: string; schema: s
   sun: { long: 'Domenica', short: 'Dom', schema: 'Sunday' },
 }
 
-/** "Via Monte Generoso 2, 6877 Coldrerio" */
+/** "Corso San Gottardo 89, 6830 Chiasso" */
 export function formatAddress(address: AddressLike, withNote = false): string {
   if (!address) return ''
   const street = [address.street, withNote ? address.addressNote : null].filter(Boolean).join(' – ')
@@ -126,4 +126,24 @@ export function openingHoursSpecification(hours: OpeningHoursLike) {
       opens: slot.opens,
       closes: slot.closes,
     }))
+}
+
+/** "Chiasso (Ticino)" */
+export function placeLabel(settings: { address?: AddressLike }): string {
+  const city = settings.address?.city || ''
+  const region = settings.address?.region || 'Ticino'
+  return city ? `${city} (${region})` : region
+}
+
+/** Località servite, da testo separato da virgole a elenco. */
+export function areaServedList(settings: {
+  areaServed?: string | null
+  address?: AddressLike
+}): string[] {
+  const list = (settings.areaServed || '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
+  if (!list.length && settings.address?.city) list.push(settings.address.city)
+  return list
 }

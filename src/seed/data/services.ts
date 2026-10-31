@@ -23,10 +23,10 @@ export const categories: SeedCategory[] = [
   },
   {
     key: 'dolore',
-    title: 'Terapia del dolore',
+    title: 'Terapia del dolore e ozonoterapia',
     slug: 'terapia-del-dolore',
     description:
-      'Trattamenti mirati per il dolore della colonna, delle articolazioni e dei tendini, scelti dopo una valutazione medica.',
+      'Trattamenti mirati per il dolore della colonna, delle articolazioni e dei tendini, e ossigeno-ozonoterapia, sempre dopo una valutazione.',
     order: 2,
   },
   {
@@ -34,7 +34,7 @@ export const categories: SeedCategory[] = [
     title: 'Cure infermieristiche',
     slug: 'cure-infermieristiche',
     description: 'Prestazioni infermieristiche ambulatoriali, in collaborazione con il medico.',
-    order: 3,
+    order: 8,
   },
   {
     key: 'agopuntura',
@@ -139,9 +139,9 @@ La dose di radiazioni di una radiografia è bassa. Ogni esame viene eseguito sol
           'In gravidanza la radiografia si esegue solo se strettamente necessaria e con particolari precauzioni. Informa sempre il personale prima dell’esame, anche in caso di dubbio.',
       },
     ],
-    metaTitle: 'Radiografia a Coldrerio (Mendrisiotto) | LilyCare',
+    metaTitle: 'Radiografia a Chiasso (Ticino) | LilyCare',
     metaDescription:
-      'Radiografie di ossa, articolazioni, colonna e torace a Coldrerio, valutate da un medico specialista in radiologia. Prenota online o chiama.',
+      'Radiografie di ossa, articolazioni, colonna e torace a Chiasso, valutate da un medico specialista in radiologia. Prenota online o chiama.',
   },
   {
     title: 'Ecografia',
@@ -218,9 +218,9 @@ Il distretto da esaminare e le modalità vengono definiti in base alla tua situa
           'Dipende da cosa si deve studiare: la radiografia è ideale per le ossa, l’ecografia per tendini, muscoli e tessuti molli. Spesso i due esami si completano. Il medico ti consiglierà quello più indicato.',
       },
     ],
-    metaTitle: 'Ecografia a Coldrerio, Ticino | LilyCare',
+    metaTitle: 'Ecografia a Chiasso, Ticino | LilyCare',
     metaDescription:
-      'Ecografie muscolo-scheletriche, del collo, dei tessuti molli e dell’addome a Coldrerio, eseguite dal medico specialista. Senza radiazioni. Prenota online.',
+      'Ecografie muscolo-scheletriche, del collo, dei tessuti molli e dell’addome a Chiasso, eseguite dal medico specialista. Senza radiazioni. Prenota online.',
   },
   {
     title: 'Ecodoppler',
@@ -292,9 +292,9 @@ Come per ogni ecografia, la qualità dell’ecodoppler dipende molto dall’espe
           'No: se hai un improvviso gonfiore doloroso a una gamba o difficoltà a respirare, contatta subito il tuo medico o chiama il 144. Il modulo online non è adatto alle urgenze.',
       },
     ],
-    metaTitle: 'Ecodoppler ed ecocolordoppler a Coldrerio | LilyCare',
+    metaTitle: 'Ecodoppler ed ecocolordoppler a Chiasso | LilyCare',
     metaDescription:
-      'Ecocolordoppler di arterie e vene (collo e gambe) a Coldrerio, eseguito dal medico specialista. Esame indolore e senza radiazioni. Prenota online.',
+      'Ecocolordoppler di arterie e vene (collo e gambe) a Chiasso, eseguito dal medico specialista. Esame indolore e senza radiazioni. Prenota online.',
   },
   {
     title: 'Ossigeno-ozonoterapia',
@@ -317,7 +317,7 @@ L’impiego più consolidato riguarda il **mal di schiena da ernia o protrusione
 
 - **Infiltrazioni paravertebrali**: piccole iniezioni intramuscolari ai lati della colonna, nella zona del dolore.
 - **Infiltrazioni intra- e periarticolari**: per alcune patologie di ginocchio, spalla, anca e altre articolazioni, quando possibile sotto guida ecografica.
-- **Grande autoemoterapia (GAET)**: prevede il prelievo di una piccola quantità del proprio sangue, la sua miscelazione con ossigeno-ozono e la reinfusione. L’indicazione viene valutata dal medico caso per caso.
+- **Grande autoemoterapia (GAET)**: è la forma “sistemica” dell’ossigeno-ozonoterapia, in cui una piccola quantità del proprio sangue viene miscelata con ossigeno-ozono e reinfusa. A LilyCare ha una [pagina dedicata](/servizi/gaet).
 
 ## Un approccio medico
 
@@ -381,12 +381,89 @@ La risposta alla terapia varia da persona a persona: durante la visita il medico
       {
         question: 'Che cos’è la GAET?',
         answer:
-          'La grande autoemoterapia (GAET) consiste nel prelievo di una piccola quantità di sangue, nella sua miscelazione con ossigeno-ozono e nella reinfusione. Il medico valuta se è indicata nel tuo caso.',
+          'La grande autoemoterapia (GAET) consiste nel prelievo di una piccola quantità di sangue, nella sua miscelazione con ossigeno-ozono e nella reinfusione. A LilyCare è eseguita dall’infermiera, su indicazione medica: trovi tutti i dettagli nella pagina dedicata alla GAET.',
       },
     ],
-    metaTitle: 'Ossigeno-ozonoterapia in Ticino (Coldrerio) | LilyCare',
+    metaTitle: 'Ossigeno-ozonoterapia a Chiasso, Ticino | LilyCare',
     metaDescription:
-      'Ossigeno-ozonoterapia per ernia del disco, lombosciatalgia, cervicalgia e dolori articolari, eseguita da un medico a Coldrerio (Ticino). GAET. Prenota.',
+      'Ossigeno-ozonoterapia per ernia del disco, lombosciatalgia, cervicalgia e dolori articolari, eseguita da un medico a Chiasso (Ticino). Prenota online.',
+  },
+  {
+    title: 'GAET – Grande autoemoterapia',
+    slug: 'gaet',
+    category: 'dolore',
+    icon: 'ozone',
+    schemaType: 'TherapeuticProcedure',
+    professionals: ['monica-gaiga'],
+    order: 5,
+    featured: true,
+    summary:
+      'La GAET (grande autoemoterapia con ossigeno-ozono) è una forma di ossigeno-ozonoterapia in cui una piccola quantità del proprio sangue viene prelevata, miscelata con ossigeno e ozono medicale in concentrazione controllata e reinfusa. A LilyCare è eseguita dall’infermiera, su indicazione medica.',
+    content: `## Che cos’è la GAET
+
+La sigla GAET indica la **grande autoemoterapia** con ossigeno-ozono. A differenza delle infiltrazioni locali di ossigeno-ozono, che agiscono sulla zona dolorante, la GAET è una modalità **sistemica**: la miscela di ossigeno e ozono medicale viene messa a contatto con il sangue della persona, che viene poi reinfuso.
+
+## Come funziona
+
+Il trattamento si svolge in ambulatorio. Si preleva una quantità limitata di sangue da una vena del braccio, raccolta in una sacca sterile e monouso contenente un anticoagulante; il sangue viene miscelato con ossigeno-ozono prodotto al momento, in concentrazione controllata, e reinfuso lentamente attraverso lo stesso accesso venoso.
+
+## Sicurezza e indicazione
+
+La GAET viene eseguita **dall’infermiera, su indicazione medica**, dopo aver raccolto le informazioni sulla tua salute e sulle terapie in corso e aver escluso le controindicazioni. Si utilizza esclusivamente materiale sterile e monouso.
+
+La GAET è proposta come trattamento complementare e le evidenze scientifiche disponibili variano molto a seconda dell’indicazione: per questo, prima di iniziare, valutiamo insieme a te benefici attesi, limiti e alternative.`,
+    indications: [],
+    procedure: [
+      {
+        title: 'Colloquio e valutazione',
+        text: 'Raccolta delle informazioni sulla salute, sui farmaci assunti e sulle possibili controindicazioni.',
+      },
+      {
+        title: 'Prelievo',
+        text: 'Si preleva una quantità limitata di sangue da una vena del braccio, in una sacca sterile monouso.',
+      },
+      {
+        title: 'Miscelazione',
+        text: 'Il sangue viene miscelato con ossigeno-ozono medicale prodotto al momento, in concentrazione controllata.',
+      },
+      {
+        title: 'Reinfusione e osservazione',
+        text: 'Il sangue viene reinfuso lentamente; segue un breve periodo di osservazione prima di tornare alle tue attività.',
+      },
+    ],
+    preparation:
+      'Fai una colazione leggera e bevi acqua prima della seduta. Porta l’elenco dei farmaci che assumi e gli esami del sangue recenti, se li hai. Prima del ciclo può essere richiesto un esame per escludere il deficit di G6PD (favismo). Segnala sempre gravidanza, terapie anticoagulanti o disturbi della coagulazione.',
+    facts: [
+      { label: 'Durata della seduta', value: '30–45 minuti' },
+      { label: 'Numero di sedute', value: 'Ciclo su indicazione medica' },
+      { label: 'Materiale', value: 'Sterile e monouso' },
+      { label: 'Eseguita da', value: 'Infermiera, su indicazione medica' },
+    ],
+    faqs: [
+      {
+        question: 'La GAET è dolorosa?',
+        answer:
+          'Si avverte solo la puntura dell’ago nel braccio, come per un normale prelievo di sangue. Durante la reinfusione si resta seduti o sdraiati comodamente.',
+      },
+      {
+        question: 'Che differenza c’è con l’ozonoterapia “classica”?',
+        answer:
+          'Le infiltrazioni di ossigeno-ozono agiscono localmente, ad esempio sulla colonna o su un’articolazione. La GAET è invece una modalità sistemica, perché la miscela viene messa a contatto con il sangue che poi viene reinfuso.',
+      },
+      {
+        question: 'Chi non può fare la GAET?',
+        answer:
+          'Tra le controindicazioni principali ci sono il deficit di G6PD (favismo), la gravidanza, l’ipertiroidismo non controllato e alcuni disturbi della coagulazione. Per questo la GAET è sempre preceduta da una valutazione.',
+      },
+      {
+        question: 'Quante sedute servono?',
+        answer:
+          'Il numero e la frequenza delle sedute vengono definiti su indicazione medica, in base alla situazione di ogni persona.',
+      },
+    ],
+    metaTitle: 'GAET – autoemoterapia con ozono a Chiasso | LilyCare',
+    metaDescription:
+      'GAET, grande autoemoterapia con ossigeno-ozono a Chiasso (Ticino): come funziona, come prepararsi e controindicazioni. Eseguita su indicazione medica.',
   },
   {
     title: 'Infiltrazioni antidolorifiche',
@@ -395,7 +472,7 @@ La risposta alla terapia varia da persona a persona: durante la visita il medico
     icon: 'syringe',
     schemaType: 'TherapeuticProcedure',
     professionals: ['mauro-binda'],
-    order: 5,
+    order: 6,
     featured: true,
     summary:
       'Le infiltrazioni consistono nell’iniezione mirata di un farmaco – ad esempio un antinfiammatorio cortisonico, acido ialuronico o un anestetico locale – in un’articolazione, vicino a un tendine o in una borsa, per ridurre dolore e infiammazione. Quando indicato, sono eseguite sotto guida ecografica.',
@@ -467,9 +544,9 @@ In alternativa o in associazione, in alcuni casi il medico può proporre l’**o
           'In genere si consiglia di evitare sforzi intensi con la parte trattata per 24–48 ore. Riceverai indicazioni specifiche al termine della seduta.',
       },
     ],
-    metaTitle: 'Infiltrazioni ecoguidate a Coldrerio, Ticino | LilyCare',
+    metaTitle: 'Infiltrazioni ecoguidate a Chiasso, Ticino | LilyCare',
     metaDescription:
-      'Infiltrazioni antidolorifiche ecoguidate (cortisone, acido ialuronico) per artrosi, borsiti e tendiniti a Coldrerio, eseguite dal medico. Prenota online.',
+      'Infiltrazioni antidolorifiche ecoguidate (cortisone, acido ialuronico) per artrosi, borsiti e tendiniti a Chiasso, eseguite dal medico. Prenota online.',
   },
   {
     title: 'Onde d’urto',
@@ -478,7 +555,7 @@ In alternativa o in associazione, in alcuni casi il medico può proporre l’**o
     icon: 'shockwave',
     schemaType: 'TherapeuticProcedure',
     professionals: ['mauro-binda'],
-    order: 6,
+    order: 7,
     featured: true,
     summary:
       'La terapia con onde d’urto (ESWT) utilizza impulsi acustici ad alta energia, trasmessi attraverso la pelle, per stimolare i processi di riparazione dei tessuti e ridurre il dolore in diverse patologie dei tendini. È un trattamento non invasivo, senza aghi né farmaci.',
@@ -543,9 +620,9 @@ Prima di iniziare, il medico conferma la diagnosi – se necessario con un’eco
           'Il trattamento è sconsigliato ad esempio in gravidanza, in presenza di disturbi della coagulazione o terapie anticoagulanti, infezioni o tumori nella zona da trattare. Il medico valuta ogni situazione.',
       },
     ],
-    metaTitle: 'Terapia con onde d’urto a Coldrerio | LilyCare',
+    metaTitle: 'Terapia con onde d’urto a Chiasso | LilyCare',
     metaDescription:
-      'Onde d’urto (ESWT) per tendinite calcifica della spalla, epicondilite, fascite plantare e tendinopatie a Coldrerio (Ticino). Trattamento non invasivo.',
+      'Onde d’urto (ESWT) per tendinite calcifica della spalla, epicondilite, fascite plantare e tendinopatie a Chiasso (Ticino). Trattamento non invasivo.',
   },
   {
     title: 'Cure infermieristiche',
@@ -554,7 +631,7 @@ Prima di iniziare, il medico conferma la diagnosi – se necessario con un’eco
     icon: 'nursing',
     schemaType: 'MedicalProcedure',
     professionals: ['monica-gaiga'],
-    order: 7,
+    order: 8,
     featured: true,
     summary:
       'Prestazioni infermieristiche ambulatoriali eseguite da un’infermiera qualificata, in collaborazione con il medico: medicazioni, iniezioni, controllo dei parametri e supporto nei percorsi di cura.',
@@ -611,9 +688,9 @@ Le prestazioni disponibili e le modalità vanno concordate al momento della pren
           'Sì, insieme alla prescrizione. L’infermiera verificherà le indicazioni prima della somministrazione.',
       },
     ],
-    metaTitle: 'Cure infermieristiche a Coldrerio | LilyCare',
+    metaTitle: 'Cure infermieristiche a Chiasso | LilyCare',
     metaDescription:
-      'Medicazioni, iniezioni, rimozione punti e controllo dei parametri a Coldrerio, eseguiti da un’infermiera in collaborazione con il medico. Prenota.',
+      'Medicazioni, iniezioni, rimozione punti e controllo dei parametri a Chiasso, eseguiti da un’infermiera in collaborazione con il medico. Prenota.',
   },
   {
     title: 'Agopuntura',
@@ -622,7 +699,7 @@ Le prestazioni disponibili e le modalità vanno concordate al momento della pren
     icon: 'acupuncture',
     schemaType: 'TherapeuticProcedure',
     professionals: ['monica-gaiga'],
-    order: 8,
+    order: 9,
     featured: true,
     summary:
       'L’agopuntura è una tecnica della medicina tradizionale cinese che prevede l’inserimento di aghi sottilissimi, sterili e monouso, in punti specifici del corpo. Può essere utilizzata come trattamento complementare per il dolore e per favorire il benessere generale.',
@@ -685,9 +762,9 @@ Lavorando in un centro medico, l’agopuntura a LilyCare si inserisce in un cont
           'Dipende dall’obiettivo e dalla risposta individuale. In genere si prevede un ciclo iniziale di alcune sedute, poi si valuta insieme come proseguire.',
       },
     ],
-    metaTitle: 'Agopuntura a Coldrerio (Mendrisiotto) | LilyCare',
+    metaTitle: 'Agopuntura a Chiasso (Ticino) | LilyCare',
     metaDescription:
-      'Agopuntura per dolore cervicale e lombare, cefalea, tensione e benessere a Coldrerio, in un centro medico. Aghi sterili monouso. Prenota online.',
+      'Agopuntura per dolore cervicale e lombare, cefalea, tensione e benessere a Chiasso, in un centro medico. Aghi sterili monouso. Prenota online.',
   },
   {
     title: 'Agopuntura estetica',
@@ -696,7 +773,7 @@ Lavorando in un centro medico, l’agopuntura a LilyCare si inserisce in un cont
     icon: 'aesthetic',
     schemaType: 'TherapeuticProcedure',
     professionals: ['monica-gaiga'],
-    order: 9,
+    order: 10,
     featured: true,
     summary:
       'L’agopuntura estetica applica i principi dell’agopuntura alla cura della pelle e della silhouette. È un trattamento complementare e naturale che può contribuire a migliorare l’aspetto della cellulite, la tonicità dei tessuti e la luminosità del viso.',
@@ -760,8 +837,8 @@ I risultati sono **graduali e variabili da persona a persona**: per questo il pe
           'In molti casi sì. Ne parleremo durante il colloquio iniziale per costruire il percorso più adatto a te.',
       },
     ],
-    metaTitle: 'Agopuntura estetica e cellulite a Coldrerio | LilyCare',
+    metaTitle: 'Agopuntura estetica e cellulite a Chiasso | LilyCare',
     metaDescription:
-      'Agopuntura estetica per cellulite, ritenzione e luminosità del viso a Coldrerio (Ticino). Trattamento naturale e complementare. Prenota online.',
+      'Agopuntura estetica per cellulite, ritenzione e luminosità del viso a Chiasso (Ticino). Trattamento naturale e complementare. Prenota online.',
   },
 ]

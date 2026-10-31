@@ -47,7 +47,7 @@ export const Settings: GlobalConfig = {
               name: 'tagline',
               label: 'Slogan breve',
               type: 'text',
-              defaultValue: 'Centro medico a Coldrerio',
+              defaultValue: 'Centro medico a Chiasso',
             },
             {
               name: 'description',
@@ -100,7 +100,7 @@ export const Settings: GlobalConfig = {
                   label: 'Telefono principale',
                   type: 'text',
                   required: true,
-                  admin: { description: 'Formato internazionale, es. +41 78 335 51 53' },
+                  admin: { description: 'Formato internazionale, es. +41 21 988 70 95' },
                 },
                 {
                   name: 'whatsapp',
@@ -138,7 +138,7 @@ export const Settings: GlobalConfig = {
                       name: 'addressNote',
                       label: 'Indicazione aggiuntiva',
                       type: 'text',
-                      admin: { description: 'Es. "presso Polimedica, 1° piano".' },
+                      admin: { description: 'Es. "3° piano".' },
                     },
                   ],
                 },
@@ -152,6 +152,27 @@ export const Settings: GlobalConfig = {
                   ],
                 },
               ],
+            },
+            {
+              name: 'areaNote',
+              label: 'Zona (frase breve)',
+              type: 'text',
+              defaultValue: 'nel Mendrisiotto, al confine con Como',
+              admin: {
+                description:
+                  'Completa la frase "Ci trovi a Chiasso, …". Usata nelle pagine Contatti e nelle informazioni per gli assistenti AI.',
+              },
+            },
+            {
+              name: 'areaServed',
+              label: 'Località servite (per Google)',
+              type: 'textarea',
+              defaultValue:
+                'Chiasso, Balerna, Vacallo, Morbio Inferiore, Novazzano, Coldrerio, Mendrisio, Mendrisiotto, Ticino, Como',
+              admin: {
+                description:
+                  'Separate da virgola. Indicano a Google e agli assistenti AI da dove arrivano i vostri pazienti.',
+              },
             },
             {
               name: 'geo',

@@ -4,21 +4,10 @@ import React from 'react'
 
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { stripEmphasis } from '@/components/ui/Emphasis'
-import { getPage, getPublishedSlugs } from '@/lib/data'
+import { getPage } from '@/lib/data'
 import { buildMetadata } from '@/lib/seo'
 
-export const revalidate = 300
-
 type Props = { params: Promise<{ slug: string }> }
-
-export async function generateStaticParams() {
-  try {
-    const slugs = await getPublishedSlugs('pages')
-    return slugs.filter((s) => s.slug !== 'home').map(({ slug }) => ({ slug }))
-  } catch {
-    return []
-  }
-}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params

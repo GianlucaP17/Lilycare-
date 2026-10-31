@@ -10,13 +10,11 @@ import { paths } from '@/lib/paths'
 import { buildMetadata } from '@/lib/seo'
 import { cn } from '@/lib/utils'
 
-export const revalidate = 300
-
 export async function generateMetadata(): Promise<Metadata> {
-  const team = await getTeam()
+  const [team, settings] = await Promise.all([getTeam(), getSettings()])
   return buildMetadata({
     title: 'Il team',
-    description: `Conosci i professionisti di LilyCare a Coldrerio: ${team
+    description: `Conosci i professionisti di ${settings.clinicName} a ${settings.address?.city}: ${team
       .map((m) => [m.prefix, m.name].filter(Boolean).join(' ') + `, ${m.role.toLowerCase()}`)
       .join('; ')}. Curriculum, competenze e prestazioni.`,
     path: paths.team,

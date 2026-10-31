@@ -306,15 +306,15 @@ L’agopuntura è generalmente ben tollerata. Possono comparire **piccoli lividi
 A LilyCare l’agopuntura estetica è eseguita in un contesto sanitario, da un’infermiera che lavora in collaborazione con il medico.`,
   },
   {
-    title: 'LilyCare: diagnosi e cura in un unico centro a Coldrerio',
-    slug: 'lilycare-centro-medico-coldrerio',
+    title: 'LilyCare: diagnosi e cura in un unico centro a Chiasso',
+    slug: 'lilycare-centro-medico-chiasso',
     metaTitle: 'Diagnosi e cura in un unico centro | LilyCare',
     category: 'dal-centro',
     daysAgo: 28,
     relatedServices: ['radiografia', 'ozonoterapia', 'agopuntura'],
     excerpt:
       'Radiografie, ecografie, terapia del dolore, cure infermieristiche e agopuntura: ecco come funziona LilyCare e come prenotare una visita.',
-    content: `**LilyCare** è un centro medico a **Coldrerio**, nel Mendrisiotto, nato con un’idea semplice: permettere ai pazienti di trovare **nello stesso luogo** la diagnosi e la cura, con professionisti che si conoscono e lavorano insieme.
+    content: `**LilyCare** è un centro medico a **Chiasso**, nel Mendrisiotto, nato con un’idea semplice: permettere ai pazienti di trovare **nello stesso luogo** la diagnosi e la cura, con professionisti che si conoscono e lavorano insieme.
 
 ## Che cosa trovi a LilyCare
 
@@ -324,9 +324,10 @@ A LilyCare l’agopuntura estetica è eseguita in un contesto sanitario, da un�
 - ecografie
 - ecodoppler (ecocolordoppler)
 
-**Terapia del dolore**
+**Terapia del dolore e ozonoterapia**
 
 - ossigeno-ozonoterapia
+- GAET (grande autoemoterapia con ossigeno-ozono)
 - infiltrazioni antidolorifiche, anche ecoguidate
 - onde d’urto
 
@@ -347,6 +348,6 @@ Pensiamo a un dolore alla spalla: spesso servono una radiografia e un’ecografi
 
 ## Dove siamo
 
-Ci trovi in **Via Monte Generoso 2, 6877 Coldrerio**, a pochi minuti da Mendrisio, Balerna e Chiasso. Nella pagina *Contatti* trovi la mappa e le indicazioni per raggiungerci.`,
+Ci trovi in **Corso San Gottardo 89, 6830 Chiasso**, al confine con Como. Nella pagina *Contatti* trovi la mappa e le indicazioni per raggiungerci.`,
   },
 ]

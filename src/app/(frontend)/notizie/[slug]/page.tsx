@@ -14,31 +14,14 @@ import { Container } from '@/components/ui/Container'
 import { JsonLd } from '@/components/ui/JsonLd'
 import { MediaImage } from '@/components/ui/MediaImage'
 import { RichText } from '@/components/ui/RichText'
-import {
-  getArticle,
-  getArticles,
-  getPublishedSlugs,
-  getSettings,
-  populated,
-  populatedList,
-} from '@/lib/data'
+import { getArticle, getArticles, getSettings, populated, populatedList } from '@/lib/data'
 import { paths } from '@/lib/paths'
 import { articleSchema } from '@/lib/schema'
 import { buildMetadata } from '@/lib/seo'
 import { formatDate } from '@/lib/utils'
 import type { ArticleCategory, Service, Team } from '@/payload-types'
 
-export const revalidate = 300
-
 type Props = { params: Promise<{ slug: string }> }
-
-export async function generateStaticParams() {
-  try {
-    return (await getPublishedSlugs('articles')).map(({ slug }) => ({ slug }))
-  } catch {
-    return []
-  }
-}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
@@ -98,7 +81,9 @@ export default async function ArticlePage({ params }: Props) {
                     {category.title}
                   </Link>
                 ) : null}
-                <time dateTime={article.publishedAt}>{formatDate(article.publishedAt)}</time>
+                <time dateTime={article.publishedAt ?? undefined}>
+                  {formatDate(article.publishedAt)}
+                </time>
                 {article.readingTime ? <span>· {article.readingTime} min di lettura</span> : null}
               </div>
               <h1 className="mt-5 text-4xl leading-[1.08] font-light md:text-[3.4rem]">
@@ -182,7 +167,7 @@ export default async function ArticlePage({ params }: Props) {
                 valutazione del tuo caso prenota una visita. Pubblicato il{' '}
                 {formatDate(article.publishedAt)}
                 {article.updatedAt &&
-                article.updatedAt.slice(0, 10) !== article.publishedAt.slice(0, 10)
+                article.updatedAt.slice(0, 10) !== article.publishedAt?.slice(0, 10)
                   ? `, aggiornato il ${formatDate(article.updatedAt)}`
                   : ''}
                 .

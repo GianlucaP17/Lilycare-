@@ -1,0 +1,57 @@
+# Compila il sito e prepara il pacchetto per Namecheap (cPanel → Setup Node.js App).
+# - Ogni volta: crea lo zip "lilycare-namecheap" scaricabile dalla pagina Actions di GitHub.
+# - Se sono impostati i segreti FTP_SERVER / FTP_USERNAME / FTP_PASSWORD: lo pubblica sul server.
+# Guida completa: README.md → "Messa online su Namecheap".
+name: Build e pubblicazione (Namecheap)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: namecheap
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      # Indirizzo pubblico del sito: inserito nel sito durante la build (link canonici, sitemap, email)
+      NEXT_PUBLIC_SERVER_URL: ${{ vars.NEXT_PUBLIC_SERVER_URL || 'https://lilycare.ch' }}
+      # "true" solo se sul server il modulo immagini "sharp" non funzionasse
+      IMAGES_UNOPTIMIZED: ${{ vars.IMAGES_UNOPTIMIZED || 'false' }}
+      NEXT_TELEMETRY_DISABLED: '1'
+      HAS_FTP: ${{ secrets.FTP_SERVER != '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run build
+      - run: npm run package:namecheap
+
+      - name: Salva il pacchetto (scaricabile da Actions)
+        uses: actions/upload-artifact@v4
+        with:
+          name: lilycare-namecheap
+          path: dist-namecheap/lilycare-namecheap.zip
+          retention-days: 30
+
+      - name: Pubblica su Namecheap via FTP
+        if: env.HAS_FTP == 'true'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: dist-namecheap/lilycare-app/
+          server-dir: ${{ vars.FTP_SERVER_DIR || 'lilycare-app/' }}

@@ -18,7 +18,6 @@ import { MediaImage } from '@/components/ui/MediaImage'
 import { RichText } from '@/components/ui/RichText'
 import {
   getArticles,
-  getPublishedSlugs,
   getService,
   getServices,
   getSettings,
@@ -27,33 +26,24 @@ import {
 } from '@/lib/data'
 import { bookingHref, paths } from '@/lib/paths'
 import { serviceSchema } from '@/lib/schema'
+import { placeLabel } from '@/lib/settings-helpers'
 import { buildMetadata } from '@/lib/seo'
 import { formatDate, toTelHref } from '@/lib/utils'
 import type { ServiceCategory, Team } from '@/payload-types'
 
-export const revalidate = 300
-
 type Props = { params: Promise<{ slug: string }> }
-
-export async function generateStaticParams() {
-  try {
-    return (await getPublishedSlugs('services')).map(({ slug }) => ({ slug }))
-  } catch {
-    return []
-  }
-}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const service = await getService(slug)
+  const [service, settings] = await Promise.all([getService(slug), getSettings()])
   if (!service) return {}
   return buildMetadata({
-    title: `${service.title} a Coldrerio (Ticino)`,
+    title: `${service.title} a ${placeLabel(settings)}`,
     description: service.summary,
     path: paths.service(slug),
     meta: service.meta,
     image: service.image,
-    ogSubtitle: 'Coldrerio · Mendrisiotto · Ticino',
+    ogSubtitle: `${settings.clinicName} · ${placeLabel(settings)}`,
   })
 }
 

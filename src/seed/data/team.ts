@@ -64,7 +64,7 @@ La sua formazione da radiologo gli permette di unire, nello stesso percorso, una
       {
         period: 'Oggi',
         role: 'Medico radiologo e terapia del dolore',
-        organization: 'LilyCare, Coldrerio',
+        organization: 'LilyCare, Chiasso',
       },
       {
         period: 'Dal 2014',
@@ -90,48 +90,46 @@ La sua formazione da radiologo gli permette di unire, nello stesso percorso, una
       { name: 'Ordine dei Medici del Canton Ticino', url: 'https://www.omct.ch' },
     ],
     profiles: [
-      {
-        label: 'OneDoc',
-        url: 'https://www.onedoc.ch/en/radiologist/coldrerio/pcvt4/dr-mauro-binda',
-      },
       { label: 'LinkedIn', url: 'https://www.linkedin.com/in/mauro-binda-3b916b61/' },
       {
         label: 'SIOOT – elenco ozonoterapeuti',
         url: 'https://ossigenoozono.it/ozonoterapeuti/dott-binda-mauro/',
       },
     ],
-    metaTitle: 'Dr. med. Mauro Binda – Radiologo a Coldrerio | LilyCare',
+    metaTitle: 'Dr. med. Mauro Binda – Radiologo a Chiasso | LilyCare',
     metaDescription:
-      'Dr. med. Mauro Binda, medico specialista in radiologia: radiografie, ecografie, ecodoppler, ozonoterapia e infiltrazioni a Coldrerio (Ticino). Curriculum.',
+      'Dr. med. Mauro Binda, medico specialista in radiologia: radiografie, ecografie, ecodoppler, ozonoterapia e infiltrazioni a Chiasso (Ticino). Curriculum.',
   },
   {
     slug: 'monica-gaiga',
     name: 'Monica Gaiga',
-    role: 'Infermiera · Agopuntura',
+    role: 'Infermiera · GAET e agopuntura',
     isPhysician: false,
     order: 2,
     shortBio:
-      'Infermiera, si occupa delle cure infermieristiche del centro e pratica l’agopuntura, sia per il benessere e il dolore sia in ambito estetico, ad esempio per la cellulite.',
+      'Infermiera, si occupa delle cure infermieristiche del centro e della GAET (grande autoemoterapia con ossigeno-ozono). Pratica anche l’agopuntura, per il benessere e in ambito estetico.',
     bio: `Monica Gaiga è **infermiera** e segue le cure infermieristiche di LilyCare: medicazioni, iniezioni, controllo dei parametri e assistenza durante le procedure, in stretta collaborazione con il medico.
+
+Esegue la **GAET**, la grande autoemoterapia con ossigeno-ozono, su indicazione medica: dal colloquio iniziale al prelievo, fino alla reinfusione e al controllo dopo la seduta.
 
 Pratica inoltre l’**agopuntura**, proposta come trattamento complementare per il dolore muscolo-scheletrico, la tensione e il benessere generale, e l’**agopuntura estetica**, ad esempio per migliorare l’aspetto della cellulite e la luminosità della pelle del viso.
 
 Per i pazienti è un punto di riferimento attento e disponibile: dedica tempo all’ascolto, spiega con chiarezza ogni passaggio e accompagna ciascuno nel proprio percorso di cura.`,
     specialties: [
       'Cure infermieristiche',
+      'GAET – grande autoemoterapia con ossigeno-ozono',
       'Agopuntura',
       'Agopuntura estetica',
-      'Educazione sanitaria',
     ],
     languages: ['Italiano'],
     education: [],
     experience: [
-      { period: 'Oggi', role: 'Infermiera e agopuntura', organization: 'LilyCare, Coldrerio' },
+      { period: 'Oggi', role: 'Infermiera, GAET e agopuntura', organization: 'LilyCare, Chiasso' },
     ],
     memberships: [],
     profiles: [],
-    metaTitle: 'Monica Gaiga – Infermiera e agopuntura a Coldrerio | LilyCare',
+    metaTitle: 'Monica Gaiga – Infermiera, GAET e agopuntura | LilyCare',
     metaDescription:
-      'Monica Gaiga, infermiera: cure infermieristiche, agopuntura e agopuntura estetica (cellulite, viso) a LilyCare, Coldrerio (Ticino).',
+      'Monica Gaiga, infermiera: cure infermieristiche, GAET (autoemoterapia con ossigeno-ozono), agopuntura e agopuntura estetica a LilyCare, Chiasso.',
   },
 ]

@@ -1,6 +1,6 @@
 import { buildLlmsText } from '@/lib/llms'
 
-export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 export async function GET() {
   const body = await buildLlmsText(false)

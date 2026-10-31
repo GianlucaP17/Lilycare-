@@ -104,10 +104,12 @@ export interface Config {
   globals: {
     settings: Setting;
     navigation: Navigation;
+    'ai-assistant': AiAssistant;
   };
   globalsSelect: {
     settings: SettingsSelect<false> | SettingsSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
+    'ai-assistant': AiAssistantSelect<false> | AiAssistantSelect<true>;
   };
   locale: null;
   widgets: {
@@ -821,9 +823,17 @@ export interface Article {
     image?: (number | null) | Media;
   };
   /**
-   * Se nel futuro, l’articolo pubblicato apparirà sul sito da quel momento.
+   * Obbligatorio per pubblicare una bozza preparata dall’assistente AI: conferma di aver controllato contenuti medici, toni e i punti indicati sotto.
    */
-  publishedAt: string;
+  reviewConfirmed?: boolean | null;
+  aiReviewNotes?: string | null;
+  aiStatus?: ('generating' | 'ready' | 'error' | 'reviewed') | null;
+  aiGenerated?: boolean | null;
+  aiSource?: ('manual' | 'daily') | null;
+  /**
+   * Lascia vuoto per usare il momento della pubblicazione. Una data futura programma l’articolo: apparirà sul sito da quel momento.
+   */
+  publishedAt?: string | null;
   category?: (number | null) | ArticleCategory;
   author?: (number | null) | Team;
   /**
@@ -1402,6 +1412,11 @@ export interface ArticlesSelect<T extends boolean = true> {
         description?: T;
         image?: T;
       };
+  reviewConfirmed?: T;
+  aiReviewNotes?: T;
+  aiStatus?: T;
+  aiGenerated?: T;
+  aiSource?: T;
   publishedAt?: T;
   category?: T;
   author?: T;
@@ -1584,7 +1599,7 @@ export interface Setting {
    */
   defaultOgImage?: (number | null) | Media;
   /**
-   * Formato internazionale, es. +41 78 335 51 53
+   * Formato internazionale, es. +41 21 988 70 95
    */
   phone: string;
   /**
@@ -1599,7 +1614,7 @@ export interface Setting {
   address: {
     street: string;
     /**
-     * Es. "presso Polimedica, 1° piano".
+     * Es. "3° piano".
      */
     addressNote?: string | null;
     postalCode: string;
@@ -1607,6 +1622,14 @@ export interface Setting {
     region?: string | null;
     country?: string | null;
   };
+  /**
+   * Completa la frase "Ci trovi a Chiasso, …". Usata nelle pagine Contatti e nelle informazioni per gli assistenti AI.
+   */
+  areaNote?: string | null;
+  /**
+   * Separate da virgola. Indicano a Google e agli assistenti AI da dove arrivano i vostri pazienti.
+   */
+  areaServed?: string | null;
   /**
    * Su Google Maps: clic destro sul punto esatto dello studio → copia i due numeri (es. 45.85, 8.98).
    */
@@ -1725,6 +1748,44 @@ export interface Navigation {
   createdAt?: string | null;
 }
 /**
+ * L’assistente prepara bozze di articoli da rileggere: non pubblica mai nulla da solo. Puoi chiedere una bozza in qualsiasi momento da Notizie → Articoli, oppure attivare la bozza automatica giornaliera.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ai-assistant".
+ */
+export interface AiAssistant {
+  id: number;
+  /**
+   * Richiede il "Cron Job" giornaliero di cPanel descritto nel README. Ogni giorno viene usato il primo argomento "da fare" del piano editoriale; se il piano è vuoto, l’assistente sceglie un tema utile ai pazienti.
+   */
+  dailyEnabled?: boolean | null;
+  defaultLength?: ('breve' | 'media' | 'lunga') | null;
+  /**
+   * Indirizzi separati da virgola. Se vuoto: le email che ricevono le richieste.
+   */
+  notifyEmails?: string | null;
+  /**
+   * Indicazioni che l’assistente segue in ogni bozza.
+   */
+  styleGuide?: string | null;
+  /**
+   * Elenco di argomenti da trattare. La bozza automatica giornaliera usa il primo argomento "da fare" e poi lo segna come usato.
+   */
+  topics?:
+    | {
+        topic: string;
+        category?: (number | null) | ArticleCategory;
+        services?: (number | Service)[] | null;
+        notes?: string | null;
+        status?: ('todo' | 'used') | null;
+        article?: (number | null) | Article;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "settings_select".
  */
@@ -1750,6 +1811,8 @@ export interface SettingsSelect<T extends boolean = true> {
         region?: T;
         country?: T;
       };
+  areaNote?: T;
+  areaServed?: T;
   geo?:
     | T
     | {
@@ -1815,6 +1878,30 @@ export interface NavigationSelect<T extends boolean = true> {
     | {
         label?: T;
         url?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ai-assistant_select".
+ */
+export interface AiAssistantSelect<T extends boolean = true> {
+  dailyEnabled?: T;
+  defaultLength?: T;
+  notifyEmails?: T;
+  styleGuide?: T;
+  topics?:
+    | T
+    | {
+        topic?: T;
+        category?: T;
+        services?: T;
+        notes?: T;
+        status?: T;
+        article?: T;
         id?: T;
       };
   updatedAt?: T;

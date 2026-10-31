@@ -7329,6 +7329,43 @@
           "notNull": false,
           "autoincrement": false
         },
+        "review_confirmed": {
+          "name": "review_confirmed",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
+        },
+        "ai_review_notes": {
+          "name": "ai_review_notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ai_status": {
+          "name": "ai_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ai_generated": {
+          "name": "ai_generated",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
+        },
+        "ai_source": {
+          "name": "ai_source",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "published_at": {
           "name": "published_at",
           "type": "text",
@@ -7416,6 +7453,13 @@
           "name": "articles_meta_meta_image_idx",
           "columns": [
             "meta_image_id"
+          ],
+          "isUnique": false
+        },
+        "articles_published_at_idx": {
+          "name": "articles_published_at_idx",
+          "columns": [
+            "published_at"
           ],
           "isUnique": false
         },
@@ -7788,6 +7832,43 @@
           "notNull": false,
           "autoincrement": false
         },
+        "version_review_confirmed": {
+          "name": "version_review_confirmed",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
+        },
+        "version_ai_review_notes": {
+          "name": "version_ai_review_notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_ai_status": {
+          "name": "version_ai_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_ai_generated": {
+          "name": "version_ai_generated",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
+        },
+        "version_ai_source": {
+          "name": "version_ai_source",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "version_published_at": {
           "name": "version_published_at",
           "type": "text",
@@ -7910,6 +7991,13 @@
           "name": "_articles_v_version_meta_version_meta_image_idx",
           "columns": [
             "version_meta_image_id"
+          ],
+          "isUnique": false
+        },
+        "_articles_v_version_version_published_at_idx": {
+          "name": "_articles_v_version_version_published_at_idx",
+          "columns": [
+            "version_published_at"
           ],
           "isUnique": false
         },
@@ -9917,7 +10005,7 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false,
-          "default": "'Centro medico a Coldrerio'"
+          "default": "'Centro medico a Chiasso'"
         },
         "description": {
           "name": "description",
@@ -10018,6 +10106,22 @@
           "notNull": false,
           "autoincrement": false,
           "default": "'CH'"
+        },
+        "area_note": {
+          "name": "area_note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'nel Mendrisiotto, al confine con Como'"
+        },
+        "area_served": {
+          "name": "area_served",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'Chiasso, Balerna, Vacallo, Morbio Inferiore, Novazzano, Coldrerio, Mendrisio, Mendrisiotto, Ticino, Como'"
         },
         "geo_lat": {
           "name": "geo_lat",
@@ -10375,6 +10479,305 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "checkConstraints": {}
+    },
+    "ai_assistant_topics": {
+      "name": "ai_assistant_topics",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "topic": {
+          "name": "topic",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "category_id": {
+          "name": "category_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "notes": {
+          "name": "notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'todo'"
+        },
+        "article_id": {
+          "name": "article_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "ai_assistant_topics_order_idx": {
+          "name": "ai_assistant_topics_order_idx",
+          "columns": [
+            "_order"
+          ],
+          "isUnique": false
+        },
+        "ai_assistant_topics_parent_id_idx": {
+          "name": "ai_assistant_topics_parent_id_idx",
+          "columns": [
+            "_parent_id"
+          ],
+          "isUnique": false
+        },
+        "ai_assistant_topics_category_idx": {
+          "name": "ai_assistant_topics_category_idx",
+          "columns": [
+            "category_id"
+          ],
+          "isUnique": false
+        },
+        "ai_assistant_topics_article_idx": {
+          "name": "ai_assistant_topics_article_idx",
+          "columns": [
+            "article_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "ai_assistant_topics_category_id_article_categories_id_fk": {
+          "name": "ai_assistant_topics_category_id_article_categories_id_fk",
+          "tableFrom": "ai_assistant_topics",
+          "tableTo": "article_categories",
+          "columnsFrom": [
+            "category_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "ai_assistant_topics_article_id_articles_id_fk": {
+          "name": "ai_assistant_topics_article_id_articles_id_fk",
+          "tableFrom": "ai_assistant_topics",
+          "tableTo": "articles",
+          "columnsFrom": [
+            "article_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "ai_assistant_topics_parent_id_fk": {
+          "name": "ai_assistant_topics_parent_id_fk",
+          "tableFrom": "ai_assistant_topics",
+          "tableTo": "ai_assistant",
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "ai_assistant": {
+      "name": "ai_assistant",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "daily_enabled": {
+          "name": "daily_enabled",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
+        },
+        "default_length": {
+          "name": "default_length",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'media'"
+        },
+        "notify_emails": {
+          "name": "notify_emails",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "style_guide": {
+          "name": "style_guide",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'Tono rassicurante, chiaro e professionale. Frasi brevi, linguaggio comprensibile a tutti, termini tecnici spiegati. Dare del \"tu\" al lettore. Nessuna promessa di guarigione o di risultato. Collegare l’argomento, quando pertinente, ai servizi del centro.'"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "ai_assistant_rels": {
+      "name": "ai_assistant_rels",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "parent_id": {
+          "name": "parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "path": {
+          "name": "path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "services_id": {
+          "name": "services_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "ai_assistant_rels_order_idx": {
+          "name": "ai_assistant_rels_order_idx",
+          "columns": [
+            "order"
+          ],
+          "isUnique": false
+        },
+        "ai_assistant_rels_parent_idx": {
+          "name": "ai_assistant_rels_parent_idx",
+          "columns": [
+            "parent_id"
+          ],
+          "isUnique": false
+        },
+        "ai_assistant_rels_path_idx": {
+          "name": "ai_assistant_rels_path_idx",
+          "columns": [
+            "path"
+          ],
+          "isUnique": false
+        },
+        "ai_assistant_rels_services_id_idx": {
+          "name": "ai_assistant_rels_services_id_idx",
+          "columns": [
+            "services_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "ai_assistant_rels_parent_fk": {
+          "name": "ai_assistant_rels_parent_fk",
+          "tableFrom": "ai_assistant_rels",
+          "tableTo": "ai_assistant",
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "ai_assistant_rels_services_fk": {
+          "name": "ai_assistant_rels_services_fk",
+          "tableFrom": "ai_assistant_rels",
+          "tableTo": "services",
+          "columnsFrom": [
+            "services_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     }
   },
   "views": {},
@@ -10386,6 +10789,6 @@
   "internal": {
     "indexes": {}
   },
-  "id": "4b98e215-8685-439e-8cf6-2cff5e33ce01",
+  "id": "8dc3cdf4-e79e-4152-8b49-26cd59833b18",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

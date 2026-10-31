@@ -4,3 +4,4 @@ src/migrations/
 .next/
 node_modules/
 package-lock.json
+dist-namecheap/

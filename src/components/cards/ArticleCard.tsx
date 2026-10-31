@@ -48,7 +48,7 @@ export function ArticleCard({
       <div className={cn('flex flex-1 flex-col pt-6', featured && 'lg:justify-center lg:pt-0')}>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
           {category ? <span className="font-medium text-blush-700">{category.title}</span> : null}
-          <time dateTime={article.publishedAt}>{formatDate(article.publishedAt)}</time>
+          <time dateTime={article.publishedAt ?? undefined}>{formatDate(article.publishedAt)}</time>
           {featured && article.readingTime ? (
             <span>· {article.readingTime} min di lettura</span>
           ) : null}

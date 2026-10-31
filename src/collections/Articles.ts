@@ -1,5 +1,5 @@
 import { convertLexicalToPlaintext } from '@payloadcms/richtext-lexical/plaintext'
-import type { CollectionConfig } from 'payload'
+import { type CollectionConfig, ValidationError } from 'payload'
 
 import { authenticated, publishedOrAuthenticated } from '@/access'
 import { seoTab } from '@/fields/seo'
@@ -13,11 +13,14 @@ export const Articles: CollectionConfig = {
   labels: { singular: 'Articolo', plural: 'Articoli' },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'category', 'publishedAt', '_status'],
+    defaultColumns: ['title', 'category', 'publishedAt', '_status', 'aiStatus'],
     group: 'Notizie',
     description:
       'Notizie e approfondimenti. Puoi programmare la pubblicazione: l’articolo comparirà sul sito dalla data indicata.',
     preview: (doc) => (doc?.slug ? previewUrl(`/notizie/${doc.slug}`) : null),
+    components: {
+      beforeListTable: ['/components/admin/AiDraftPanel#AiDraftPanel'],
+    },
   },
   defaultSort: '-publishedAt',
   access: {
@@ -72,15 +75,73 @@ export const Articles: CollectionConfig = {
       ],
     },
     {
+      name: 'reviewConfirmed',
+      label: 'Ho riletto e verificato il testo',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description:
+          'Obbligatorio per pubblicare una bozza preparata dall’assistente AI: conferma di aver controllato contenuti medici, toni e i punti indicati sotto.',
+        condition: (data) => Boolean(data?.aiGenerated),
+      },
+    },
+    {
+      name: 'aiReviewNotes',
+      label: 'Assistente AI – punti da verificare',
+      type: 'textarea',
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+        condition: (data) => Boolean(data?.aiGenerated),
+      },
+    },
+    {
+      name: 'aiStatus',
+      label: 'Assistente AI – stato',
+      type: 'select',
+      options: [
+        { label: '⏳ In preparazione', value: 'generating' },
+        { label: '✅ Bozza pronta da rivedere', value: 'ready' },
+        { label: '⚠️ Errore', value: 'error' },
+        { label: '📰 Pubblicato dopo la revisione', value: 'reviewed' },
+      ],
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+        condition: (data) => Boolean(data?.aiGenerated),
+      },
+    },
+    {
+      name: 'aiGenerated',
+      label: 'Preparato dall’assistente AI',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+        condition: (data) => Boolean(data?.aiGenerated),
+      },
+    },
+    {
+      name: 'aiSource',
+      type: 'select',
+      options: [
+        { label: 'Su richiesta', value: 'manual' },
+        { label: 'Automatica giornaliera', value: 'daily' },
+      ],
+      admin: { hidden: true },
+    },
+    {
       name: 'publishedAt',
       label: 'Data di pubblicazione',
       type: 'date',
-      required: true,
-      defaultValue: () => new Date().toISOString(),
+      index: true,
       admin: {
         position: 'sidebar',
         date: { pickerAppearance: 'dayAndTime', displayFormat: 'dd/MM/yyyy HH:mm' },
-        description: 'Se nel futuro, l’articolo pubblicato apparirà sul sito da quel momento.',
+        description:
+          'Lascia vuoto per usare il momento della pubblicazione. Una data futura programma l’articolo: apparirà sul sito da quel momento.',
       },
     },
     {
@@ -125,6 +186,44 @@ export const Articles: CollectionConfig = {
   ],
   hooks: {
     beforeChange: [
+      ({ data, originalDoc, req }) => {
+        const publishing = data?._status === 'published'
+        if (publishing) {
+          const aiGenerated = data.aiGenerated ?? originalDoc?.aiGenerated
+          const aiStatus = data.aiStatus ?? originalDoc?.aiStatus
+          const confirmed = data.reviewConfirmed ?? originalDoc?.reviewConfirmed
+          if (aiGenerated && aiStatus === 'generating') {
+            throw new ValidationError({
+              collection: 'articles',
+              errors: [
+                {
+                  path: 'aiStatus',
+                  message: 'La bozza è ancora in preparazione: attendi qualche istante.',
+                },
+              ],
+              req,
+            })
+          }
+          if (aiGenerated && !confirmed) {
+            throw new ValidationError({
+              collection: 'articles',
+              errors: [
+                {
+                  path: 'reviewConfirmed',
+                  message:
+                    'Prima di pubblicare un testo preparato dall’assistente AI, rileggilo e spunta “Ho riletto e verificato il testo”.',
+                },
+              ],
+              req,
+            })
+          }
+          if (aiGenerated) data.aiStatus = 'reviewed'
+          // Data di pubblicazione: se vuota, il momento in cui si pubblica
+          if (!data.publishedAt && !originalDoc?.publishedAt)
+            data.publishedAt = new Date().toISOString()
+        }
+        return data
+      },
       ({ data }) => {
         if (data?.content) {
           try {

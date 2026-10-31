@@ -18,6 +18,10 @@ export async function Welcome({ payload, user }: ServerProps) {
     collection: 'booking-requests',
     where: { status: { equals: 'nuova' } },
   })
+  const { totalDocs: aiToReview } = await payload.count({
+    collection: 'articles',
+    where: { and: [{ aiStatus: { equals: 'ready' } }, { _status: { equals: 'draft' } }] },
+  })
   const name = (user as { name?: string } | undefined)?.name?.split(' ')[0]
 
   const shortcuts = [
@@ -31,6 +35,12 @@ export async function Welcome({ payload, user }: ServerProps) {
             : 'Richieste di appuntamento',
       text: newRequests ? 'Da ricontattare' : 'Nessuna richiesta in attesa',
       highlight: newRequests > 0,
+    },
+    {
+      href: '/admin/collections/articles',
+      title: aiToReview ? `${aiToReview} bozze AI da rivedere` : '✨ Assistente AI',
+      text: aiToReview ? 'Rileggi e pubblica' : 'Prepara la bozza di un articolo',
+      highlight: aiToReview > 0,
     },
     {
       href: '/admin/collections/articles/create',

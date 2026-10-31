@@ -9,16 +9,19 @@ import { HoursList } from '@/components/ui/HoursList'
 import { getServiceCategories, getServices, getSettings, getTeam } from '@/lib/data'
 import { paths } from '@/lib/paths'
 import { buildMetadata } from '@/lib/seo'
-import { formatAddress } from '@/lib/settings-helpers'
+import { formatAddress, placeLabel } from '@/lib/settings-helpers'
 import { toTelHref } from '@/lib/utils'
 
 type Props = { searchParams: Promise<{ servizio?: string; specialista?: string }> }
 
 export async function generateMetadata(): Promise<Metadata> {
+  const [settings, services] = await Promise.all([getSettings(), getServices()])
   return buildMetadata({
     title: 'Prenota una visita',
-    description:
-      'Richiedi un appuntamento a LilyCare, centro medico a Coldrerio: radiografie, ecografie, ecodoppler, ozonoterapia, infiltrazioni, onde d’urto, cure infermieristiche e agopuntura.',
+    description: `Richiedi un appuntamento a ${settings.clinicName}, centro medico a ${placeLabel(settings)}: ${services
+      .map((s) => s.title.toLowerCase())
+      .slice(0, 6)
+      .join(', ')} e altro.`,
     path: paths.booking,
     ogSubtitle: 'Richiesta online in un minuto',
   })

@@ -1,5 +1,7 @@
 import { dayOptions, labelFor, timeOptions } from '@/lib/booking-options'
 
+import { emailLayout, escapeHtml, nl2br } from './layout'
+
 export type BookingEmailData = {
   name: string
   phone: string
@@ -21,37 +23,10 @@ type ClinicInfo = {
   adminUrl?: string
 }
 
-const escapeHtml = (value: unknown) =>
-  String(value ?? '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;')
-
-const nl2br = (value: string) => escapeHtml(value).replace(/\n/g, '<br>')
-
 const formatDays = (days?: string[] | null) =>
   days && days.length ? days.map((d) => labelFor(dayOptions, d)).join(', ') : 'Nessuna preferenza'
 
-const layout = (title: string, body: string, footer: string) => `<!doctype html>
-<html lang="it">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>${escapeHtml(title)}</title></head>
-<body style="margin:0;padding:0;background:#f6f3ee;font-family:Helvetica,Arial,sans-serif;color:#1d2b2f;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f6f3ee;padding:32px 12px;">
-    <tr><td align="center">
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#ffffff;border-radius:16px;overflow:hidden;">
-        <tr><td style="background:#163e42;padding:28px 32px;">
-          <div style="font-family:Georgia,'Times New Roman',serif;font-size:24px;color:#ffffff;letter-spacing:0.3px;">LilyCare</div>
-          <div style="font-size:13px;color:#cfe2e1;margin-top:4px;">${escapeHtml(title)}</div>
-        </td></tr>
-        <tr><td style="padding:32px;font-size:15px;line-height:1.6;">${body}</td></tr>
-        <tr><td style="padding:20px 32px;background:#faf8f5;font-size:12px;line-height:1.6;color:#5b6b6f;">${footer}</td></tr>
-      </table>
-    </td></tr>
-  </table>
-</body>
-</html>`
+const layout = emailLayout
 
 const row = (label: string, value: string) => `
   <tr>

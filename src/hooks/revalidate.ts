@@ -5,16 +5,17 @@ import type {
 } from 'payload'
 
 /**
- * Dopo ogni modifica dal pannello admin, invalida la cache delle pagine pubbliche
- * così le modifiche sono visibili subito sul sito.
+ * Dopo ogni modifica dal pannello admin, svuota la cache dei contenuti:
+ * la visita successiva mostra subito i dati aggiornati (es. un nuovo numero di telefono).
  */
 const revalidateAll = async (context?: Record<string, unknown>) => {
   if (context?.disableRevalidate) return
   try {
-    const { revalidatePath } = await import('next/cache')
+    const { revalidatePath, revalidateTag } = await import('next/cache')
+    revalidateTag('cms', { expire: 0 })
     revalidatePath('/', 'layout')
   } catch {
-    // Fuori da Next.js (es. script di seed) non c'è nulla da invalidare.
+    // Fuori da Next.js (es. script di caricamento contenuti) non c'è nulla da invalidare.
   }
 }
 

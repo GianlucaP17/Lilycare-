@@ -2,12 +2,10 @@ import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { en } from '@payloadcms/translations/languages/en'
 import { it } from '@payloadcms/translations/languages/it'
 import path from 'path'
-import { buildConfig } from 'payload'
-import sharp from 'sharp'
+import { buildConfig, type SharpDependency } from 'payload'
 import { fileURLToPath } from 'url'
 
 import { ArticleCategories } from './collections/ArticleCategories'
@@ -19,14 +17,31 @@ import { ServiceCategories } from './collections/ServiceCategories'
 import { Services } from './collections/Services'
 import { Team } from './collections/Team'
 import { Users } from './collections/Users'
+import { AiAssistant } from './globals/AiAssistant'
 import { Navigation } from './globals/Navigation'
 import { Settings } from './globals/Settings'
 import { getServerUrl, truncate } from './lib/utils'
+import { migrations } from './migrations'
+import { seedIfFreshDatabase } from './seed/seed'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const smtpPort = Number(process.env.SMTP_PORT || 587)
+const smtpPort = Number(process.env.SMTP_PORT || 465)
+
+/**
+ * "sharp" ridimensiona le immagini caricate. Se sul server non fosse disponibile (librerie di
+ * sistema troppo vecchie), il sito funziona comunque: le immagini vengono salvate senza varianti.
+ */
+let sharp: SharpDependency | undefined
+try {
+  sharp = (await import('sharp')).default as unknown as SharpDependency
+} catch (error) {
+  console.warn(
+    '[LilyCare] Modulo "sharp" non disponibile: ridimensionamento immagini disattivato.',
+    error,
+  )
+}
 
 const pathFor = (collection: string | undefined, slug: string | undefined) => {
   if (!slug) return '/'
@@ -79,7 +94,7 @@ export default buildConfig({
     Media,
     Users,
   ],
-  globals: [Settings, Navigation],
+  globals: [Settings, Navigation, AiAssistant],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },
@@ -89,7 +104,18 @@ export default buildConfig({
       authToken: process.env.DATABASE_AUTH_TOKEN,
     },
     migrationDir: path.resolve(dirname, 'migrations'),
+    // In produzione la struttura del database si aggiorna da sola all'avvio
+    prodMigrations: migrations,
   }),
+  onInit: async (payload) => {
+    // Primo avvio in produzione con database vuoto: carica i contenuti iniziali
+    if (
+      process.env.NODE_ENV === 'production' &&
+      process.env.NEXT_PHASE !== 'phase-production-build'
+    ) {
+      await seedIfFreshDatabase(payload)
+    }
+  },
   email: process.env.SMTP_HOST
     ? nodemailerAdapter({
         defaultFromAddress: process.env.SMTP_FROM_ADDRESS || 'info@lilycare.ch',
@@ -107,20 +133,19 @@ export default buildConfig({
   plugins: [
     seoPlugin({
       uploadsCollection: 'media',
-      generateTitle: ({ doc, collectionConfig }) => {
+      generateTitle: async ({ doc, collectionConfig, req }) => {
         const title = doc?.title || doc?.name || ''
-        if (collectionConfig?.slug === 'services') return `${title} a Coldrerio, Ticino | LilyCare`
+        if (collectionConfig?.slug === 'services') {
+          const settings = await req.payload.findGlobal({ slug: 'settings', depth: 0, req })
+          const city = settings.address?.city
+          return `${title}${city ? ` a ${city}` : ''} | ${settings.clinicName || 'LilyCare'}`
+        }
         return title ? `${title} | LilyCare` : 'LilyCare'
       },
       generateDescription: ({ doc }) =>
         truncate(doc?.summary || doc?.excerpt || doc?.shortBio || '', 158),
       generateURL: ({ doc, collectionConfig }) =>
         `${getServerUrl()}${pathFor(collectionConfig?.slug, doc?.slug)}`,
-    }),
-    vercelBlobStorage({
-      enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
-      collections: { media: true },
-      token: process.env.BLOB_READ_WRITE_TOKEN || '',
     }),
   ],
 })

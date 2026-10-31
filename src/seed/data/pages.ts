@@ -15,16 +15,16 @@ export const pages: SeedPage[] = [
   {
     title: 'Homepage',
     slug: 'home',
-    metaTitle: 'LilyCare Coldrerio | Radiologia e terapia del dolore',
+    metaTitle: 'LilyCare Chiasso | Radiologia e terapia del dolore',
     metaDescription:
-      'Radiografie, ecografie, ecodoppler, ozonoterapia, infiltrazioni, onde d’urto, cure infermieristiche e agopuntura a Coldrerio (Ticino). Prenota online.',
+      'Radiografie, ecografie, ecodoppler, ozonoterapia e GAET, infiltrazioni, onde d’urto, infermieristica e agopuntura a Chiasso (Ticino). Prenota online.',
     layout: [
       {
         blockType: 'hero',
         variant: 'home',
-        eyebrow: 'Centro medico · Coldrerio, Ticino',
+        eyebrow: 'Centro medico · Chiasso, Ticino',
         heading: 'Diagnosi e terapia del dolore, *in un unico centro*',
-        text: 'Radiografie, ecografie ed ecodoppler, ozonoterapia, infiltrazioni e onde d’urto, cure infermieristiche e agopuntura: a LilyCare ti seguiamo dalla diagnosi al trattamento, a pochi minuti da Mendrisio e Chiasso.',
+        text: 'Radiografie, ecografie ed ecodoppler, ozonoterapia e GAET, infiltrazioni e onde d’urto, cure infermieristiche e agopuntura: a LilyCare, a Chiasso, ti seguiamo dalla diagnosi al trattamento.',
         primaryCta: { label: 'Prenota una visita', url: '/prenota' },
         showPhoneButton: true,
         highlights: [
@@ -90,15 +90,15 @@ export const pages: SeedPage[] = [
             title: 'Ti ricontattiamo',
             text: 'Concordiamo insieme giorno e ora e ti diamo le indicazioni per prepararti.',
           },
-          { title: 'La tua visita', text: 'Ti accogliamo nel nostro centro a Coldrerio.' },
+          { title: 'La tua visita', text: 'Ti accogliamo nel nostro centro a Chiasso.' },
         ],
         cta: { label: 'Prenota una visita', url: '/prenota' },
       },
       {
         blockType: 'location',
         eyebrow: 'Dove siamo',
-        heading: 'Ci trovi a Coldrerio, nel Mendrisiotto',
-        intro: 'A pochi minuti da Mendrisio, Balerna e Chiasso.',
+        heading: 'Ci trovi a Chiasso, in Corso San Gottardo',
+        intro: 'Nel Mendrisiotto, al confine con Como.',
         showMap: true,
         showDirections: false,
       },
@@ -155,16 +155,16 @@ export const pages: SeedPage[] = [
   {
     title: 'Chi siamo',
     slug: 'chi-siamo',
-    metaTitle: 'Chi siamo – Centro medico LilyCare a Coldrerio',
+    metaTitle: 'Chi siamo – Centro medico LilyCare a Chiasso',
     metaDescription:
-      'LilyCare è un centro medico a Coldrerio (Ticino) che riunisce diagnostica per immagini, terapia del dolore, cure infermieristiche e agopuntura.',
+      'LilyCare è un centro medico a Chiasso (Ticino) che riunisce diagnostica per immagini, terapia del dolore, ozonoterapia, cure infermieristiche e agopuntura.',
     layout: [
       {
         blockType: 'hero',
         variant: 'page',
         eyebrow: 'Chi siamo',
         heading: 'Un centro medico *a misura di persona*',
-        text: 'LilyCare nasce a Coldrerio con un’idea semplice: offrire in un unico luogo diagnosi e cura, con professionisti che si conoscono, si confrontano e seguono il paziente in tutto il percorso.',
+        text: 'LilyCare nasce a Chiasso con un’idea semplice: offrire in un unico luogo diagnosi e cura, con professionisti che si conoscono, si confrontano e seguono il paziente in tutto il percorso.',
         showPhoneButton: false,
       },
       {
@@ -185,15 +185,15 @@ Nel nostro centro trovi **diagnostica per immagini** – radiografie, ecografie 
 
 ## Dove siamo
 
-Il centro si trova in Via Monte Generoso 2 a Coldrerio, nel Mendrisiotto, a pochi minuti da Mendrisio, Balerna e Chiasso.`,
+Il centro si trova in Corso San Gottardo 89 a Chiasso, nel Mendrisiotto, al confine con Como.`,
       },
       {
         blockType: 'stats',
         items: [
           { value: '40+', label: 'anni di esperienza in radiologia' },
-          { value: '9', label: 'prestazioni specialistiche' },
+          { value: '10', label: 'prestazioni specialistiche' },
           { value: '1', label: 'centro per diagnosi e terapia' },
-          { value: '8–19', label: 'aperti dal lunedì al venerdì' },
+          { value: 'Lun–Ven', label: 'su appuntamento, mattina e pomeriggio' },
         ],
       },
       {
@@ -231,7 +231,7 @@ Il centro si trova in Via Monte Generoso 2 a Coldrerio, nel Mendrisiotto, a poch
         width: 'narrow',
         content: `## Titolare del trattamento
 
-LilyCare, Via Monte Generoso 2, 6877 Coldrerio (Svizzera) – info@lilycare.ch – +41 78 335 51 53.
+LilyCare, Corso San Gottardo 89, 6830 Chiasso (Svizzera) – info@lilycare.ch – +41 21 988 70 95.
 
 ## Quali dati raccogliamo
 
@@ -270,7 +270,7 @@ Questa informativa può essere aggiornata. La versione pubblicata su questa pagi
     title: 'Note legali',
     slug: 'note-legali',
     metaTitle: 'Note legali | LilyCare',
-    metaDescription: 'Note legali del sito web di LilyCare, centro medico a Coldrerio.',
+    metaDescription: 'Note legali del sito web di LilyCare, centro medico a Chiasso.',
     layout: [
       {
         blockType: 'hero',
@@ -285,9 +285,9 @@ Questa informativa può essere aggiornata. La versione pubblicata su questa pagi
         content: `## Responsabile del sito
 
 LilyCare
-Via Monte Generoso 2
-6877 Coldrerio, Svizzera
-Telefono: +41 78 335 51 53
+Corso San Gottardo 89
+6830 Chiasso, Svizzera
+Telefono: +41 21 988 70 95
 Email: info@lilycare.ch
 
 ## Contenuti a scopo informativo

@@ -1049,6 +1049,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`meta_title\` text,
   	\`meta_description\` text,
   	\`meta_image_id\` integer,
+  	\`review_confirmed\` integer DEFAULT false,
+  	\`ai_review_notes\` text,
+  	\`ai_status\` text,
+  	\`ai_generated\` integer DEFAULT false,
+  	\`ai_source\` text,
   	\`published_at\` text,
   	\`category_id\` integer,
   	\`author_id\` integer,
@@ -1068,6 +1073,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   `)
   await db.run(sql`CREATE INDEX \`articles_cover_image_idx\` ON \`articles\` (\`cover_image_id\`);`)
   await db.run(sql`CREATE INDEX \`articles_meta_meta_image_idx\` ON \`articles\` (\`meta_image_id\`);`)
+  await db.run(sql`CREATE INDEX \`articles_published_at_idx\` ON \`articles\` (\`published_at\`);`)
   await db.run(sql`CREATE INDEX \`articles_category_idx\` ON \`articles\` (\`category_id\`);`)
   await db.run(sql`CREATE INDEX \`articles_author_idx\` ON \`articles\` (\`author_id\`);`)
   await db.run(sql`CREATE INDEX \`articles_reviewed_by_idx\` ON \`articles\` (\`reviewed_by_id\`);`)
@@ -1111,6 +1117,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`version_meta_title\` text,
   	\`version_meta_description\` text,
   	\`version_meta_image_id\` integer,
+  	\`version_review_confirmed\` integer DEFAULT false,
+  	\`version_ai_review_notes\` text,
+  	\`version_ai_status\` text,
+  	\`version_ai_generated\` integer DEFAULT false,
+  	\`version_ai_source\` text,
   	\`version_published_at\` text,
   	\`version_category_id\` integer,
   	\`version_author_id\` integer,
@@ -1136,6 +1147,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE INDEX \`_articles_v_parent_idx\` ON \`_articles_v\` (\`parent_id\`);`)
   await db.run(sql`CREATE INDEX \`_articles_v_version_version_cover_image_idx\` ON \`_articles_v\` (\`version_cover_image_id\`);`)
   await db.run(sql`CREATE INDEX \`_articles_v_version_meta_version_meta_image_idx\` ON \`_articles_v\` (\`version_meta_image_id\`);`)
+  await db.run(sql`CREATE INDEX \`_articles_v_version_version_published_at_idx\` ON \`_articles_v\` (\`version_published_at\`);`)
   await db.run(sql`CREATE INDEX \`_articles_v_version_version_category_idx\` ON \`_articles_v\` (\`version_category_id\`);`)
   await db.run(sql`CREATE INDEX \`_articles_v_version_version_author_idx\` ON \`_articles_v\` (\`version_author_id\`);`)
   await db.run(sql`CREATE INDEX \`_articles_v_version_version_reviewed_by_idx\` ON \`_articles_v\` (\`version_reviewed_by_id\`);`)
@@ -1411,7 +1423,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`id\` integer PRIMARY KEY NOT NULL,
   	\`clinic_name\` text DEFAULT 'LilyCare' NOT NULL,
   	\`legal_name\` text,
-  	\`tagline\` text DEFAULT 'Centro medico a Coldrerio',
+  	\`tagline\` text DEFAULT 'Centro medico a Chiasso',
   	\`description\` text NOT NULL,
   	\`logo_id\` integer,
   	\`logo_on_dark_id\` integer,
@@ -1426,6 +1438,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`address_city\` text NOT NULL,
   	\`address_region\` text DEFAULT 'Ticino',
   	\`address_country\` text DEFAULT 'CH',
+  	\`area_note\` text DEFAULT 'nel Mendrisiotto, al confine con Como',
+  	\`area_served\` text DEFAULT 'Chiasso, Balerna, Vacallo, Morbio Inferiore, Novazzano, Coldrerio, Mendrisio, Mendrisiotto, Ticino, Como',
   	\`geo_lat\` numeric,
   	\`geo_lng\` numeric,
   	\`google_maps_url\` text,
@@ -1477,6 +1491,48 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`created_at\` text
   );
   `)
+  await db.run(sql`CREATE TABLE \`ai_assistant_topics\` (
+  	\`_order\` integer NOT NULL,
+  	\`_parent_id\` integer NOT NULL,
+  	\`id\` text PRIMARY KEY NOT NULL,
+  	\`topic\` text NOT NULL,
+  	\`category_id\` integer,
+  	\`notes\` text,
+  	\`status\` text DEFAULT 'todo',
+  	\`article_id\` integer,
+  	FOREIGN KEY (\`category_id\`) REFERENCES \`article_categories\`(\`id\`) ON UPDATE no action ON DELETE set null,
+  	FOREIGN KEY (\`article_id\`) REFERENCES \`articles\`(\`id\`) ON UPDATE no action ON DELETE set null,
+  	FOREIGN KEY (\`_parent_id\`) REFERENCES \`ai_assistant\`(\`id\`) ON UPDATE no action ON DELETE cascade
+  );
+  `)
+  await db.run(sql`CREATE INDEX \`ai_assistant_topics_order_idx\` ON \`ai_assistant_topics\` (\`_order\`);`)
+  await db.run(sql`CREATE INDEX \`ai_assistant_topics_parent_id_idx\` ON \`ai_assistant_topics\` (\`_parent_id\`);`)
+  await db.run(sql`CREATE INDEX \`ai_assistant_topics_category_idx\` ON \`ai_assistant_topics\` (\`category_id\`);`)
+  await db.run(sql`CREATE INDEX \`ai_assistant_topics_article_idx\` ON \`ai_assistant_topics\` (\`article_id\`);`)
+  await db.run(sql`CREATE TABLE \`ai_assistant\` (
+  	\`id\` integer PRIMARY KEY NOT NULL,
+  	\`daily_enabled\` integer DEFAULT false,
+  	\`default_length\` text DEFAULT 'media',
+  	\`notify_emails\` text,
+  	\`style_guide\` text DEFAULT 'Tono rassicurante, chiaro e professionale. Frasi brevi, linguaggio comprensibile a tutti, termini tecnici spiegati. Dare del "tu" al lettore. Nessuna promessa di guarigione o di risultato. Collegare l’argomento, quando pertinente, ai servizi del centro.',
+  	\`updated_at\` text,
+  	\`created_at\` text
+  );
+  `)
+  await db.run(sql`CREATE TABLE \`ai_assistant_rels\` (
+  	\`id\` integer PRIMARY KEY NOT NULL,
+  	\`order\` integer,
+  	\`parent_id\` integer NOT NULL,
+  	\`path\` text NOT NULL,
+  	\`services_id\` integer,
+  	FOREIGN KEY (\`parent_id\`) REFERENCES \`ai_assistant\`(\`id\`) ON UPDATE no action ON DELETE cascade,
+  	FOREIGN KEY (\`services_id\`) REFERENCES \`services\`(\`id\`) ON UPDATE no action ON DELETE cascade
+  );
+  `)
+  await db.run(sql`CREATE INDEX \`ai_assistant_rels_order_idx\` ON \`ai_assistant_rels\` (\`order\`);`)
+  await db.run(sql`CREATE INDEX \`ai_assistant_rels_parent_idx\` ON \`ai_assistant_rels\` (\`parent_id\`);`)
+  await db.run(sql`CREATE INDEX \`ai_assistant_rels_path_idx\` ON \`ai_assistant_rels\` (\`path\`);`)
+  await db.run(sql`CREATE INDEX \`ai_assistant_rels_services_id_idx\` ON \`ai_assistant_rels\` (\`services_id\`);`)
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
@@ -1571,4 +1627,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   await db.run(sql`DROP TABLE \`navigation_header\`;`)
   await db.run(sql`DROP TABLE \`navigation_footer_legal\`;`)
   await db.run(sql`DROP TABLE \`navigation\`;`)
+  await db.run(sql`DROP TABLE \`ai_assistant_topics\`;`)
+  await db.run(sql`DROP TABLE \`ai_assistant\`;`)
+  await db.run(sql`DROP TABLE \`ai_assistant_rels\`;`)
 }

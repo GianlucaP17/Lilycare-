@@ -7,8 +7,6 @@ import { getPage, getSettings } from '@/lib/data'
 import { buildMetadata } from '@/lib/seo'
 import type { Page } from '@/payload-types'
 
-export const revalidate = 300
-
 /** Composizione di riserva, usata solo se la homepage non è ancora stata creata nel pannello admin. */
 const fallbackLayout = [
   {

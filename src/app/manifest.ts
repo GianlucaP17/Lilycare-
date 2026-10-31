@@ -1,12 +1,24 @@
 import type { MetadataRoute } from 'next'
 
+import { getServices, getSettings } from '@/lib/data'
+import { placeLabel } from '@/lib/settings-helpers'
+
+export const dynamic = 'force-dynamic'
+
 /** Manifest web app: permette di "installare" il sito sullo smartphone (base per la futura app). */
-export default function manifest(): MetadataRoute.Manifest {
+export default async function manifest(): Promise<MetadataRoute.Manifest> {
+  const [settings, services] = await Promise.all([
+    getSettings().catch(() => null),
+    getServices().catch(() => []),
+  ])
+  const name = settings?.clinicName || 'LilyCare'
+  const place = settings ? placeLabel(settings) : ''
   return {
-    name: 'LilyCare – Centro medico Coldrerio',
-    short_name: 'LilyCare',
+    name: place ? `${name} – Centro medico ${settings?.address?.city}` : name,
+    short_name: name,
     description:
-      'Radiologia, ecografie, terapia del dolore, cure infermieristiche e agopuntura a Coldrerio (Ticino).',
+      settings?.description ||
+      `${services.map((s) => s.title).join(', ')}${place ? ` a ${place}` : ''}.`,
     start_url: '/',
     display: 'standalone',
     background_color: '#faf7f2',

@@ -22,23 +22,13 @@ import { Container } from '@/components/ui/Container'
 import { JsonLd } from '@/components/ui/JsonLd'
 import { MediaImage } from '@/components/ui/MediaImage'
 import { RichText } from '@/components/ui/RichText'
-import { getMember, getPublishedSlugs, getServicesByProfessional, getSettings } from '@/lib/data'
+import { getMember, getServicesByProfessional, getSettings } from '@/lib/data'
 import { bookingHref, paths } from '@/lib/paths'
 import { personSchema } from '@/lib/schema'
 import { buildMetadata } from '@/lib/seo'
 import { toTelHref } from '@/lib/utils'
 
-export const revalidate = 300
-
 type Props = { params: Promise<{ slug: string }> }
-
-export async function generateStaticParams() {
-  try {
-    return (await getPublishedSlugs('team')).map(({ slug }) => ({ slug }))
-  } catch {
-    return []
-  }
-}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params

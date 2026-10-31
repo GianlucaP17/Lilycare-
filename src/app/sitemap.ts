@@ -4,7 +4,7 @@ import { getArticleCategories, getPublishedSlugs } from '@/lib/data'
 import { paths } from '@/lib/paths'
 import { absoluteUrl } from '@/lib/utils'
 
-export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 /** Mappa del sito per Google e Bing: generata automaticamente dai contenuti pubblicati. */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

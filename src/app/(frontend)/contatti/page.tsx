@@ -12,8 +12,6 @@ import { buildMetadata } from '@/lib/seo'
 import { formatAddress } from '@/lib/settings-helpers'
 import { toTelHref } from '@/lib/utils'
 
-export const revalidate = 300
-
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings()
   return buildMetadata({
@@ -59,7 +57,7 @@ export default async function ContactsPage() {
             Siamo a <em className="text-blush-600 italic">{settings.address?.city}</em>
           </>
         }
-        intro={`Ci trovi in ${formatAddress(settings.address)}, nel Mendrisiotto, a pochi minuti da Mendrisio e Chiasso.`}
+        intro={`Ci trovi in ${formatAddress(settings.address, true)}${settings.areaNote ? `, ${settings.areaNote}` : ''}.`}
         crumbs={[{ label: 'Contatti', href: paths.contacts }]}
       />
 

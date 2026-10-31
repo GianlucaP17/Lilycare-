@@ -1,9 +1,0 @@
-node_modules
-.next
-.git
-data
-media
-.env
-.env*.local
-*.db
-screenshots

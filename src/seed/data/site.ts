@@ -1,34 +1,41 @@
 import type { Navigation, Setting } from '@/payload-types'
 
-/** Dati dello studio (modificabili in Admin → Impostazioni studio). Fonte: sito attuale lilycare.ch. */
+/** Dati dello studio (modificabili in Admin → Impostazioni studio). Confermati da LilyCare. */
 export const settings: Omit<Setting, 'id' | 'createdAt' | 'updatedAt'> = {
   clinicName: 'LilyCare',
-  tagline: 'Centro medico a Coldrerio',
+  tagline: 'Centro medico a Chiasso',
   description:
-    'Centro medico a Coldrerio (Ticino): radiografie, ecografie, ecodoppler, ozonoterapia, infiltrazioni, onde d’urto, cure infermieristiche e agopuntura.',
-  phone: '+41 78 335 51 53',
+    'Centro medico a Chiasso (Ticino): radiografie, ecografie, ecodoppler, ozonoterapia e GAET, infiltrazioni, onde d’urto, cure infermieristiche e agopuntura.',
+  phone: '+41 21 988 70 95',
   email: 'info@lilycare.ch',
   bookingEmails: 'info@lilycare.ch',
   address: {
-    street: 'Via Monte Generoso 2',
-    postalCode: '6877',
-    city: 'Coldrerio',
+    street: 'Corso San Gottardo 89',
+    addressNote: '3° piano',
+    postalCode: '6830',
+    city: 'Chiasso',
     region: 'Ticino',
     country: 'CH',
   },
+  areaNote: 'nel Mendrisiotto, al confine con Como',
+  areaServed:
+    'Chiasso, Balerna, Vacallo, Morbio Inferiore, Novazzano, Coldrerio, Mendrisio, Mendrisiotto, Ticino, Como',
   directions: [
     {
       icon: 'car',
       title: 'In auto',
-      text: 'Coldrerio si trova nel Mendrisiotto, tra Mendrisio e Chiasso. Imposta sul navigatore “Via Monte Generoso 2, 6877 Coldrerio”.',
+      text: 'Imposta sul navigatore “Corso San Gottardo 89, 6830 Chiasso”. Chiasso si trova nel sud del Ticino, al confine con Como.',
     },
     {
-      icon: 'bus',
-      title: 'Con i mezzi pubblici',
-      text: 'Pianifica il viaggio con l’orario FFS (sbb.ch) indicando come destinazione “Coldrerio, Via Monte Generoso”.',
+      icon: 'train',
+      title: 'In treno',
+      text: 'Chiasso ha una stazione FFS servita dai treni regionali TILO. Pianifica il viaggio su sbb.ch indicando come destinazione “Chiasso, Corso San Gottardo”.',
     },
   ],
-  openingHours: [{ days: ['mon', 'tue', 'wed', 'thu', 'fri'], opens: '08:00', closes: '19:00' }],
+  openingHours: [
+    { days: ['mon', 'tue', 'wed', 'thu', 'fri'], opens: '08:00', closes: '12:30' },
+    { days: ['mon', 'tue', 'wed', 'thu', 'fri'], opens: '13:30', closes: '18:00' },
+  ],
   hoursNote: 'Visite su appuntamento',
   bookingIntro:
     'Compila il modulo in un minuto: la richiesta arriva subito al nostro staff, che ti ricontatterà per concordare data e ora. Se preferisci, puoi anche chiamarci.',

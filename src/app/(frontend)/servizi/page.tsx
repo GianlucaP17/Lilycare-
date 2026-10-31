@@ -9,17 +9,16 @@ import { JsonLd } from '@/components/ui/JsonLd'
 import { getServiceCategories, getServices, getSettings } from '@/lib/data'
 import { paths } from '@/lib/paths'
 import { buildMetadata } from '@/lib/seo'
+import { placeLabel } from '@/lib/settings-helpers'
 import { absoluteUrl } from '@/lib/utils'
 
-export const revalidate = 300
-
 export async function generateMetadata(): Promise<Metadata> {
-  const services = await getServices()
+  const [services, settings] = await Promise.all([getServices(), getSettings()])
   return buildMetadata({
     title: 'Servizi e specialità',
-    description: `Radiologia, ecografie, ecodoppler, terapia del dolore e cure infermieristiche a Coldrerio (Ticino): ${services
+    description: `Le prestazioni di ${settings.clinicName} a ${placeLabel(settings)}: ${services
       .map((s) => s.title.toLowerCase())
-      .slice(0, 6)
+      .slice(0, 7)
       .join(', ')} e altro ancora.`,
     path: paths.services,
     ogSubtitle: 'Diagnosi e terapia in un unico centro',

@@ -16,6 +16,12 @@ import { getServerUrl } from '@/lib/utils'
 
 import './globals.css'
 
+/**
+ * Pagine generate a ogni richiesta (con cache dei dati): il sito si compila senza database
+ * e mostra sempre i contenuti aggiornati dal pannello admin.
+ */
+export const dynamic = 'force-dynamic'
+
 const fraunces = Fraunces({
   subsets: ['latin'],
   variable: '--font-fraunces',

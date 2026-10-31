@@ -2,20 +2,29 @@ import { readFile } from 'node:fs/promises'
 
 import { ImageResponse } from 'next/og'
 
+import { getSettings } from '@/lib/data'
+import { placeLabel } from '@/lib/settings-helpers'
+
+export const dynamic = 'force-dynamic'
+
 /**
  * Immagine di condivisione (1200×630) generata automaticamente per ogni pagina
  * senza una foto dedicata: /og?title=…&subtitle=…
  * Font: Fraunces e Inter (SIL Open Font License).
  */
-export const runtime = 'nodejs'
 
 const fraunces = readFile(new URL('./fraunces-400.woff', import.meta.url))
 const inter = readFile(new URL('./inter-500.woff', import.meta.url))
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
-  const title = (searchParams.get('title') || 'LilyCare – Centro medico a Coldrerio').slice(0, 110)
-  const subtitle = (searchParams.get('subtitle') || 'Coldrerio · Ticino').slice(0, 90)
+  const settings = await getSettings().catch(() => null)
+  const name = settings?.clinicName || 'LilyCare'
+  const place = settings ? placeLabel(settings) : 'Ticino'
+  const title = (
+    searchParams.get('title') || `${name} – ${settings?.tagline || 'Centro medico'}`
+  ).slice(0, 110)
+  const subtitle = (searchParams.get('subtitle') || place).slice(0, 90)
 
   const [frauncesData, interData] = await Promise.all([fraunces, inter])
 
@@ -56,7 +65,7 @@ export async function GET(request: Request) {
               fill="#c98a7f"
             />
           </svg>
-          <div style={{ fontFamily: 'Fraunces', fontSize: 46, color: '#0a2023' }}>LilyCare</div>
+          <div style={{ fontFamily: 'Fraunces', fontSize: 46, color: '#0a2023' }}>{name}</div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', maxWidth: 940 }}>
           <div
@@ -73,7 +82,7 @@ export async function GET(request: Request) {
           <div style={{ marginTop: 28, fontSize: 30, color: '#8e564d' }}>{subtitle}</div>
         </div>
         <div style={{ display: 'flex', fontSize: 24, color: '#55666a' }}>
-          Centro medico · Coldrerio, Ticino
+          {`Centro medico · ${place}`}
         </div>
       </div>
     ),

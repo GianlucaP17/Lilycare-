@@ -4,7 +4,7 @@ import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical
 
 import { getArticles, getServiceCategories, getServices, getSettings, getTeam } from './data'
 import { paths } from './paths'
-import { formatAddress, groupedHours } from './settings-helpers'
+import { areaServedList, formatAddress, groupedHours } from './settings-helpers'
 import { absoluteUrl } from './utils'
 
 /**
@@ -54,8 +54,10 @@ export async function buildLlmsText(full: boolean): Promise<string> {
   lines.push(`- Orari: ${hours}${settings.hoursNote ? ` (${settings.hoursNote})` : ''}`)
   lines.push(`- Prenotazione online: ${absoluteUrl(paths.booking)}`)
   lines.push(
-    `- Zona: Coldrerio, nel Mendrisiotto (Canton Ticino), vicino a Mendrisio, Balerna e Chiasso`,
+    `- Zona: ${settings.address?.city || ''}${settings.areaNote ? `, ${settings.areaNote}` : ''} (Canton ${settings.address?.region || 'Ticino'}, Svizzera)`,
   )
+  const served = areaServedList(settings)
+  if (served.length) lines.push(`- Pazienti da: ${served.join(', ')}`)
   lines.push(`- Lingua: italiano`)
   lines.push(`- Emergenze: in Svizzera chiamare il 144`)
   lines.push('')
@@ -182,7 +184,7 @@ export async function buildLlmsText(full: boolean): Promise<string> {
       lines.push(`## ${a.title}`)
       lines.push('')
       lines.push(
-        `URL: ${absoluteUrl(paths.article(a.slug as string))} – pubblicato il ${a.publishedAt.slice(0, 10)}`,
+        `URL: ${absoluteUrl(paths.article(a.slug as string))} – pubblicato il ${a.publishedAt?.slice(0, 10) ?? ''}`,
       )
       lines.push('')
       const body = await toMarkdown(a.content)
