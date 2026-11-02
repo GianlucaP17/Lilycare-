@@ -11,6 +11,8 @@ type Status = {
   cronConfigured: boolean
   remainingToday: number
   defaultLength: 'breve' | 'media' | 'lunga'
+  coverImages?: 'on' | 'off' | 'no-key'
+  coverImageModel?: string
 }
 type Job =
   | { state: 'idle' }
@@ -311,6 +313,19 @@ export function AiDraftPanel() {
                     piano editoriale e bozza giornaliera
                   </Link>
                   {status.dailyEnabled ? ' (attiva)' : ''}
+                  {status.coverImages === 'on' ? (
+                    <> · immagine di copertina: attiva ({status.coverImageModel})</>
+                  ) : status.coverImages === 'no-key' ? (
+                    <>
+                      {' '}
+                      ·{' '}
+                      <strong style={{ color: '#b5609a' }}>
+                        immagine di copertina: manca OPENAI_API_KEY sul server
+                      </strong>
+                    </>
+                  ) : status.coverImages === 'off' ? (
+                    <> · immagine di copertina: disattivata</>
+                  ) : null}
                 </span>
               ) : null}
             </div>

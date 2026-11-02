@@ -2,6 +2,7 @@ import { headers } from 'next/headers'
 
 import { AI_MODEL, isAiConfigured } from '@/lib/ai/article-writer'
 import { countRecentAiDrafts, MANUAL_DRAFTS_PER_DAY } from '@/lib/ai/drafts'
+import { coverImagesEnabled } from '@/lib/ai/cover-image'
 import { json } from '@/lib/ai/route-helpers'
 import { getPayloadClient } from '@/lib/data'
 
@@ -22,5 +23,8 @@ export async function GET() {
     cronConfigured: Boolean(process.env.CRON_SECRET),
     remainingToday: Math.max(0, MANUAL_DRAFTS_PER_DAY - used),
     defaultLength: ai.defaultLength || 'media',
+    // Copertine: "attive", "disattivate" dal pannello, oppure "senza chiave" sul server
+    coverImages: ai.coverImages === false ? 'off' : coverImagesEnabled() ? 'on' : 'no-key',
+    coverImageModel: process.env.OPENAI_IMAGE_MODEL || 'gpt-image-2',
   })
 }
