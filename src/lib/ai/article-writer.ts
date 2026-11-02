@@ -36,6 +36,14 @@ export const ArticleDraftSchema = z.object({
     .describe(
       'Affermazioni mediche o fattuali che il revisore deve verificare prima di pubblicare',
     ),
+  imagePrompt: z
+    .string()
+    .describe(
+      'Descrizione IN INGLESE dell’illustrazione di copertina, secondo le regole sull’immagine',
+    ),
+  imageAlt: z
+    .string()
+    .describe('Testo alternativo in italiano dell’illustrazione (max 120 caratteri)'),
 })
 
 export type ArticleDraft = z.infer<typeof ArticleDraftSchema>
@@ -103,6 +111,15 @@ ${categories}
 - Quando è pertinente indica i segnali che richiedono un medico rapidamente e ricorda che in caso di emergenza in Svizzera si chiama il 144.
 - Usa il contesto svizzero (cassa malati, LAMal, assicurazioni complementari) solo in termini generali.
 - In "reviewNotes" elenca, una per voce, ogni affermazione medica o fattuale che un professionista deve verificare prima di pubblicare (indicazioni, controindicazioni, durate, numeri di sedute, rimborsi…), più eventuali dubbi.
+
+## Regole sull’immagine di copertina (obbligatorie)
+In "imagePrompt" descrivi, **in inglese**, un’illustrazione editoriale astratta che accompagni l’articolo. Serve a evocare il tema, non a documentarlo.
+- VIETATO: persone, volti, mani, corpi, parti anatomiche, organi, sangue, ferite, aghi, siringhe, apparecchiature mediche riconoscibili, camici, loghi, marchi, testo, lettere o numeri di qualsiasi tipo.
+- Un’immagine medica realistica sarebbe inventata e quindi ingannevole: resta sull’astratto e sul simbolico (forme morbide, onde, gradienti, linee sottili, elementi naturali stilizzati come petali, foglie, acqua, luce).
+- Colori: blu notte profondo (#2F55B4), rosa orchidea (#CF7EB4), crema chiarissimo (#FBF9F6), bianco. Luce naturale, atmosfera calma e pulita.
+- Composizione orizzontale, molto spazio vuoto, soggetto spostato verso destra: la parte in basso a sinistra deve restare libera.
+- Scrivi 2–4 frasi descrittive, senza elenchi.
+In "imageAlt" scrivi in italiano, per chi non vede l’immagine, che cosa rappresenta l’illustrazione.
 
 ## Stile
 - Italiano corretto, registro chiaro e professionale, adatto a un pubblico non specialista. Dai del "tu" al lettore.

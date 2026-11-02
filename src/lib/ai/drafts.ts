@@ -12,6 +12,7 @@ import {
   type WriterContext,
   writeArticleDraft,
 } from './article-writer'
+import { CoverImageError, coverImagesEnabled, generateCoverImage } from './cover-image'
 
 /**
  * Flusso delle bozze AI:
@@ -252,8 +253,47 @@ export async function generateIntoDraft(
       : []
     const relatedServices = Array.from(new Set([...(opts.serviceIds ?? []), ...suggested]))
 
-    const notes = draft.reviewNotes.length
-      ? draft.reviewNotes.map((n) => `• ${n}`).join('\n')
+    /* Copertina: descritta dall’assistente insieme al testo, disegnata dal servizio immagini.
+       Un problema qui non deve mai far fallire la bozza: l’articolo resta valido senza. */
+    const aiSettings = await payload.findGlobal({ slug: 'ai-assistant', depth: 0 })
+    let coverImage: number | null = null
+    let coverNote: string | null = null
+    if (aiSettings.coverImages !== false && coverImagesEnabled() && draft.imagePrompt?.trim()) {
+      try {
+        const cover = await generateCoverImage(draft.imagePrompt)
+        if (cover) {
+          const media = await payload.create({
+            collection: 'media',
+            context,
+            file: {
+              data: cover.data,
+              mimetype: cover.mimetype,
+              name: `${slugify(draft.title).slice(0, 60) || 'articolo'}-copertina.${cover.extension}`,
+              size: cover.data.length,
+            },
+            data: { alt: truncate(draft.imageAlt || draft.title, 120) },
+          })
+          coverImage = media.id
+          payload.logger.info(`[AI] Copertina generata per la bozza ${id}`)
+        }
+      } catch (error) {
+        coverNote =
+          error instanceof CoverImageError
+            ? error.message
+            : 'Errore imprevisto nella generazione dell’immagine.'
+        payload.logger.warn(`[AI] Copertina non creata (bozza ${id}): ${coverNote}`)
+      }
+    }
+
+    const reviewPoints = [...draft.reviewNotes]
+    if (coverImage) {
+      reviewPoints.push(
+        'L’immagine di copertina è generata da un’intelligenza artificiale: controlla che sia adatta e, se non ti convince, sostituiscila.',
+      )
+    }
+    if (coverNote) reviewPoints.push(`Immagine di copertina non creata: ${coverNote}`)
+    const notes = reviewPoints.length
+      ? reviewPoints.map((n) => `• ${n}`).join('\n')
       : '• Rileggi l’intero testo e verifica le informazioni mediche.'
 
     const updated = await payload.update({
@@ -273,6 +313,7 @@ export async function generateIntoDraft(
         },
         category: categoryId,
         relatedServices,
+        ...(coverImage ? { coverImage } : {}),
         aiStatus: 'ready',
         aiReviewNotes: notes,
         reviewConfirmed: false,

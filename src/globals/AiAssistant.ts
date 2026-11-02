@@ -62,6 +62,16 @@ export const AiAssistant: GlobalConfig = {
       admin: { description: 'Indicazioni che l’assistente segue in ogni bozza.' },
     },
     {
+      name: 'coverImages',
+      label: 'Genera anche l’immagine di copertina',
+      type: 'checkbox',
+      defaultValue: true,
+      admin: {
+        description:
+          'L’assistente descrive l’illustrazione mentre scrive l’articolo e un servizio esterno la disegna (richiede la variabile OPENAI_API_KEY sul server, circa 3–8 centesimi per immagine). Sono illustrazioni astratte: mai persone, anatomia o apparecchiature. Controlla sempre il risultato prima di pubblicare.',
+      },
+    },
+    {
       name: 'topics',
       label: 'Piano editoriale (argomenti)',
       type: 'array',

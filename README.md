@@ -117,6 +117,14 @@ Le regole seguite dall’assistente: italiano chiaro, nessuna promessa di risult
 (come richiesto in Svizzera per la comunicazione delle professioni mediche), nessun dato inventato
 (statistiche, studi, prezzi), nessun servizio non offerto dal centro, rimando al 144 per le urgenze.
 
+**Immagine di copertina**: se sul server è impostata la variabile `OPENAI_API_KEY`, l'assistente
+descrive anche l'illustrazione mentre scrive l'articolo e un servizio esterno la disegna. Sono
+**illustrazioni astratte** nei colori del marchio: mai persone, anatomia o apparecchiature, perché
+un'immagine medica inventata sarebbe fuorviante. Va comunque guardata prima di pubblicare: fra i
+punti da verificare compare un promemoria. Si disattiva dal riquadro _Notizie → Assistente AI_. Se
+la generazione non riesce (per esempio perché il modello indicato è stato dismesso), la bozza viene
+creata lo stesso e il motivo compare fra i punti da verificare.
+
 **Costi**: modello Claude Opus 5.5 (4 USD per milione di token in ingresso, 20 USD in uscita):
 circa **0,10–0,20 USD per bozza**, quindi pochi franchi al mese con una bozza al giorno. Per
 sicurezza sono possibili al massimo 10 bozze manuali ogni 24 ore.

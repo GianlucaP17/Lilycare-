@@ -1826,6 +1826,10 @@ export interface AiAssistant {
    */
   styleGuide?: string | null;
   /**
+   * L’assistente descrive l’illustrazione mentre scrive l’articolo e un servizio esterno la disegna (richiede la variabile OPENAI_API_KEY sul server, circa 3–8 centesimi per immagine). Sono illustrazioni astratte: mai persone, anatomia o apparecchiature. Controlla sempre il risultato prima di pubblicare.
+   */
+  coverImages?: boolean | null;
+  /**
    * Elenco di argomenti da trattare. La bozza automatica giornaliera usa il primo argomento "da fare" e poi lo segna come usato.
    */
   topics?:
@@ -1958,6 +1962,7 @@ export interface AiAssistantSelect<T extends boolean = true> {
   defaultLength?: T;
   notifyEmails?: T;
   styleGuide?: T;
+  coverImages?: T;
   topics?:
     | T
     | {
