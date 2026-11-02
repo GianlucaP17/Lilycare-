@@ -19,6 +19,8 @@ const ENDPOINT = `${BASE_URL}/images/generations`
 /**
  * Modello di generazione immagini. Si cambia dalle variabili d'ambiente (cPanel) senza
  * ricompilare il sito: i nomi dei modelli OpenAI cambiano e quelli vecchi vengono dismessi.
+ * Nomi validi all'ultima verifica (tipi dell'SDK openai 7.47.0): gpt-image-2 (predefinito),
+ * gpt-image-2.5-flare, gpt-image-2.5-sunburst, gpt-image-1.5.
  */
 const MODEL = process.env.OPENAI_IMAGE_MODEL || 'gpt-image-2'
 /** Formato orizzontale, adatto alle schede e alle anteprime di condivisione. */
