@@ -38,6 +38,8 @@ export function clinicSchema(settings: Setting, services: Service[], team: Team[
     '@id': ids.clinic(),
     name: settings.clinicName,
     legalName: settings.legalName || undefined,
+    // Numero IDI: identifica l'azienda in modo univoco per Google e per gli assistenti AI
+    taxID: settings.uid || undefined,
     description: settings.description,
     url: getServerUrl(),
     logo: imageUrl(settings.logo) ?? absoluteUrl('/brand/lilycare-logo-email.png'),

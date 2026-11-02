@@ -1626,9 +1626,21 @@ export interface Setting {
   id: number;
   clinicName: string;
   /**
-   * Es. "LilyCare Sagl". Facoltativo.
+   * Nome iscritto a registro di commercio, es. "Lilycare Sagl". Compare nel piè di pagina e nelle pagine legali.
    */
   legalName?: string | null;
+  /**
+   * Es. "CHE-469.263.971". Compare nelle note legali e nei dati per Google.
+   */
+  uid?: string | null;
+  /**
+   * Indirizzo iscritto a registro di commercio. Lascialo vuoto se coincide con quello dello studio.
+   */
+  legalAddress?: {
+    street?: string | null;
+    postalCode?: string | null;
+    city?: string | null;
+  };
   tagline?: string | null;
   /**
    * Usata come descrizione predefinita del sito e nei dati strutturati. 150–160 caratteri ideali.
@@ -1837,6 +1849,14 @@ export interface AiAssistant {
 export interface SettingsSelect<T extends boolean = true> {
   clinicName?: T;
   legalName?: T;
+  uid?: T;
+  legalAddress?:
+    | T
+    | {
+        street?: T;
+        postalCode?: T;
+        city?: T;
+      };
   tagline?: T;
   description?: T;
   logo?: T;

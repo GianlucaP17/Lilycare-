@@ -39,9 +39,45 @@ export const Settings: GlobalConfig = {
             },
             {
               name: 'legalName',
-              label: 'Ragione sociale (per note legali)',
+              label: 'Ragione sociale',
               type: 'text',
-              admin: { description: 'Es. "LilyCare Sagl". Facoltativo.' },
+              admin: {
+                description:
+                  'Nome iscritto a registro di commercio, es. "Lilycare Sagl". Compare nel piè di pagina e nelle pagine legali.',
+              },
+            },
+            {
+              name: 'uid',
+              label: 'Numero IDI (UID)',
+              type: 'text',
+              admin: {
+                description:
+                  'Es. "CHE-469.263.971". Compare nelle note legali e nei dati per Google.',
+              },
+            },
+            {
+              type: 'group',
+              name: 'legalAddress',
+              label: 'Sede legale (se diversa dallo studio)',
+              admin: {
+                description:
+                  'Indirizzo iscritto a registro di commercio. Lascialo vuoto se coincide con quello dello studio.',
+              },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'street',
+                      label: 'Via e numero',
+                      type: 'text',
+                      admin: { width: '50%' },
+                    },
+                    { name: 'postalCode', label: 'CAP', type: 'text', admin: { width: '20%' } },
+                    { name: 'city', label: 'Località', type: 'text', admin: { width: '30%' } },
+                  ],
+                },
+              ],
             },
             {
               name: 'tagline',

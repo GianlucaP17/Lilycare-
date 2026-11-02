@@ -263,7 +263,9 @@ Il centro si trova in Corso San Gottardo 89 a Chiasso, nel Mendrisiotto, al conf
         width: 'narrow',
         content: `## Titolare del trattamento
 
-LilyCare, Corso San Gottardo 89, 6830 Chiasso (Svizzera) – info@lilycare.ch – +41 21 988 70 95.
+Lilycare Sagl, Via al Chioso 3, 6828 Balerna (Svizzera), numero IDI CHE-469.263.971, che svolge la propria attività presso lo studio di Corso San Gottardo 89, 6830 Chiasso.
+
+Per qualsiasi questione relativa ai dati personali: info@lilycare.ch – +41 21 988 70 95.
 
 ## Quali dati raccogliamo
 
@@ -316,9 +318,11 @@ Questa informativa può essere aggiornata. La versione pubblicata su questa pagi
         width: 'narrow',
         content: `## Responsabile del sito
 
-LilyCare
-Corso San Gottardo 89
-6830 Chiasso, Svizzera
+**Lilycare Sagl**
+Sede legale: Via al Chioso 3, 6828 Balerna (Svizzera)
+Studio: Corso San Gottardo 89, 6830 Chiasso
+Numero IDI: CHE-469.263.971
+Iscritta nel registro di commercio del Cantone Ticino
 Telefono: +41 21 988 70 95
 Email: info@lilycare.ch
 
@@ -336,7 +340,7 @@ Il sito può contenere collegamenti a siti di terzi, sui cui contenuti non abbia
 
 ## Diritti d’autore
 
-Testi, immagini e grafica di questo sito sono protetti dal diritto d’autore. Ogni riproduzione richiede il consenso scritto di LilyCare. I caratteri tipografici Fraunces e Inter sono distribuiti con licenza SIL Open Font License.`,
+Testi, immagini e grafica di questo sito sono protetti dal diritto d’autore. Ogni riproduzione richiede il consenso scritto di Lilycare Sagl. I caratteri tipografici Fraunces e Inter sono distribuiti con licenza SIL Open Font License.`,
       },
     ],
   },

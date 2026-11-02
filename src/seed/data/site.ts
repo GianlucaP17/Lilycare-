@@ -3,6 +3,9 @@ import type { Navigation, Setting } from '@/payload-types'
 /** Dati dello studio (modificabili in Admin → Impostazioni studio). Confermati da LilyCare. */
 export const settings: Omit<Setting, 'id' | 'createdAt' | 'updatedAt'> = {
   clinicName: 'LilyCare',
+  legalName: 'Lilycare Sagl',
+  uid: 'CHE-469.263.971',
+  legalAddress: { street: 'Via al Chioso 3', postalCode: '6828', city: 'Balerna' },
   tagline: 'Centro medico a Chiasso',
   description:
     'Centro medico a Chiasso (Ticino): radiografie, ecografie, ecodoppler, ozonoterapia e GAET, infiltrazioni, onde d’urto, cure infermieristiche e agopuntura.',
