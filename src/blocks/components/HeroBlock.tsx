@@ -1,4 +1,4 @@
-import { ArrowRight, Check, MapPin, Phone } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Check, MapPin, Phone } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -11,6 +11,7 @@ import { MediaImage } from '@/components/ui/MediaImage'
 import { OpenStatus } from '@/components/ui/OpenStatus'
 import { getServices, getSettings } from '@/lib/data'
 import { paths } from '@/lib/paths'
+import { directionsUrl } from '@/lib/settings-helpers'
 import { toTelHref } from '@/lib/utils'
 import type { HeroBlock as HeroBlockType } from '@/payload-types'
 
@@ -66,7 +67,28 @@ export async function HeroBlock({ block, isFirst }: { block: HeroBlockType; isFi
       />
       <Container className="relative grid items-center gap-14 pt-10 pb-14 md:pt-16 lg:grid-cols-12 lg:gap-10 lg:pb-20">
         <div className="animate-fade-up lg:col-span-7">
-          {block.eyebrow ? (
+          {/* Dove siamo, subito visibile: indirizzo e navigazione a un tocco */}
+          {settings.address?.street ? (
+            <a
+              href={directionsUrl(settings)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex max-w-full items-center gap-2 rounded-full bg-white py-1.5 pr-1.5 pl-4 text-[0.82rem] font-medium text-navy-800 shadow-soft ring-1 ring-line transition-shadow hover:shadow-lift sm:text-sm"
+            >
+              <MapPin size={16} className="shrink-0 text-orchid-500" aria-hidden />
+              <span className="min-w-0">
+                {settings.address.street}
+                <span className="hidden sm:inline">
+                  , {settings.address.postalCode} {settings.address.city}
+                </span>
+                <span className="sm:hidden"> · {settings.address.city}</span>
+              </span>
+              <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-navy-700 px-3 py-1.5 text-[0.78rem] font-semibold text-white transition-colors group-hover:bg-navy-900">
+                Naviga
+                <ArrowUpRight size={13} aria-hidden />
+              </span>
+            </a>
+          ) : block.eyebrow ? (
             <p className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-navy-800 shadow-soft ring-1 ring-line">
               <span className="h-1.5 w-1.5 rounded-full bg-orchid-500" aria-hidden />
               {block.eyebrow}
@@ -115,9 +137,14 @@ export async function HeroBlock({ block, isFirst }: { block: HeroBlockType; isFi
               <HeroArt />
             )}
           </div>
-          <div className="absolute -right-2 -bottom-6 max-w-[17rem] rounded-2xl bg-white/95 p-4 shadow-lift ring-1 ring-line backdrop-blur sm:-right-8">
+          <a
+            href={directionsUrl(settings)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group absolute -right-2 -bottom-6 max-w-[17rem] rounded-2xl bg-white/95 p-4 shadow-lift ring-1 ring-line backdrop-blur transition-shadow hover:shadow-[0_18px_40px_-12px_rgb(21_40_86/0.28)] sm:-right-8"
+          >
             <div className="flex gap-3">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-orchid-50 text-orchid-700">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-orchid-50 text-orchid-700 transition-colors group-hover:bg-orchid-100">
                 <MapPin size={18} aria-hidden />
               </span>
               <div className="text-sm leading-snug">
@@ -125,9 +152,13 @@ export async function HeroBlock({ block, isFirst }: { block: HeroBlockType; isFi
                   {settings.address?.city}, {settings.address?.region || 'Ticino'}
                 </p>
                 <p className="text-muted">{settings.address?.street}</p>
+                <p className="mt-1 inline-flex items-center gap-1 text-[0.8rem] font-semibold text-navy-700">
+                  Naviga
+                  <ArrowUpRight size={13} aria-hidden />
+                </p>
               </div>
             </div>
-          </div>
+          </a>
           <div className="absolute top-8 -right-2 rounded-full bg-white/95 px-4 py-2.5 text-sm font-medium text-navy-900 shadow-lift ring-1 ring-line backdrop-blur sm:-right-6">
             <OpenStatus hours={settings.openingHours} />
           </div>

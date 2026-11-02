@@ -76,96 +76,103 @@ export function Header({ logo, nav, groups, phone, address }: Props) {
     url === '/' ? pathname === '/' : pathname === url || pathname.startsWith(`${url}/`)
 
   return (
-    <header
-      ref={headerRef}
-      className={cn(
-        'sticky top-0 z-40 transition-all duration-300',
-        scrolled || megaOpen
-          ? 'border-b border-line/80 bg-cream/90 shadow-[0_1px_0_rgb(0_0_0/0.02)] backdrop-blur-xl'
-          : 'border-b border-transparent bg-cream',
-      )}
-    >
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-5 sm:px-8">
-        {logo}
+    <header ref={headerRef} className="sticky top-0 z-40">
+      {/*
+        Lo sfondo sfocato sta su questo riquadro interno e NON sull'elemento <header>.
+        Motivo: "backdrop-filter" rende l'elemento il riferimento per i figli con
+        position:fixed. Applicato all'intestazione, faceva ancorare a essa il menu mobile,
+        che a pagina scorsa finiva fuori dallo schermo pur restando aperto (schermata bloccata).
+      */}
+      <div
+        className={cn(
+          'transition-all duration-300',
+          scrolled || megaOpen
+            ? 'border-b border-line/80 bg-cream/90 shadow-[0_1px_0_rgb(0_0_0/0.02)] backdrop-blur-xl'
+            : 'border-b border-transparent bg-cream',
+        )}
+      >
+        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-5 sm:px-8">
+          {logo}
 
-        <nav aria-label="Navigazione principale" className="hidden lg:block">
-          <ul className="flex items-center gap-1">
-            {nav.map((item) =>
-              item.servicesMenu && groups.length ? (
-                <li key={item.url} onMouseEnter={openMega} onMouseLeave={scheduleClose}>
-                  <button
-                    type="button"
-                    aria-expanded={megaOpen}
-                    aria-controls="menu-servizi"
-                    onClick={() => setMegaOpen((v) => !v)}
-                    className={cn(
-                      'flex items-center gap-1 rounded-full px-4 py-2 text-[0.95rem] font-medium transition-colors',
-                      isActive(item.url) || megaOpen
-                        ? 'text-navy-800'
-                        : 'text-ink/80 hover:text-navy-800',
-                    )}
-                  >
-                    {item.label}
-                    <ChevronDown
-                      size={16}
-                      className={cn('transition-transform', megaOpen && 'rotate-180')}
-                      aria-hidden
-                    />
-                  </button>
-                </li>
-              ) : (
-                <li key={item.url}>
-                  <Link
-                    href={item.url}
-                    aria-current={isActive(item.url) ? 'page' : undefined}
-                    className={cn(
-                      'relative rounded-full px-4 py-2 text-[0.95rem] font-medium transition-colors',
-                      isActive(item.url) ? 'text-navy-800' : 'text-ink/80 hover:text-navy-800',
-                    )}
-                  >
-                    {item.label}
-                    {isActive(item.url) ? (
-                      <span
-                        className="absolute inset-x-4 -bottom-0.5 h-px bg-orchid-400"
+          <nav aria-label="Navigazione principale" className="hidden lg:block">
+            <ul className="flex items-center gap-1">
+              {nav.map((item) =>
+                item.servicesMenu && groups.length ? (
+                  <li key={item.url} onMouseEnter={openMega} onMouseLeave={scheduleClose}>
+                    <button
+                      type="button"
+                      aria-expanded={megaOpen}
+                      aria-controls="menu-servizi"
+                      onClick={() => setMegaOpen((v) => !v)}
+                      className={cn(
+                        'flex items-center gap-1 rounded-full px-4 py-2 text-[0.95rem] font-medium transition-colors',
+                        isActive(item.url) || megaOpen
+                          ? 'text-navy-800'
+                          : 'text-ink/80 hover:text-navy-800',
+                      )}
+                    >
+                      {item.label}
+                      <ChevronDown
+                        size={16}
+                        className={cn('transition-transform', megaOpen && 'rotate-180')}
                         aria-hidden
                       />
-                    ) : null}
-                  </Link>
-                </li>
-              ),
-            )}
-          </ul>
-        </nav>
+                    </button>
+                  </li>
+                ) : (
+                  <li key={item.url}>
+                    <Link
+                      href={item.url}
+                      aria-current={isActive(item.url) ? 'page' : undefined}
+                      className={cn(
+                        'relative rounded-full px-4 py-2 text-[0.95rem] font-medium transition-colors',
+                        isActive(item.url) ? 'text-navy-800' : 'text-ink/80 hover:text-navy-800',
+                      )}
+                    >
+                      {item.label}
+                      {isActive(item.url) ? (
+                        <span
+                          className="absolute inset-x-4 -bottom-0.5 h-px bg-orchid-400"
+                          aria-hidden
+                        />
+                      ) : null}
+                    </Link>
+                  </li>
+                ),
+              )}
+            </ul>
+          </nav>
 
-        <div className="flex items-center gap-2">
-          {phone ? (
-            <a
-              href={toTelHref(phone)}
-              className="hidden items-center gap-2 rounded-full px-3 py-2 text-[0.95rem] font-medium text-navy-800 transition-colors hover:bg-navy-50 xl:inline-flex"
+          <div className="flex items-center gap-2">
+            {phone ? (
+              <a
+                href={toTelHref(phone)}
+                className="hidden items-center gap-2 rounded-full px-3 py-2 text-[0.95rem] font-medium text-navy-800 transition-colors hover:bg-navy-50 xl:inline-flex"
+              >
+                <Phone size={17} aria-hidden />
+                {phone}
+              </a>
+            ) : null}
+            <div className="hidden sm:block">
+              <Button href="/prenota" size="md">
+                Prenota una visita
+              </Button>
+            </div>
+            <button
+              type="button"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full text-navy-900 ring-1 ring-line lg:hidden"
+              aria-label={mobileOpen ? 'Chiudi menu' : 'Apri menu'}
+              aria-expanded={mobileOpen}
+              aria-controls="menu-mobile"
+              onClick={() => {
+                const bottom = headerRef.current?.getBoundingClientRect().bottom
+                if (bottom) setMenuTop(Math.max(0, bottom))
+                setMobileOpen((v) => !v)
+              }}
             >
-              <Phone size={17} aria-hidden />
-              {phone}
-            </a>
-          ) : null}
-          <div className="hidden sm:block">
-            <Button href="/prenota" size="md">
-              Prenota una visita
-            </Button>
+              {mobileOpen ? <X size={22} aria-hidden /> : <Menu size={22} aria-hidden />}
+            </button>
           </div>
-          <button
-            type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full text-navy-900 ring-1 ring-line lg:hidden"
-            aria-label={mobileOpen ? 'Chiudi menu' : 'Apri menu'}
-            aria-expanded={mobileOpen}
-            aria-controls="menu-mobile"
-            onClick={() => {
-              const bottom = headerRef.current?.getBoundingClientRect().bottom
-              if (bottom) setMenuTop(Math.max(0, bottom))
-              setMobileOpen((v) => !v)
-            }}
-          >
-            {mobileOpen ? <X size={22} aria-hidden /> : <Menu size={22} aria-hidden />}
-          </button>
         </div>
       </div>
 
