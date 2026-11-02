@@ -46,16 +46,48 @@ fs.cpSync(path.join(root, 'public'), path.join(out, 'standalone', 'public'), { r
 fs.writeFileSync(
   path.join(out, 'app.js'),
   `/**
- * LilyCare – file di avvio per cPanel "Setup Node.js App" (Phusion Passenger).
+ * LilyCare – file di avvio per cPanel "Setup Node.js App".
  * Avvia il server del sito contenuto nella cartella "standalone".
+ *
+ * Se l'avvio non riesce, l'errore viene scritto anche nel file "startup-error.log"
+ * di questa cartella: utile quando il server mostra solo "503 Service Unavailable".
  */
+const fs = require('fs')
 const path = require('path')
 const { pathToFileURL } = require('url')
 
 process.env.NODE_ENV = 'production'
 
-import(pathToFileURL(path.join(__dirname, 'standalone', 'server.js')).href).catch((error) => {
-  console.error('[LilyCare] Avvio non riuscito:', error)
+function segnalaErrore(errore) {
+  const testo =
+    '[' +
+    new Date().toISOString() +
+    '] Avvio non riuscito\\n' +
+    (errore && errore.stack ? errore.stack : String(errore)) +
+    '\\n\\nNode ' +
+    process.version +
+    ' – cartella ' +
+    __dirname +
+    '\\n'
+  console.error('[LilyCare] ' + testo)
+  try {
+    fs.writeFileSync(path.join(__dirname, 'startup-error.log'), testo)
+  } catch {
+    // se la cartella non è scrivibile resta il messaggio nel log del server
+  }
+}
+
+process.on('uncaughtException', (errore) => {
+  segnalaErrore(errore)
+  process.exit(1)
+})
+process.on('unhandledRejection', (errore) => {
+  segnalaErrore(errore)
+  process.exit(1)
+})
+
+import(pathToFileURL(path.join(__dirname, 'standalone', 'server.js')).href).catch((errore) => {
+  segnalaErrore(errore)
   process.exit(1)
 })
 `,
