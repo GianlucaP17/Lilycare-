@@ -156,7 +156,7 @@ condiviso non ha memoria sufficiente per farlo) e sul server si carica solo il p
 
 ### 1. Ottieni il pacchetto
 
-Ad ogni modifica del ramo `main` GitHub compila il sito (workflow _Build e pubblicazione (Namecheap)_).
+Ad ogni modifica GitHub compila il sito da solo (workflow _Build e pubblicazione (Namecheap)_).
 Apri **GitHub → Actions → ultima esecuzione → Artifacts → `lilycare-namecheap`** e scarica lo zip.
 In alternativa, sul tuo computer: `npm ci && npm run build && npm run package:namecheap`
 (crea `dist-namecheap/lilycare-namecheap.zip`).
@@ -168,9 +168,11 @@ In alternativa, sul tuo computer: `npm ci && npm run build && npm run package:na
 
 Con il **File Manager** di cPanel, nella tua cartella home (`/home/UTENTE`):
 
-- `lilycare-app` → qui va il sito; carica lo zip e usa **Extract**;
-- `lilycare-data` e, al suo interno, `media` → qui vivono **database e immagini**. Restano separati
-  dal sito, così gli aggiornamenti non li toccano mai.
+- `lilycare-app` → qui va il sito; carica lo zip e usa **Extract**.
+
+La cartella dei dati (`lilycare-data`, con **database e immagini**) viene creata da sola al primo
+avvio, nel percorso indicato dalle variabili `DATABASE_URL` e `MEDIA_DIR` del punto 3. Resta fuori
+dal sito, così gli aggiornamenti non la toccano mai.
 
 ### 3. Crea l’applicazione Node.js
 
@@ -223,45 +225,87 @@ e attiva l’opzione in _Notizie → Assistente AI_ nel pannello.
 ### Demo su un sottodominio (prima della messa online)
 
 Per vedere e provare il nuovo sito **senza toccare il sito attuale né le email**, installalo su un
-sottodominio, ad esempio `demo.lilycare.ch`. Servono circa 15 minuti:
+sottodominio, ad esempio `demo.lilycare.ch`. Si prepara una volta sola (circa 20 minuti); da lì in
+poi **ogni aggiornamento arriva da solo**.
 
-1. **cPanel → Domains** (o _Subdomains_) → crea `demo.lilycare.ch`.
-2. **File Manager**, nella cartella home: crea `lilycare-demo` e `lilycare-demo-data` (con dentro la
-   cartella `media`). Carica `lilycare-namecheap.zip` in `lilycare-demo` e usa **Extract**.
-3. **Setup Node.js App → Create Application**: _Application root_ `lilycare-demo`, _Application
-   URL_ `demo.lilycare.ch`, _Application startup file_ `app.js`, _Application mode_ Production,
-   Node.js 24.x o 22.x (la più recente).
-4. **Environment variables**:
+1. **cPanel → Domains** (o _Subdomains_): crea `demo.lilycare.ch`.
+
+2. **cPanel → Setup Node.js App → Create Application**:
+
+   | Campo                    | Valore                       |
+   | ------------------------ | ---------------------------- |
+   | Node.js version          | la più recente (24.x o 22.x) |
+   | Application mode         | Production                   |
+   | Application root         | `lilycare-demo`              |
+   | Application URL          | `demo.lilycare.ch`           |
+   | Application startup file | `app.js`                     |
+
+   e le **Environment variables** (`UTENTE` = il tuo nome utente cPanel):
 
    | Nome             | Valore                                             |
    | ---------------- | -------------------------------------------------- |
    | `SERVER_URL`     | `https://demo.lilycare.ch`                         |
-   | `NOINDEX`        | `true` (Google non indicizza la demo)              |
+   | `NOINDEX`        | `true` (così Google non indicizza la demo)         |
    | `PAYLOAD_SECRET` | stringa lunga e casuale                            |
    | `DATABASE_URL`   | `file:/home/UTENTE/lilycare-demo-data/lilycare.db` |
    | `MEDIA_DIR`      | `/home/UTENTE/lilycare-demo-data/media`            |
 
-   Facoltative: le variabili `SMTP_*` (per ricevere davvero le email delle richieste di prova) e
-   `ANTHROPIC_API_KEY` (per provare l’assistente AI).
+   Facoltative: `SMTP_*` (per ricevere davvero le email delle richieste di prova) e
+   `ANTHROPIC_API_KEY` (per provare l’assistente AI). Le cartelle dei dati non vanno create a mano:
+   le prepara il sito al primo avvio. Premi **Create**.
 
-5. **Create** → **Start**. Apri `https://demo.lilycare.ch` (al primo avvio carica foto e contenuti
-   in qualche secondo) e **subito dopo** `https://demo.lilycare.ch/admin` per creare il tuo utente
-   amministratore: il primo che lo apre diventa amministratore.
-6. Se il browser segnala il certificato: **cPanel → SSL/TLS Status → Run AutoSSL**. Se dopo 30 minuti
-   il sottodominio non si apre, in Namecheap → _Domain List → Advanced DNS_ aggiungi un record **A**
-   con host `demo` verso l’IP del server (in cPanel, colonna a destra: _Shared IP Address_).
+3. **cPanel → FTP Accounts → Create an FTP Account**: utente `deploy-demo`, _Directory_
+   `lilycare-demo`. Annota il **nome utente completo** (es. `deploy-demo@lilycare.ch`) e la password.
+
+4. **GitHub → Settings → Secrets and variables → Actions → New repository secret**, tre segreti:
+
+   | Nome                | Valore                                                                                                     |
+   | ------------------- | ---------------------------------------------------------------------------------------------------------- |
+   | `FTP_DEMO_SERVER`   | il nome del server Namecheap (in cPanel, colonna a destra: _Server Name_, es. `serverXXX.web-hosting.com`) |
+   | `FTP_DEMO_USERNAME` | il nome utente FTP completo del punto 3                                                                    |
+   | `FTP_DEMO_PASSWORD` | la password del punto 3                                                                                    |
+
+5. **GitHub → Actions → Build e pubblicazione (Namecheap) → Run workflow** (scegli il ramo di
+   sviluppo): GitHub compila il sito e lo carica sul server. La prima volta servono 10–20 minuti,
+   perché carica tutti i file; gli aggiornamenti successivi sono molto più rapidi.
+
+6. Apri `https://demo.lilycare.ch` (al primo avvio carica foto e contenuti in qualche secondo) e
+   **subito dopo** `https://demo.lilycare.ch/admin` per creare il tuo utente: il primo che apre
+   quella pagina diventa amministratore.
+
+Da qui in poi non serve più fare nulla: **ogni modifica al sito aggiorna la demo da sola**, con il
+riavvio dell’applicazione incluso.
+
+**Se qualcosa non va**
+
+- Il browser segnala il certificato → **cPanel → SSL/TLS Status → Run AutoSSL**.
+- Il sottodominio non si apre dopo 30 minuti → in Namecheap, _Domain List → Advanced DNS_, aggiungi
+  un record **A** con host `demo` verso l’indirizzo IP del server (in cPanel: _Shared IP Address_).
+- La pubblicazione si ferma su un errore di collegamento o di certificato → controlla che
+  `FTP_DEMO_SERVER` sia il **nome del server** (non `ftp.lilycare.ch`) e che l’account FTP del
+  punto 3 sia attivo.
+- Il sito resta alla versione precedente → **Setup Node.js App → Restart**.
 
 I contenuti modificati nella demo restano nella cartella `lilycare-demo-data`: al momento della
 messa online si possono riutilizzare.
 
 ### Aggiornamenti
 
+- **Automatici** (consigliato): impostati i segreti FTP su GitHub, ogni modifica viene compilata,
+  caricata sul server e l’applicazione si riavvia da sola. Le due destinazioni sono separate, così
+  si può provare tutto sulla demo prima di toccare il sito vero:
+
+  | Ramo su GitHub   | Destinazione    | Segreti da impostare                                        |
+  | ---------------- | --------------- | ----------------------------------------------------------- |
+  | ramo di sviluppo | demo            | `FTP_DEMO_SERVER`, `FTP_DEMO_USERNAME`, `FTP_DEMO_PASSWORD` |
+  | `main`           | sito definitivo | `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`                |
+
+  Ogni account FTP va limitato alla cartella della sua applicazione (`lilycare-demo`,
+  `lilycare-app`). Se invece l’account vede tutta la home, indica la cartella nelle _Variables_
+  `FTP_DEMO_SERVER_DIR` / `FTP_SERVER_DIR` (es. `lilycare-app/`).
+
 - **Manuale**: scarica il nuovo zip da GitHub Actions, estrailo sopra `lilycare-app` (sovrascrivendo)
   e premi **Restart** in Setup Node.js App. La struttura del database si aggiorna da sola all’avvio.
-- **Automatico**: crea in cPanel un _FTP Account_ con cartella `lilycare-app`, poi su GitHub aggiungi i
-  segreti `FTP_SERVER` (es. `ftp.lilycare.ch` o il nome del server Namecheap), `FTP_USERNAME`,
-  `FTP_PASSWORD` e la variabile `FTP_SERVER_DIR` = `./`. Da quel momento ogni modifica a `main` viene
-  pubblicata da sola e l’app si riavvia automaticamente.
 
 ### Backup
 

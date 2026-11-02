@@ -1,29 +1,38 @@
-# Compila il sito e prepara il pacchetto per Namecheap (cPanel → Setup Node.js App).
-# - Ogni volta: crea lo zip "lilycare-namecheap" scaricabile dalla pagina Actions di GitHub.
-# - Se sono impostati i segreti FTP_SERVER / FTP_USERNAME / FTP_PASSWORD: lo pubblica sul server.
+# Compila il sito e lo pubblica su Namecheap (cPanel → Setup Node.js App).
+#
+#   ramo "main"       → sito definitivo   (segreti FTP_SERVER / FTP_USERNAME / FTP_PASSWORD)
+#   altri rami        → sito demo         (segreti FTP_DEMO_SERVER / FTP_DEMO_USERNAME / FTP_DEMO_PASSWORD)
+#
+# Senza segreti FTP non viene pubblicato nulla: il pacchetto resta scaricabile da
+# GitHub → Actions → ultima esecuzione → Artifacts.
 # Guida completa: README.md → "Messa online su Namecheap".
 name: Build e pubblicazione (Namecheap)
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - claude/lilycare-website-redesign-3510to
   workflow_dispatch:
 
 concurrency:
-  group: namecheap
+  # Una pubblicazione alla volta per ogni destinazione (sito definitivo / demo)
+  group: namecheap-${{ github.ref_name }}
   cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     env:
-      # Indirizzo pubblico del sito: inserito nel sito durante la build (link canonici, sitemap, email)
+      # Indirizzo pubblico del sito, inserito durante la build. Sul server può essere
+      # sostituito dalla variabile SERVER_URL di cPanel (es. per la demo).
       NEXT_PUBLIC_SERVER_URL: ${{ vars.NEXT_PUBLIC_SERVER_URL || 'https://lilycare.ch' }}
       # "true" solo se sul server il modulo immagini "sharp" non funzionasse
       IMAGES_UNOPTIMIZED: ${{ vars.IMAGES_UNOPTIMIZED || 'false' }}
       NEXT_TELEMETRY_DISABLED: '1'
-      HAS_FTP: ${{ secrets.FTP_SERVER != '' }}
+      # Si pubblica solo se i tre segreti della destinazione sono tutti impostati
+      DEPLOY: ${{ (github.ref_name == 'main' && secrets.FTP_SERVER != '' && secrets.FTP_USERNAME != '' && secrets.FTP_PASSWORD != '') || (github.ref_name != 'main' && secrets.FTP_DEMO_SERVER != '' && secrets.FTP_DEMO_USERNAME != '' && secrets.FTP_DEMO_PASSWORD != '') }}
     steps:
       - uses: actions/checkout@v4
 
@@ -45,13 +54,49 @@ jobs:
           path: dist-namecheap/lilycare-namecheap.zip
           retention-days: 30
 
-      - name: Pubblica su Namecheap via FTP
-        if: env.HAS_FTP == 'true'
+      # 1. Carica il sito. La cartella "tmp" è esclusa: viene caricata dopo, così
+      #    l'applicazione si riavvia solo a caricamento finito.
+      - name: Pubblica su Namecheap (FTP)
+        if: env.DEPLOY == 'true'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
+          server: ${{ github.ref_name == 'main' && secrets.FTP_SERVER || secrets.FTP_DEMO_SERVER }}
+          username: ${{ github.ref_name == 'main' && secrets.FTP_USERNAME || secrets.FTP_DEMO_USERNAME }}
+          password: ${{ github.ref_name == 'main' && secrets.FTP_PASSWORD || secrets.FTP_DEMO_PASSWORD }}
           protocol: ftps
           local-dir: dist-namecheap/lilycare-app/
-          server-dir: ${{ vars.FTP_SERVER_DIR || 'lilycare-app/' }}
+          server-dir: ${{ github.ref_name == 'main' && (vars.FTP_SERVER_DIR || './') || (vars.FTP_DEMO_SERVER_DIR || './') }}
+          state-name: .ftp-deploy-app.json
+          log-level: minimal
+          # Collegamento cifrato con verifica del certificato: per questo il segreto FTP_*_SERVER
+          # deve essere il nome del server Namecheap (es. serverXXX.web-hosting.com), non il dominio.
+          security: strict
+          timeout: 60000
+          # ATTENZIONE: l'elenco sostituisce quello predefinito dell'azione, che escluderebbe
+          # "node_modules" – indispensabile al sito (standalone/node_modules).
+          exclude: |
+            **/.git*
+            **/.git*/**
+            tmp/**
+
+      # 2. Riavvio: modificando tmp/restart.txt Passenger ricarica il sito aggiornato.
+      - name: Riavvia l'applicazione
+        if: env.DEPLOY == 'true'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ github.ref_name == 'main' && secrets.FTP_SERVER || secrets.FTP_DEMO_SERVER }}
+          username: ${{ github.ref_name == 'main' && secrets.FTP_USERNAME || secrets.FTP_DEMO_USERNAME }}
+          password: ${{ github.ref_name == 'main' && secrets.FTP_PASSWORD || secrets.FTP_DEMO_PASSWORD }}
+          protocol: ftps
+          local-dir: dist-namecheap/restart/
+          server-dir: ${{ github.ref_name == 'main' && (vars.FTP_SERVER_DIR || './') || (vars.FTP_DEMO_SERVER_DIR || './') }}
+          state-name: .ftp-deploy-restart.json
+          log-level: minimal
+          security: strict
+          timeout: 60000
+
+      - name: Nessun FTP configurato
+        if: env.DEPLOY != 'true'
+        run: |
+          echo "Pacchetto pronto ma non pubblicato: mancano i segreti FTP per il ramo '${{ github.ref_name }}'."
+          echo "Scaricalo da questa pagina → Artifacts → lilycare-namecheap."

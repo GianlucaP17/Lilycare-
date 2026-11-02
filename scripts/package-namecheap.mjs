@@ -69,9 +69,14 @@ fs.writeFileSync(
   ) + '\n',
 )
 
-// 4. Riavvio automatico di Passenger dopo il caricamento
-fs.mkdirSync(path.join(out, 'tmp'), { recursive: true })
-fs.writeFileSync(path.join(out, 'tmp', 'restart.txt'), new Date().toISOString() + '\n')
+// 4. Riavvio automatico di Passenger: quando cambia tmp/restart.txt l'applicazione si ricarica.
+//    Lo stesso file viene messo anche in dist-namecheap/restart/, che la pubblicazione via FTP
+//    carica per ultimo: così il riavvio avviene solo a caricamento completato.
+const restartStamp = new Date().toISOString() + '\n'
+for (const dir of [path.join(out, 'tmp'), path.join(outRoot, 'restart', 'tmp')]) {
+  fs.mkdirSync(dir, { recursive: true })
+  fs.writeFileSync(path.join(dir, 'restart.txt'), restartStamp)
+}
 
 // 5. Controlli: nessun file .env e nessun collegamento simbolico nel pacchetto
 const leaked = fs.readdirSync(path.join(out, 'standalone')).filter((f) => f.startsWith('.env'))
