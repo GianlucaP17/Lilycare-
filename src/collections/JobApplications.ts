@@ -1,6 +1,8 @@
+import path from 'path'
 import type { CollectionAfterChangeHook, CollectionConfig } from 'payload'
 
 import { authenticated, isAdmin } from '@/access'
+import { applicationFilesDir } from '@/collections/ApplicationFiles'
 import { candidateConfirmationEmail, clinicApplicationEmail } from '@/emails/job-application'
 import {
   applicationStatusOptions,
@@ -28,6 +30,21 @@ const sendApplicationEmails: CollectionAfterChangeHook = async ({ doc, operation
     siteUrl: getServerUrl(),
     adminUrl: `${getServerUrl()}/admin/collections/job-applications/${doc.id}`,
   }
+  // Il curriculum viene allegato all'email: così la casella dello studio ha tutto,
+  // anche dopo che il sito avrà cancellato il file.
+  const cv =
+    typeof doc.cv === 'object' && doc.cv
+      ? doc.cv
+      : doc.cv
+        ? await req.payload
+            .findByID({ collection: 'application-files', id: doc.cv, req, depth: 0 })
+            .catch(() => null)
+        : null
+  const allegati =
+    cv?.filename && typeof cv.filename === 'string'
+      ? [{ filename: cv.filename, path: path.join(applicationFilesDir, cv.filename) }]
+      : undefined
+
   const data = {
     name: doc.name,
     email: doc.email,
@@ -36,6 +53,7 @@ const sendApplicationEmails: CollectionAfterChangeHook = async ({ doc, operation
     collaboration: doc.collaboration,
     availability: doc.availability,
     message: doc.message,
+    cvFilename: cv?.filename ?? null,
   }
 
   if (recipients.length) {
@@ -47,6 +65,7 @@ const sendApplicationEmails: CollectionAfterChangeHook = async ({ doc, operation
         subject: toClinic.subject,
         html: toClinic.html,
         text: toClinic.text,
+        attachments: allegati,
       })
     } catch (error) {
       req.payload.logger.error({ err: error, msg: 'Invio candidatura allo studio non riuscito' })
@@ -77,7 +96,7 @@ export const JobApplications: CollectionConfig = {
     defaultColumns: ['name', 'roleLabel', 'status', 'createdAt'],
     group: 'Prenotazioni',
     description:
-      'Candidature inviate dalla pagina “Lavora con noi”. Il curriculum non passa dal sito: arriva per email. Ricordati di cancellare le candidature che non servono più.',
+      'Candidature inviate dalla pagina “Lavora con noi”, con il curriculum allegato. Candidature e curriculum vengono cancellati automaticamente dopo 30 giorni, come indicato nell’informativa privacy.',
     listSearchableFields: ['name', 'email', 'roleLabel'],
   },
   defaultSort: '-createdAt',
@@ -145,6 +164,16 @@ export const JobApplications: CollectionConfig = {
           options: availabilityOptions.map((o) => ({ ...o })),
         },
       ],
+    },
+    {
+      name: 'cv',
+      label: 'Curriculum',
+      type: 'upload',
+      relationTo: 'application-files',
+      admin: {
+        description:
+          'Allegato dal candidato. Viene cancellato insieme alla candidatura dopo 30 giorni.',
+      },
     },
     { name: 'message', label: 'Presentazione', type: 'textarea' },
     {

@@ -270,7 +270,7 @@ Per qualsiasi questione relativa ai dati personali: info@lilycare.ch – +41 21 
 ## Quali dati raccogliamo
 
 - **Modulo di prenotazione**: nome e cognome, telefono, email, prestazione e preferenze di orario, eventuale messaggio e consenso.
-- **Modulo di candidatura** (pagina “Lavora con noi”): nome e cognome, email, eventuale telefono, profilo professionale, disponibilità e la presentazione che scrivi. Il **curriculum non viene caricato sul sito**: te lo chiediamo per email, quindi resta nella nostra casella di posta.
+- **Modulo di candidatura** (pagina “Lavora con noi”): nome e cognome, email, eventuale telefono, profilo professionale, disponibilità, la presentazione che scrivi e il **curriculum** che alleghi. Il curriculum viene inviato alla casella di posta dello studio e conservato sul sito in un’area riservata, non raggiungibile da internet: solo chi accede al pannello di amministrazione può aprirlo.
 - **Dati tecnici**: come ogni sito web, il server registra dati tecnici (ad esempio indirizzo IP, data e ora, pagina richiesta) necessari al funzionamento e alla sicurezza.
 
 Il sito **non utilizza cookie di profilazione né strumenti di tracciamento pubblicitario**. La mappa di Google Maps viene caricata **solo se scegli di visualizzarla**: in quel caso Google può trattare dati secondo la propria informativa.
@@ -289,7 +289,7 @@ I dati possono essere trattati da fornitori che ci supportano nel funzionamento 
 
 ## Per quanto tempo
 
-Conserviamo i dati per il tempo necessario a gestire la richiesta e per gli obblighi di legge; le richieste che non hanno dato seguito a un appuntamento vengono cancellate periodicamente. Le candidature vengono conservate al massimo dodici mesi, per poterti ricontattare se si apre una posizione adatta, e poi cancellate: puoi chiederne la cancellazione in qualsiasi momento.
+Conserviamo i dati per il tempo necessario a gestire la richiesta e per gli obblighi di legge; le richieste che non hanno dato seguito a un appuntamento vengono cancellate periodicamente. **Candidature e curriculum vengono cancellati automaticamente dal sito dopo 30 giorni**, insieme ai file allegati; la cancellazione è eseguita dal sistema, senza bisogno di un intervento manuale. Se il tuo profilo ci interessa, la copia inviata per email può essere conservata più a lungo per ricontattarti: puoi chiederne la cancellazione in qualsiasi momento scrivendo a info@lilycare.ch.
 
 ## I tuoi diritti
 

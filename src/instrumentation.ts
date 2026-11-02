@@ -14,7 +14,8 @@ export async function register() {
 
   // 1. Cartelle dei dati
   const databaseUrl = process.env.DATABASE_URL || 'file:./data/lilycare.db'
-  const folders = [process.env.MEDIA_DIR || 'media']
+  const media = process.env.MEDIA_DIR || 'media'
+  const folders = [media, process.env.APPLICATIONS_DIR || path.resolve(media, '..', 'candidature')]
   if (databaseUrl.startsWith('file:')) {
     folders.push(path.dirname(databaseUrl.slice('file:'.length).split('?')[0]))
   }

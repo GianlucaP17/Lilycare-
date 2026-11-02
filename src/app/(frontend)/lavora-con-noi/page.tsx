@@ -134,12 +134,12 @@ export default async function CareersPage() {
                 Raccontaci chi sei
               </h2>
               <p className="mx-auto mt-4 max-w-xl leading-relaxed text-muted">
-                Compila il modulo: ti risponderemo via email e da lì potrai allegare il curriculum.
-                Leggiamo tutte le candidature, anche quando non abbiamo una posizione aperta.
+                Compila il modulo e allega il curriculum: lo riceviamo direttamente noi. Leggiamo
+                tutte le candidature, anche quando non abbiamo una posizione aperta.
               </p>
             </div>
             <div className="mt-10">
-              <JobForm cvEmail={cvEmail} />
+              <JobForm />
             </div>
           </div>
         </Container>

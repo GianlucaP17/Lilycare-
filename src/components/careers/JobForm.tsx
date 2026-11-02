@@ -1,6 +1,6 @@
 'use client'
 
-import { CircleCheck, LoaderCircle, Mail, Send } from 'lucide-react'
+import { CircleCheck, LoaderCircle, Send, ShieldCheck } from 'lucide-react'
 import Link from 'next/link'
 import React, { useActionState, useEffect, useRef } from 'react'
 
@@ -10,7 +10,7 @@ import { availabilityOptions, collaborationOptions, roleOptions } from '@/lib/jo
 import { cn } from '@/lib/utils'
 
 /** Modulo di candidatura. Il curriculum non passa dal sito: si invia per email. */
-export function JobForm({ cvEmail }: { cvEmail: string }) {
+export function JobForm() {
   const [state, formAction, pending] = useActionState<JobState, FormData>(submitApplication, {
     status: 'idle',
   })
@@ -41,14 +41,12 @@ export function JobForm({ cvEmail }: { cvEmail: string }) {
         </span>
         <h2 className="mt-6 font-serif text-3xl text-navy-950">Grazie, {state.name}</h2>
         <p className="mx-auto mt-4 max-w-md leading-relaxed text-muted">
-          Abbiamo ricevuto la tua candidatura e ti abbiamo scritto un’email di conferma.
+          Abbiamo ricevuto la tua candidatura con il curriculum. Ti abbiamo inviato un’email di
+          conferma: se non la trovi, controlla la posta indesiderata.
         </p>
-        <p className="mx-auto mt-6 max-w-md rounded-2xl bg-orchid-50 p-5 text-left leading-relaxed text-ink">
-          <strong className="text-navy-950">Manca il curriculum.</strong> Inviacelo in allegato a{' '}
-          <a href={`mailto:${cvEmail}`} className="font-semibold text-navy-700 underline">
-            {cvEmail}
-          </a>
-          , oppure rispondendo all’email che hai appena ricevuto.
+        <p className="mx-auto mt-6 max-w-md rounded-2xl bg-sand-100 p-5 text-left text-sm leading-relaxed text-muted">
+          Conserviamo la candidatura e il curriculum per un massimo di 30 giorni, poi vengono
+          cancellati automaticamente.
         </p>
       </div>
     )
@@ -224,13 +222,30 @@ export function JobForm({ cvEmail }: { cvEmail: string }) {
         </Field>
       </div>
 
-      <div className="mt-8 rounded-2xl bg-sand-100 p-5">
-        <p className="flex gap-3 text-sm leading-relaxed text-ink">
-          <Mail size={18} className="mt-0.5 shrink-0 text-navy-600" aria-hidden />
+      <div className="mt-8">
+        <Field
+          label="Curriculum"
+          htmlFor="cv"
+          required
+          error={errors.cv}
+          hint="PDF o Word, massimo 5 MB."
+        >
+          <input
+            id="cv"
+            name="cv"
+            type="file"
+            required
+            accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            aria-invalid={Boolean(errors.cv)}
+            aria-describedby={describedBy('cv')}
+            className="block w-full cursor-pointer rounded-2xl bg-white p-3 text-sm text-ink ring-1 ring-line file:mr-4 file:cursor-pointer file:rounded-full file:border-0 file:bg-navy-50 file:px-5 file:py-2.5 file:text-sm file:font-semibold file:text-navy-700 hover:file:bg-navy-100"
+          />
+        </Field>
+        <p className="mt-3 flex gap-3 rounded-2xl bg-sand-100 p-4 text-sm leading-relaxed text-muted">
+          <ShieldCheck size={18} className="mt-0.5 shrink-0 text-navy-600" aria-hidden />
           <span>
-            Il <strong>curriculum</strong> non si allega qui: dopo l’invio ti arriva un’email, e
-            basta rispondere allegandolo. Così il tuo CV resta nella nostra casella di posta e non
-            sul sito.
+            Il curriculum arriva nella casella di posta dello studio e non è raggiungibile dal sito.
+            Viene cancellato automaticamente dopo 30 giorni.
           </span>
         </p>
       </div>
@@ -246,8 +261,8 @@ export function JobForm({ cvEmail }: { cvEmail: string }) {
             className="mt-0.5 h-5 w-5 shrink-0 rounded border-line text-navy-700 focus:ring-navy-500"
           />
           <span>
-            Acconsento al trattamento dei miei dati per la valutazione della candidatura, come
-            indicato nell’
+            Acconsento al trattamento dei miei dati e del curriculum per la valutazione della
+            candidatura, come indicato nell’
             <Link href="/privacy" className="font-medium text-navy-700 underline">
               informativa sulla privacy
             </Link>

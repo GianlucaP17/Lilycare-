@@ -77,6 +77,7 @@ export interface Config {
     media: Media;
     users: User;
     'job-applications': JobApplication;
+    'application-files': ApplicationFile;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -94,6 +95,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'job-applications': JobApplicationsSelect<false> | JobApplicationsSelect<true>;
+    'application-files': ApplicationFilesSelect<false> | ApplicationFilesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -941,7 +943,7 @@ export interface User {
   collection: 'users';
 }
 /**
- * Candidature inviate dalla pagina “Lavora con noi”. Il curriculum non passa dal sito: arriva per email. Ricordati di cancellare le candidature che non servono più.
+ * Candidature inviate dalla pagina “Lavora con noi”, con il curriculum allegato. Candidature e curriculum vengono cancellati automaticamente dopo 30 giorni, come indicato nell’informativa privacy.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "job-applications".
@@ -963,10 +965,38 @@ export interface JobApplication {
   roleLabel?: string | null;
   collaboration?: ('dipendente' | 'indipendente' | 'da-valutare') | null;
   availability?: ('pieno' | 'parziale' | 'giorni' | 'da-concordare') | null;
+  /**
+   * Allegato dal candidato. Viene cancellato insieme alla candidatura dopo 30 giorni.
+   */
+  cv?: (number | null) | ApplicationFile;
   message?: string | null;
   consent?: boolean | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * Curriculum allegati alle candidature. Non sono raggiungibili dal sito pubblico e vengono cancellati automaticamente dopo 30 giorni.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "application-files".
+ */
+export interface ApplicationFile {
+  id: number;
+  /**
+   * Compilato automaticamente, per ritrovare il file.
+   */
+  candidateName?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1031,6 +1061,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'job-applications';
         value: number | JobApplication;
+      } | null)
+    | ({
+        relationTo: 'application-files';
+        value: number | ApplicationFile;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1624,10 +1658,29 @@ export interface JobApplicationsSelect<T extends boolean = true> {
   roleLabel?: T;
   collaboration?: T;
   availability?: T;
+  cv?: T;
   message?: T;
   consent?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "application-files_select".
+ */
+export interface ApplicationFilesSelect<T extends boolean = true> {
+  candidateName?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

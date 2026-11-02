@@ -3,6 +3,7 @@ import * as migration_20261102_140433_legal_data from './20261102_140433_legal_d
 import * as migration_20261102_163316_cover_images from './20261102_163316_cover_images';
 import * as migration_20261102_174302_image_style from './20261102_174302_image_style';
 import * as migration_20261102_182729_job_applications from './20261102_182729_job_applications';
+import * as migration_20261102_190728_cv_candidature from './20261102_190728_cv_candidature';
 
 export const migrations = [
   {
@@ -28,6 +29,11 @@ export const migrations = [
   {
     up: migration_20261102_182729_job_applications.up,
     down: migration_20261102_182729_job_applications.down,
-    name: '20261102_182729_job_applications'
+    name: '20261102_182729_job_applications',
+  },
+  {
+    up: migration_20261102_190728_cv_candidature.up,
+    down: migration_20261102_190728_cv_candidature.down,
+    name: '20261102_190728_cv_candidature'
   },
 ];

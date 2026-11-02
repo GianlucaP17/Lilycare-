@@ -9,6 +9,7 @@ import { buildConfig, type SharpDependency } from 'payload'
 import { fileURLToPath } from 'url'
 
 import { ArticleCategories } from './collections/ArticleCategories'
+import { ApplicationFiles } from './collections/ApplicationFiles'
 import { Articles } from './collections/Articles'
 import { BookingRequests } from './collections/BookingRequests'
 import { JobApplications } from './collections/JobApplications'
@@ -21,6 +22,7 @@ import { Users } from './collections/Users'
 import { AiAssistant } from './globals/AiAssistant'
 import { Navigation } from './globals/Navigation'
 import { Settings } from './globals/Settings'
+import { scheduleApplicationCleanup } from './lib/application-cleanup'
 import { getServerUrl, truncate } from './lib/utils'
 import { migrations } from './migrations'
 import { seedIfFreshDatabase } from './seed/seed'
@@ -95,6 +97,7 @@ export default buildConfig({
     Media,
     Users,
     JobApplications,
+    ApplicationFiles,
   ],
   globals: [Settings, Navigation, AiAssistant],
   editor: lexicalEditor(),
@@ -116,6 +119,8 @@ export default buildConfig({
       process.env.NEXT_PHASE !== 'phase-production-build'
     ) {
       await seedIfFreshDatabase(payload)
+      // Cancella candidature e curriculum scaduti, subito e poi ogni dodici ore
+      scheduleApplicationCleanup(payload)
     }
   },
   email: process.env.SMTP_HOST

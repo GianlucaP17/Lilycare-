@@ -12,7 +12,8 @@ export type JobValues = {
   consent: boolean
 }
 
-export type JobErrors = Partial<Record<keyof JobValues, string>>
+/** Gli errori comprendono anche il curriculum, che non viaggia fra i valori del modulo. */
+export type JobErrors = Partial<Record<keyof JobValues | 'cv', string>>
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 const PHONE = /^[+()\d\s./-]{6,25}$/

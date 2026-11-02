@@ -56,6 +56,7 @@ export const navigation: Omit<Navigation, 'id' | 'createdAt' | 'updatedAt'> = {
     { label: 'Notizie', url: '/notizie', servicesMenu: false },
     { label: 'Chi siamo', url: '/chi-siamo', servicesMenu: false },
     { label: 'Contatti', url: '/contatti', servicesMenu: false },
+    { label: 'Lavora con noi', url: '/lavora-con-noi' },
   ],
   footerLegal: [
     { label: 'Privacy', url: '/privacy' },
