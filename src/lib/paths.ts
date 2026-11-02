@@ -10,6 +10,7 @@ export const paths = {
   newsCategory: (slug: string) => `/notizie/categoria/${slug}`,
   booking: '/prenota',
   contacts: '/contatti',
+  careers: '/lavora-con-noi',
   page: (slug: string) => (slug === 'home' ? '/' : `/${slug}`),
 }
 

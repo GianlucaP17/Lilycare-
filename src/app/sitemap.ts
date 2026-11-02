@@ -25,6 +25,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
+      url: absoluteUrl(paths.careers),
+      changeFrequency: 'yearly',
+      priority: 0.5,
+    },
+    {
       url: absoluteUrl(paths.contacts),
       lastModified: now,
       changeFrequency: 'yearly',

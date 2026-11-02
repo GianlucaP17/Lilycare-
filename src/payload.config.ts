@@ -11,6 +11,7 @@ import { fileURLToPath } from 'url'
 import { ArticleCategories } from './collections/ArticleCategories'
 import { Articles } from './collections/Articles'
 import { BookingRequests } from './collections/BookingRequests'
+import { JobApplications } from './collections/JobApplications'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { ServiceCategories } from './collections/ServiceCategories'
@@ -93,6 +94,7 @@ export default buildConfig({
     BookingRequests,
     Media,
     Users,
+    JobApplications,
   ],
   globals: [Settings, Navigation, AiAssistant],
   editor: lexicalEditor(),

@@ -76,6 +76,7 @@ export interface Config {
     'booking-requests': BookingRequest;
     media: Media;
     users: User;
+    'job-applications': JobApplication;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -92,6 +93,7 @@ export interface Config {
     'booking-requests': BookingRequestsSelect<false> | BookingRequestsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    'job-applications': JobApplicationsSelect<false> | JobApplicationsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -939,6 +941,34 @@ export interface User {
   collection: 'users';
 }
 /**
+ * Candidature inviate dalla pagina “Lavora con noi”. Il curriculum non passa dal sito: arriva per email. Ricordati di cancellare le candidature che non servono più.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "job-applications".
+ */
+export interface JobApplication {
+  id: number;
+  status: 'nuova' | 'in-valutazione' | 'colloquio' | 'archiviata';
+  /**
+   * Visibili solo allo staff.
+   */
+  internalNotes?: string | null;
+  name: string;
+  email: string;
+  phone?: string | null;
+  role?: ('mpa' | 'trm' | 'infermiere' | 'medico-specialista' | 'medico-famiglia' | 'segretariato' | 'altro') | null;
+  /**
+   * Quello che ha indicato il candidato.
+   */
+  roleLabel?: string | null;
+  collaboration?: ('dipendente' | 'indipendente' | 'da-valutare') | null;
+  availability?: ('pieno' | 'parziale' | 'giorni' | 'da-concordare') | null;
+  message?: string | null;
+  consent?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -997,6 +1027,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
+      } | null)
+    | ({
+        relationTo: 'job-applications';
+        value: number | JobApplication;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1578,6 +1612,25 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "job-applications_select".
+ */
+export interface JobApplicationsSelect<T extends boolean = true> {
+  status?: T;
+  internalNotes?: T;
+  name?: T;
+  email?: T;
+  phone?: T;
+  role?: T;
+  roleLabel?: T;
+  collaboration?: T;
+  availability?: T;
+  message?: T;
+  consent?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -1668,6 +1721,10 @@ export interface Setting {
    * Uno o più indirizzi separati da virgola. Se vuoto: email pubblica.
    */
   bookingEmails?: string | null;
+  /**
+   * Indirizzi separati da virgola per la pagina "Lavora con noi". Se vuoto si usano quelli delle richieste di appuntamento.
+   */
+  jobEmails?: string | null;
   address: {
     street: string;
     /**
@@ -1874,6 +1931,7 @@ export interface SettingsSelect<T extends boolean = true> {
   whatsapp?: T;
   email?: T;
   bookingEmails?: T;
+  jobEmails?: T;
   address?:
     | T
     | {

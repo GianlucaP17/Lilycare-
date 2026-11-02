@@ -165,6 +165,15 @@ export const Settings: GlobalConfig = {
               ],
             },
             {
+              name: 'jobEmails',
+              label: 'Email che ricevono le candidature',
+              type: 'text',
+              admin: {
+                description:
+                  'Indirizzi separati da virgola per la pagina "Lavora con noi". Se vuoto si usano quelli delle richieste di appuntamento.',
+              },
+            },
+            {
               name: 'address',
               label: 'Indirizzo',
               type: 'group',

@@ -90,6 +90,7 @@ export function Footer({
                 { label: 'Il team', url: '/team' },
                 { label: 'Notizie', url: '/notizie' },
                 { label: 'Contatti', url: '/contatti' },
+                { label: 'Lavora con noi', url: '/lavora-con-noi' },
                 { label: 'Prenota una visita', url: '/prenota' },
               ].map((l) => (
                 <li key={l.url}>
