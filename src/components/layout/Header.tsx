@@ -94,7 +94,7 @@ export function Header({ logo, nav, groups, phone, address }: Props) {
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-5 sm:px-8">
           {logo}
 
-          <nav aria-label="Navigazione principale" className="hidden lg:block">
+          <nav aria-label="Navigazione principale" className="hidden xl:block">
             <ul className="flex items-center gap-1">
               {nav.map((item) =>
                 item.servicesMenu && groups.length ? (
@@ -105,7 +105,7 @@ export function Header({ logo, nav, groups, phone, address }: Props) {
                       aria-controls="menu-servizi"
                       onClick={() => setMegaOpen((v) => !v)}
                       className={cn(
-                        'flex items-center gap-1 rounded-full px-4 py-2 text-[0.95rem] font-medium transition-colors',
+                        'flex items-center gap-1 rounded-full px-3 py-2 text-[0.95rem] font-medium whitespace-nowrap transition-colors',
                         isActive(item.url) || megaOpen
                           ? 'text-navy-800'
                           : 'text-ink/80 hover:text-navy-800',
@@ -125,7 +125,7 @@ export function Header({ logo, nav, groups, phone, address }: Props) {
                       href={item.url}
                       aria-current={isActive(item.url) ? 'page' : undefined}
                       className={cn(
-                        'relative rounded-full px-4 py-2 text-[0.95rem] font-medium transition-colors',
+                        'relative rounded-full px-3 py-2 text-[0.95rem] font-medium whitespace-nowrap transition-colors',
                         isActive(item.url) ? 'text-navy-800' : 'text-ink/80 hover:text-navy-800',
                       )}
                     >
@@ -147,7 +147,7 @@ export function Header({ logo, nav, groups, phone, address }: Props) {
             {phone ? (
               <a
                 href={toTelHref(phone)}
-                className="hidden items-center gap-2 rounded-full px-3 py-2 text-[0.95rem] font-medium text-navy-800 transition-colors hover:bg-navy-50 xl:inline-flex"
+                className="hidden items-center gap-2 rounded-full px-3 py-2 text-[0.95rem] font-medium whitespace-nowrap text-navy-800 transition-colors hover:bg-navy-50 2xl:inline-flex"
               >
                 <Phone size={17} aria-hidden />
                 {phone}
@@ -160,7 +160,7 @@ export function Header({ logo, nav, groups, phone, address }: Props) {
             </div>
             <button
               type="button"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full text-navy-900 ring-1 ring-line lg:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full text-navy-900 ring-1 ring-line xl:hidden"
               aria-label={mobileOpen ? 'Chiudi menu' : 'Apri menu'}
               aria-expanded={mobileOpen}
               aria-controls="menu-mobile"
@@ -182,7 +182,7 @@ export function Header({ logo, nav, groups, phone, address }: Props) {
         onMouseEnter={openMega}
         onMouseLeave={scheduleClose}
         className={cn(
-          'absolute inset-x-0 top-full hidden border-b border-line bg-cream/97 shadow-lift backdrop-blur-xl transition-all duration-200 lg:block',
+          'absolute inset-x-0 top-full hidden border-b border-line bg-cream/97 shadow-lift backdrop-blur-xl transition-all duration-200 xl:block',
           megaOpen ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-1 opacity-0',
         )}
       >
@@ -231,7 +231,7 @@ export function Header({ logo, nav, groups, phone, address }: Props) {
         id="menu-mobile"
         style={{ top: menuTop }}
         className={cn(
-          'fixed inset-x-0 bottom-0 z-40 overflow-y-auto border-t border-line bg-cream transition-all duration-300 lg:hidden',
+          'fixed inset-x-0 bottom-0 z-40 overflow-y-auto border-t border-line bg-cream transition-all duration-300 xl:hidden',
           mobileOpen ? 'visible opacity-100' : 'invisible opacity-0',
         )}
       >
