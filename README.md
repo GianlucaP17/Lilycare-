@@ -285,6 +285,12 @@ riavvio dell’applicazione incluso.
   `FTP_DEMO_SERVER` sia il **nome del server** (non `ftp.lilycare.ch`) e che l’account FTP del
   punto 3 sia attivo.
 - Il sito resta alla versione precedente → **Setup Node.js App → Restart**.
+- Se la pubblicazione via FTP non va a buon fine, puoi sempre installare la demo a mano: scarica lo
+  zip (_Actions → ultima esecuzione → Artifacts_), caricalo in `lilycare-demo` con il File Manager
+  e usa **Extract**. I punti 1, 2 e 6 restano identici.
+
+> I segreti inseriti su GitHub sono cifrati: non compaiono nel codice né nei registri delle
+> pubblicazioni, e nessuno può rileggerli (si possono solo sostituire).
 
 I contenuti modificati nella demo restano nella cartella `lilycare-demo-data`: al momento della
 messa online si possono riutilizzare.
