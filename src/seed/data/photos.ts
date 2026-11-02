@@ -6,6 +6,8 @@
 export type SeedPhoto = {
   key: string
   file: string
+  /** Sottocartella di public/images (predefinita: "studio"). */
+  dir?: string
   alt: string
   caption: string
   focalX: number
@@ -84,5 +86,23 @@ export const photos: SeedPhoto[] = [
     caption: 'Il centro',
     focalX: 50,
     focalY: 60,
+  },
+  {
+    key: 'ritratto-mauro-binda',
+    file: 'mauro-binda.jpg',
+    dir: 'team',
+    alt: 'Ritratto del Dr. med. Mauro Binda, medico specialista in radiologia di LilyCare',
+    caption: 'Dr. med. Mauro Binda',
+    focalX: 50,
+    focalY: 25,
+  },
+  {
+    key: 'ritratto-monica-gaiga',
+    file: 'monica-gaiga.jpg',
+    dir: 'team',
+    alt: 'Ritratto di Monica Gaiga, infermiera di LilyCare',
+    caption: 'Monica Gaiga',
+    focalX: 50,
+    focalY: 25,
   },
 ]

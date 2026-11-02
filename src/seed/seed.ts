@@ -49,7 +49,7 @@ export async function seedDatabase(
 
   /* Foto dello studio (riutilizzate se già presenti nella libreria) */
   const photoIds: Record<string, number> = {}
-  const photoDir = path.join(process.cwd(), 'public', 'images', 'studio')
+  const photoDir = path.join(process.cwd(), 'public', 'images')
   for (const p of photos) {
     const existingPhoto = await payload.find({
       collection: 'media',
@@ -61,7 +61,7 @@ export async function seedDatabase(
       photoIds[p.key] = existingPhoto.docs[0].id
       continue
     }
-    const filePath = path.join(photoDir, p.file)
+    const filePath = path.join(photoDir, p.dir ?? 'studio', p.file)
     if (!fs.existsSync(filePath)) {
       log(`Foto non trovata, saltata: ${filePath}`)
       continue
@@ -74,7 +74,7 @@ export async function seedDatabase(
     })
     photoIds[p.key] = doc.id
   }
-  log(`Foto dello studio: ${Object.keys(photoIds).length}`)
+  log(`Foto caricate: ${Object.keys(photoIds).length}`)
 
   /** Sostituisce i riferimenti "@photo:chiave" con l'id dell'immagine caricata. */
   const withPhotos = (value: unknown): unknown => {
@@ -108,6 +108,7 @@ export async function seedDatabase(
         prefix: m.prefix,
         name: m.name,
         role: m.role,
+        photo: m.photo ? (photoIds[m.photo] ?? null) : null,
         isPhysician: m.isPhysician,
         order: m.order,
         shortBio: m.shortBio,

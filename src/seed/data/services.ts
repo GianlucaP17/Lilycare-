@@ -134,7 +134,7 @@ La dose di radiazioni di una radiografia è bassa. Ogni esame viene eseguito sol
       {
         question: 'Serve una prescrizione medica?',
         answer:
-          'In genere l’esame radiologico viene eseguito su indicazione di un medico. Se non hai una prescrizione, contattaci: ti spiegheremo come procedere.',
+          'Dipende dal modello della tua assicurazione di base. Con il modello “Medico di famiglia” (come con HMO e Telmed) devi prima passare dal tuo medico curante, che rilascia la prescrizione. Con il modello standard, a libera scelta del medico, puoi rivolgerti direttamente a noi.',
       },
       {
         question: 'Posso fare una radiografia in gravidanza?',
@@ -170,13 +170,25 @@ A differenza di altre metodiche, l’ecografia permette di valutare le strutture
 
 A LilyCare l’ecografia è eseguita direttamente dal medico specialista in radiologia, che può confrontarla con eventuali radiografie ed esami precedenti. Se emerge un problema doloroso trattabile, l’ecografo può anche guidare con precisione le **infiltrazioni** e i trattamenti di **ossigeno-ozonoterapia**.
 
-Il distretto da esaminare e le modalità vengono definiti in base alla tua situazione: contattaci per sapere quale ecografia è più adatta.`,
+## Quali ecografie eseguiamo
+
+A LilyCare si eseguono ecografie di **tutti i principali distretti**:
+
+- **Addome**: completo o superiore (fegato, colecisti e vie biliari, pancreas, milza, reni)
+- **Apparato urinario**: reni, vescica, prostata
+- **Muscolo-scheletrico**: spalla, gomito, polso e mano, anca, ginocchio, caviglia e piede, muscoli e tendini
+- **Collo**: tiroide, paratiroidi, ghiandole salivari, linfonodi
+- **Tessuti molli**: noduli, cisti, tumefazioni e raccolte superficiali
+- **Mammella** e **testicoli**
+- **Vasi sanguigni**: con l’ecodoppler
+
+Se cerchi un esame che non trovi in elenco, chiamaci: ti diremo subito se possiamo eseguirlo.`,
     indications: [
       'Dolore a spalla, gomito, polso, anca, ginocchio o caviglia',
       'Tendiniti, lesioni muscolari e borsiti',
       'Gonfiori, noduli e tumefazioni dei tessuti molli',
-      'Valutazione di tiroide e collo',
-      'Studio degli organi addominali, su indicazione medica',
+      'Valutazione di tiroide, collo e linfonodi',
+      'Studio degli organi addominali e dell’apparato urinario',
       'Guida per infiltrazioni e trattamenti mirati',
     ],
     procedure: [

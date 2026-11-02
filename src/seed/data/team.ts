@@ -8,6 +8,8 @@ export type SeedMember = {
   prefix?: string
   name: string
   role: string
+  /** Chiave del ritratto in photos.ts */
+  photo?: string
   isPhysician: boolean
   order: number
   shortBio: string
@@ -28,6 +30,7 @@ export const team: SeedMember[] = [
     prefix: 'Dr. med.',
     name: 'Mauro Binda',
     role: 'Medico specialista in radiologia',
+    photo: 'ritratto-mauro-binda',
     isPhysician: true,
     order: 1,
     shortBio:
@@ -104,6 +107,7 @@ La sua formazione da radiologo gli permette di unire, nello stesso percorso, una
     slug: 'monica-gaiga',
     name: 'Monica Gaiga',
     role: 'Infermiera · GAET e agopuntura',
+    photo: 'ritratto-monica-gaiga',
     isPhysician: false,
     order: 2,
     shortBio:

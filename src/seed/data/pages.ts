@@ -132,7 +132,7 @@ export const pages: SeedPage[] = [
           {
             question: 'Serve la prescrizione del medico?',
             answer:
-              'Per molti esami radiologici e per alcune prestazioni infermieristiche sì. Per altre prestazioni puoi rivolgerti direttamente a noi: contattaci e ti diremo come procedere.',
+              'Dipende dal modello della tua assicurazione di base. Se hai scelto il modello “Medico di famiglia” – come pure HMO o Telmed – devi prima passare dal tuo medico curante, che ti rilascia la prescrizione. Con il modello standard, a libera scelta del medico, puoi rivolgerti direttamente a noi. Nel dubbio chiamaci: verifichiamo insieme.',
           },
           {
             question: 'Come posso prenotare?',
@@ -142,7 +142,7 @@ export const pages: SeedPage[] = [
           {
             question: 'Le prestazioni sono rimborsate dalla cassa malati?',
             answer:
-              'Molte prestazioni mediche sono coperte dall’assicurazione di base (LAMal) alle condizioni previste; alcuni trattamenti, come l’agopuntura, possono essere rimborsati dalle assicurazioni complementari. Ti consigliamo di verificare con la tua cassa malati.',
+              'Le prestazioni mediche sono coperte dall’assicurazione di base (LAMal) alle condizioni previste dalla legge. Se hai il modello “Medico di famiglia”, HMO o Telmed, per il rimborso serve la prescrizione del tuo medico curante. Alcuni trattamenti complementari, come l’agopuntura eseguita da terapista, rientrano invece nelle assicurazioni complementari: in quel caso verifica la copertura con la tua cassa malati.',
           },
           {
             question: 'Cosa devo portare alla visita?',
