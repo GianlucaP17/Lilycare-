@@ -54,46 +54,62 @@ jobs:
           path: dist-namecheap/lilycare-namecheap.zip
           retention-days: 30
 
-      # 1. Carica il sito. La cartella "tmp" è esclusa: viene caricata dopo, così
-      #    l'applicazione si riavvia solo a caricamento finito.
+      # Pubblicazione con lftp invece dell'azione FTP: quella caricava un file alla volta
+      # (circa un secondo ciascuno) e con oltre 3000 file la sessione durava mezz'ora,
+      # finché il server Namecheap la chiudeva. lftp trasferisce più file in parallelo
+      # e si riconnette da solo se il server interrompe il collegamento.
+      - name: Installa lftp
+        if: env.DEPLOY == 'true'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lftp
+
       - name: Pubblica su Namecheap (FTP)
         if: env.DEPLOY == 'true'
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ github.ref_name == 'main' && secrets.FTP_SERVER || secrets.FTP_DEMO_SERVER }}
-          username: ${{ github.ref_name == 'main' && secrets.FTP_USERNAME || secrets.FTP_DEMO_USERNAME }}
-          password: ${{ github.ref_name == 'main' && secrets.FTP_PASSWORD || secrets.FTP_DEMO_PASSWORD }}
-          protocol: ftps
-          local-dir: dist-namecheap/lilycare-app/
-          server-dir: ${{ github.ref_name == 'main' && (vars.FTP_SERVER_DIR || './') || (vars.FTP_DEMO_SERVER_DIR || './') }}
-          state-name: .ftp-deploy-app.json
-          log-level: minimal
-          # Collegamento cifrato con verifica del certificato: per questo il segreto FTP_*_SERVER
-          # deve essere il nome del server Namecheap (es. serverXXX.web-hosting.com), non il dominio.
-          security: strict
-          timeout: 60000
-          # ATTENZIONE: l'elenco sostituisce quello predefinito dell'azione, che escluderebbe
-          # "node_modules" – indispensabile al sito (standalone/node_modules).
-          exclude: |
-            **/.git*
-            **/.git*/**
-            tmp/**
+        env:
+          FTP_SERVER: ${{ github.ref_name == 'main' && secrets.FTP_SERVER || secrets.FTP_DEMO_SERVER }}
+          FTP_USERNAME: ${{ github.ref_name == 'main' && secrets.FTP_USERNAME || secrets.FTP_DEMO_USERNAME }}
+          # lftp legge la password da questa variabile: non compare mai nei comandi
+          LFTP_PASSWORD: ${{ github.ref_name == 'main' && secrets.FTP_PASSWORD || secrets.FTP_DEMO_PASSWORD }}
+          REMOTE_DIR: ${{ github.ref_name == 'main' && (vars.FTP_SERVER_DIR || './') || (vars.FTP_DEMO_SERVER_DIR || './') }}
+        run: |
+          set -euo pipefail
+          lftp -u "$FTP_USERNAME" --env-password "$FTP_SERVER" <<LFTP
+          set cmd:fail-exit true
+          set ftp:ssl-force true
+          set ftp:ssl-protect-data true
+          set ssl:verify-certificate true
+          set ftp:passive-mode true
+          set net:max-retries 10
+          set net:timeout 20
+          set net:reconnect-interval-base 5
+          mirror --reverse --parallel=5 --no-perms --ignore-time --verbose=1 dist-namecheap/lilycare-app/standalone/node_modules/ ${REMOTE_DIR}standalone/node_modules/
+          mirror --reverse --parallel=5 --no-perms --verbose=1 --exclude ^standalone/node_modules/ --exclude ^tmp/ dist-namecheap/lilycare-app/ ${REMOTE_DIR}
+          bye
+          LFTP
 
-      # 2. Riavvio: modificando tmp/restart.txt Passenger ricarica il sito aggiornato.
+      # Il file di riavvio si carica solo ora, a sito completo: Passenger ricarica
+      # l'applicazione quando vede cambiare tmp/restart.txt.
       - name: Riavvia l'applicazione
         if: env.DEPLOY == 'true'
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ github.ref_name == 'main' && secrets.FTP_SERVER || secrets.FTP_DEMO_SERVER }}
-          username: ${{ github.ref_name == 'main' && secrets.FTP_USERNAME || secrets.FTP_DEMO_USERNAME }}
-          password: ${{ github.ref_name == 'main' && secrets.FTP_PASSWORD || secrets.FTP_DEMO_PASSWORD }}
-          protocol: ftps
-          local-dir: dist-namecheap/restart/
-          server-dir: ${{ github.ref_name == 'main' && (vars.FTP_SERVER_DIR || './') || (vars.FTP_DEMO_SERVER_DIR || './') }}
-          state-name: .ftp-deploy-restart.json
-          log-level: minimal
-          security: strict
-          timeout: 60000
+        env:
+          FTP_SERVER: ${{ github.ref_name == 'main' && secrets.FTP_SERVER || secrets.FTP_DEMO_SERVER }}
+          FTP_USERNAME: ${{ github.ref_name == 'main' && secrets.FTP_USERNAME || secrets.FTP_DEMO_USERNAME }}
+          LFTP_PASSWORD: ${{ github.ref_name == 'main' && secrets.FTP_PASSWORD || secrets.FTP_DEMO_PASSWORD }}
+          REMOTE_DIR: ${{ github.ref_name == 'main' && (vars.FTP_SERVER_DIR || './') || (vars.FTP_DEMO_SERVER_DIR || './') }}
+        run: |
+          set -euo pipefail
+          lftp -u "$FTP_USERNAME" --env-password "$FTP_SERVER" <<LFTP
+          set cmd:fail-exit true
+          set ftp:ssl-force true
+          set ftp:ssl-protect-data true
+          set ssl:verify-certificate true
+          set ftp:passive-mode true
+          set net:max-retries 10
+          set net:timeout 20
+          mirror --reverse --no-perms --verbose=1 dist-namecheap/restart/ ${REMOTE_DIR}
+          bye
+          LFTP
 
       - name: Nessun FTP configurato
         if: env.DEPLOY != 'true'

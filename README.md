@@ -266,8 +266,9 @@ poi **ogni aggiornamento arriva da solo**.
    | `FTP_DEMO_PASSWORD` | la password del punto 3                                                                                    |
 
 5. **GitHub → Actions → Build e pubblicazione (Namecheap) → Run workflow** (scegli il ramo di
-   sviluppo): GitHub compila il sito e lo carica sul server. La prima volta servono 10–20 minuti,
-   perché carica tutti i file; gli aggiornamenti successivi sono molto più rapidi.
+   sviluppo): GitHub compila il sito e lo carica sul server. La prima volta servono circa 15 minuti
+   (sono 2600 file); gli aggiornamenti successivi richiedono pochi minuti, perché le librerie del
+   sito — i due terzi dei file — non vengono ricaricate se non sono cambiate.
 
 6. Apri `https://demo.lilycare.ch` (al primo avvio carica foto e contenuti in qualche secondo) e
    **subito dopo** `https://demo.lilycare.ch/admin` per creare il tuo utente: il primo che apre
@@ -281,9 +282,11 @@ riavvio dell’applicazione incluso.
 - Il browser segnala il certificato → **cPanel → SSL/TLS Status → Run AutoSSL**.
 - Il sottodominio non si apre dopo 30 minuti → in Namecheap, _Domain List → Advanced DNS_, aggiungi
   un record **A** con host `demo` verso l’indirizzo IP del server (in cPanel: _Shared IP Address_).
-- La pubblicazione si ferma su un errore di collegamento o di certificato → controlla che
-  `FTP_DEMO_SERVER` sia il **nome del server** (non `ftp.lilycare.ch`) e che l’account FTP del
-  punto 3 sia attivo.
+- La pubblicazione si ferma su un errore di certificato → controlla che `FTP_DEMO_SERVER` sia il
+  **nome del server** (non `ftp.lilycare.ch`) e che l’account FTP del punto 3 sia attivo.
+- La pubblicazione si interrompe a metà (il server chiude il collegamento) → rilancia il workflow:
+  i file già caricati non vengono ritrasmessi. Se succede spesso, si può abbassare il numero di
+  trasferimenti in parallelo (`--parallel=5` in `.github/workflows/namecheap.yml`).
 - Il sito resta alla versione precedente → **Setup Node.js App → Restart**.
 - Se la pubblicazione via FTP non va a buon fine, puoi sempre installare la demo a mano: scarica lo
   zip (_Actions → ultima esecuzione → Artifacts_), caricalo in `lilycare-demo` con il File Manager
