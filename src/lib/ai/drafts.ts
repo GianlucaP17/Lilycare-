@@ -258,7 +258,14 @@ export async function generateIntoDraft(
     const aiSettings = await payload.findGlobal({ slug: 'ai-assistant', depth: 0 })
     let coverImage: number | null = null
     let coverNote: string | null = null
-    if (aiSettings.coverImages !== false && coverImagesEnabled() && draft.imagePrompt?.trim()) {
+    if (aiSettings.coverImages === false) {
+      // Copertine disattivate dal pannello: è una scelta dello staff, non serve segnalarla.
+    } else if (!coverImagesEnabled()) {
+      coverNote =
+        'manca la chiave OPENAI_API_KEY fra le variabili del server, oppure l’applicazione non è stata riavviata dopo averla aggiunta.'
+    } else if (!draft.imagePrompt?.trim()) {
+      coverNote = 'l’assistente non ha descritto l’illustrazione da disegnare.'
+    } else {
       try {
         const cover = await generateCoverImage(draft.imagePrompt)
         if (cover) {
