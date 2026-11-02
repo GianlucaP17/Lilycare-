@@ -234,7 +234,7 @@ poi **ogni aggiornamento arriva da solo**.
 
    | Campo                    | Valore                       |
    | ------------------------ | ---------------------------- |
-   | Node.js version          | la più recente (24.x o 22.x) |
+   | Node.js version          | **22.23.4** (oppure 24.22.2) |
    | Application mode         | Production                   |
    | Application root         | `lilycare-demo`              |
    | Application URL          | `demo.lilycare.ch`           |
@@ -288,6 +288,10 @@ riavvio dell’applicazione incluso.
   i file già caricati non vengono ritrasmessi. Se succede spesso, si può abbassare il numero di
   trasferimenti in parallelo (`--parallel=5` in `.github/workflows/namecheap.yml`).
 - Il sito resta alla versione precedente → **Setup Node.js App → Restart**.
+- La demo risponde **503** → quasi sempre è la versione di Node: cPanel propone 14.21.3 come
+  "recommended", ma il sito richiede **22.23.4 o superiore**. Cambiala in _Setup Node.js App_,
+  premi SAVE, attendi qualche minuto e poi RESTART. L'errore esatto si legge nel file
+  `startup-error.log` dentro la cartella dell'applicazione.
 - Se la pubblicazione via FTP non va a buon fine, puoi sempre installare la demo a mano: scarica lo
   zip (_Actions → ultima esecuzione → Artifacts_), caricalo in `lilycare-demo` con il File Manager
   e usa **Extract**. I punti 1, 2 e 6 restano identici.

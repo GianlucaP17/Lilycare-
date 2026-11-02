@@ -77,6 +77,29 @@ function segnalaErrore(errore) {
   }
 }
 
+// Controllo della versione di Node: su una versione troppo vecchia il sito non parte e
+// cPanel mostrerebbe soltanto "503", senza spiegazioni.
+const [maggiore, minore] = process.versions.node.split('.').map(Number)
+if (maggiore < 20 || (maggiore === 20 && minore < 9)) {
+  segnalaErrore(
+    new Error(
+      'Node.js ' +
+        process.version +
+        ' è troppo vecchio per questo sito, che richiede Node 22.23 o superiore.\\n' +
+        'In cPanel apri "Setup Node.js App", scegli la versione più recente nel menu ' +
+        '"Node.js version", premi SAVE e poi RESTART.',
+    ),
+  )
+  process.exit(1)
+}
+if (maggiore < 22 || (maggiore === 22 && minore < 23)) {
+  console.warn(
+    '[LilyCare] Attenzione: Node ' +
+      process.version +
+      ' non è una versione supportata (serve Node 22.23 o superiore).',
+  )
+}
+
 process.on('uncaughtException', (errore) => {
   segnalaErrore(errore)
   process.exit(1)
