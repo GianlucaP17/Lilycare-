@@ -155,6 +155,7 @@ async function buildContext(
             !t.startsWith('Bozza non riuscita'),
         ),
       styleGuide: ai.styleGuide,
+      imageStyle: ai.imageStyle,
     },
   }
 }
@@ -295,7 +296,7 @@ export async function generateIntoDraft(
     const reviewPoints = [...draft.reviewNotes]
     if (coverImage) {
       reviewPoints.push(
-        'L’immagine di copertina è generata da un’intelligenza artificiale: controlla che sia adatta e, se non ti convince, sostituiscila.',
+        'L’immagine di copertina è generata da un’intelligenza artificiale e mostra un ambiente generico, non lo studio di LilyCare: controlla che sia adatta e, se preferisci, sostituiscila con una foto vera.',
       )
     }
     if (coverNote) reviewPoints.push(`Immagine di copertina non creata: ${coverNote}`)

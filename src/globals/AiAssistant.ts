@@ -62,6 +62,15 @@ export const AiAssistant: GlobalConfig = {
       admin: { description: 'Indicazioni che l’assistente segue in ogni bozza.' },
     },
     {
+      name: 'imageStyle',
+      label: 'Indicazioni sulle immagini di copertina',
+      type: 'textarea',
+      admin: {
+        description:
+          'Si aggiungono alle regole fisse (ambiente clinico realistico, nessun volto, niente sangue, nessuna immagine medica sugli schermi). Esempi: “inquadrature più ravvicinate sull’apparecchio”, “ambienti più luminosi”, “mostrare anche la sala d’attesa”.',
+      },
+    },
+    {
       name: 'coverImages',
       label: 'Genera anche l’immagine di copertina',
       type: 'checkbox',
