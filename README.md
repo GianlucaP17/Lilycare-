@@ -450,6 +450,14 @@ scripts/package-namecheap.mjs   crea il pacchetto per cPanel
 **Colori e caratteri**: sono definiti in un unico punto, `src/app/(frontend)/globals.css`
 (blocco `@theme`). Il blu (`navy`) e il rosa orchidea (`orchid`) sono ricavati dal logo ufficiale.
 
+**Veste grafica del pannello admin**: il pannello usa gli stessi colori, caratteri e forme del
+sito. Tutto sta in `src/app/(payload)/custom.scss`: in cima ci sono le variabili del marchio e la
+rimappatura di quelle di Payload (fondo panna, superfici bianche con angoli morbidi, pulsanti a
+pillola, titoli in Fraunces, testi in Inter), con una versione per il tema scuro. I due caratteri
+arrivano da `src/components/admin/AdminFonts.tsx`, serviti dal nostro server come sul sito.
+**Non viene cambiato nulla nel funzionamento**: è solo aspetto, quindi gli aggiornamenti di Payload
+non si rompono. Per ritoccare un colore basta modificare le variabili `--lily-*` in cima al file.
+
 ## App futura
 
 Il pannello espone già un’**API REST** e **GraphQL** che una app (es. React Native) può usare:

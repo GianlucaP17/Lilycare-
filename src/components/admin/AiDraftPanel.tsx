@@ -22,37 +22,14 @@ type Job =
   | { state: 'ready'; id: number; title: string; notes?: string | null }
   | { state: 'error'; message: string; id?: number }
 
-const box: React.CSSProperties = {
-  border: '1px solid var(--theme-elevation-150)',
-  borderRadius: 12,
-  background: 'var(--theme-elevation-50)',
-  padding: '18px 20px',
-  marginBottom: 24,
-}
-const input: React.CSSProperties = {
-  width: '100%',
-  padding: '9px 12px',
-  borderRadius: 8,
-  border: '1px solid var(--theme-elevation-200)',
-  background: 'var(--theme-input-bg, var(--theme-elevation-0))',
-  color: 'var(--theme-text)',
-  font: 'inherit',
-}
-const label: React.CSSProperties = {
-  display: 'block',
-  fontSize: 13,
-  fontWeight: 600,
-  marginBottom: 6,
-}
-const button: React.CSSProperties = {
-  padding: '10px 18px',
-  borderRadius: 999,
-  border: 'none',
-  background: 'var(--theme-elevation-900)',
-  color: 'var(--theme-elevation-0)',
-  fontWeight: 600,
-  cursor: 'pointer',
-}
+const formatDate = (iso: string) =>
+  new Date(iso).toLocaleString('it-CH', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  })
 
 /** Assistente AI nella lista Articoli: prepara una bozza da rileggere. */
 export function AiDraftPanel() {
@@ -157,46 +134,36 @@ export function AiDraftPanel() {
   const busy = job.state === 'sending' || job.state === 'generating'
 
   return (
-    <div style={box}>
-      <div
-        style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}
-      >
+    <div className="lily-panel">
+      <div className="lily-ai__head">
         <div>
-          <div style={{ fontSize: 17, fontWeight: 700 }}>✨ Assistente AI – prepara una bozza</div>
-          <div style={{ fontSize: 13, opacity: 0.75, marginTop: 4 }}>
+          <p className="lily-eyebrow">Assistente AI</p>
+          <h2 className="lily-ai__title">Prepara una bozza</h2>
+          <p className="lily-ai__subtitle">
             L’assistente scrive una bozza in circa un minuto. Non pubblica nulla: rileggi, correggi
             e pubblica tu.
-          </div>
+          </p>
         </div>
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          style={{
-            ...button,
-            background: 'transparent',
-            color: 'var(--theme-text)',
-            border: '1px solid var(--theme-elevation-200)',
-          }}
-        >
+        <button type="button" onClick={() => setOpen((v) => !v)} className="lily-ai__toggle">
           {open ? 'Chiudi' : 'Apri'}
         </button>
       </div>
 
       {open ? (
         status && !status.configured ? (
-          <p style={{ marginTop: 16, fontSize: 14 }}>
+          <p className="lily-ai__note lily-ai__note--bad" style={{ marginTop: 18 }}>
             L’assistente non è ancora attivo: sul server manca la chiave{' '}
             <code>ANTHROPIC_API_KEY</code>. Vedi il README, sezione “Assistente AI”.
           </p>
         ) : (
-          <form onSubmit={submit} style={{ marginTop: 18, display: 'grid', gap: 14 }}>
+          <form onSubmit={submit} className="lily-ai__form">
             <div>
-              <label htmlFor="ai-topic" style={label}>
+              <label htmlFor="ai-topic" className="lily-ai__label">
                 Argomento
               </label>
               <input
                 id="ai-topic"
-                style={input}
+                className="lily-ai__input"
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
                 placeholder="Es. Mal di schiena al risveglio: cause e quando rivolgersi al medico (vuoto = sceglie l’assistente)"
@@ -204,20 +171,15 @@ export function AiDraftPanel() {
                 disabled={busy}
               />
             </div>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                gap: 14,
-              }}
-            >
+
+            <div className="lily-ai__row">
               <div>
-                <label htmlFor="ai-category" style={label}>
+                <label htmlFor="ai-category" className="lily-ai__label">
                   Categoria
                 </label>
                 <select
                   id="ai-category"
-                  style={input}
+                  className="lily-ai__input"
                   value={categoryId}
                   onChange={(e) => setCategoryId(e.target.value)}
                   disabled={busy}
@@ -231,12 +193,12 @@ export function AiDraftPanel() {
                 </select>
               </div>
               <div>
-                <label htmlFor="ai-length" style={label}>
+                <label htmlFor="ai-length" className="lily-ai__label">
                   Lunghezza
                 </label>
                 <select
                   id="ai-length"
-                  style={input}
+                  className="lily-ai__input"
                   value={length}
                   onChange={(e) => setLength(e.target.value as 'breve' | 'media' | 'lunga')}
                   disabled={busy}
@@ -247,26 +209,17 @@ export function AiDraftPanel() {
                 </select>
               </div>
             </div>
+
             {services.length ? (
-              <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
-                <legend style={label}>Servizi da collegare (facoltativo)</legend>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+              <fieldset className="lily-ai__chips-wrap">
+                <legend className="lily-ai__label">Servizi da collegare (facoltativo)</legend>
+                <div className="lily-ai__chips">
                   {services.map((s) => {
                     const checked = serviceIds.includes(s.id)
                     return (
                       <label
                         key={s.id}
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: 6,
-                          padding: '6px 12px',
-                          borderRadius: 999,
-                          border: '1px solid var(--theme-elevation-200)',
-                          background: checked ? 'var(--theme-elevation-150)' : 'transparent',
-                          fontSize: 13,
-                          cursor: busy ? 'default' : 'pointer',
-                        }}
+                        className={`lily-ai__chip${checked ? ' lily-ai__chip--on' : ''}`}
                       >
                         <input
                           type="checkbox"
@@ -285,13 +238,15 @@ export function AiDraftPanel() {
                 </div>
               </fieldset>
             ) : null}
+
             <div>
-              <label htmlFor="ai-notes" style={label}>
+              <label htmlFor="ai-notes" className="lily-ai__label">
                 Indicazioni per l’assistente (facoltative)
               </label>
               <textarea
                 id="ai-notes"
-                style={{ ...input, minHeight: 70, resize: 'vertical' }}
+                className="lily-ai__input"
+                style={{ minHeight: 76, resize: 'vertical' }}
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="Es. rivolto a sportivi; citare la possibilità di una visita con ecografia"
@@ -299,8 +254,9 @@ export function AiDraftPanel() {
                 disabled={busy}
               />
             </div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 14 }}>
-              <button type="submit" style={{ ...button, opacity: busy ? 0.6 : 1 }} disabled={busy}>
+
+            <div className="lily-ai__actions">
+              <button type="submit" className="lily-ai__go" disabled={busy}>
                 {job.state === 'sending'
                   ? 'Invio…'
                   : job.state === 'generating'
@@ -308,7 +264,7 @@ export function AiDraftPanel() {
                     : 'Prepara la bozza'}
               </button>
               {status ? (
-                <span style={{ fontSize: 12, opacity: 0.7 }}>
+                <span className="lily-ai__meta">
                   Ancora {status.remainingToday} bozze disponibili oggi ·{' '}
                   <Link href="/admin/globals/ai-assistant">
                     piano editoriale e bozza giornaliera
@@ -317,11 +273,10 @@ export function AiDraftPanel() {
                     <> · immagine di copertina: attiva ({status.coverImageModel})</>
                   ) : status.coverImages === 'no-key' ? (
                     <>
-                      {' '}
-                      ·{' '}
-                      <strong style={{ color: '#b5609a' }}>
+                      {' · '}
+                      <span className="lily-ai__warn">
                         immagine di copertina: manca OPENAI_API_KEY sul server
-                      </strong>
+                      </span>
                     </>
                   ) : status.coverImages === 'off' ? (
                     <> · immagine di copertina: disattivata</>
@@ -331,81 +286,59 @@ export function AiDraftPanel() {
             </div>
 
             {status ? (
-              <p style={{ margin: 0, fontSize: 12, opacity: 0.75, lineHeight: 1.6 }}>
+              <p className="lily-ai__meta" style={{ margin: 0 }}>
                 <strong>Bozza automatica giornaliera:</strong>{' '}
                 {status.dailyEnabled ? 'attiva' : 'disattivata'}
                 {!status.cronConfigured ? (
                   <>
                     {' · '}
-                    <strong style={{ color: '#b5609a' }}>
+                    <span className="lily-ai__warn">
                       manca CRON_SECRET fra le variabili del server
-                    </strong>
+                    </span>
                   </>
                 ) : null}
                 {' · '}
                 {status.lastDaily ? (
                   <>
-                    ultima chiamata del cron:{' '}
-                    {new Date(status.lastDaily.at).toLocaleString('it-CH', {
-                      day: '2-digit',
-                      month: '2-digit',
-                      year: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
+                    ultima chiamata del cron: {formatDate(status.lastDaily.at)}
                     {status.lastDaily.outcome ? ` — ${status.lastDaily.outcome}` : ''}
                   </>
                 ) : (
-                  <strong style={{ color: '#b5609a' }}>
+                  <span className="lily-ai__warn">
                     il cron di cPanel non ha mai chiamato il sito
-                  </strong>
+                  </span>
                 )}
               </p>
             ) : null}
 
             {job.state === 'generating' ? (
-              <p role="status" style={{ margin: 0, fontSize: 14 }}>
-                ⏳ L’assistente sta scrivendo la bozza (di solito circa un minuto). Puoi anche
-                lasciare questa pagina: la troverai nell’elenco e riceverai un’email quando è
-                pronta.
+              <p role="status" className="lily-ai__note lily-ai__note--wait">
+                L’assistente sta scrivendo la bozza (di solito circa un minuto). Puoi anche lasciare
+                questa pagina: la troverai nell’elenco e riceverai un’email quando è pronta.
               </p>
             ) : null}
+
             {job.state === 'ready' ? (
-              <div
-                role="status"
-                style={{
-                  fontSize: 14,
-                  padding: 14,
-                  borderRadius: 10,
-                  background: 'var(--theme-success-50)',
-                }}
-              >
-                ✅ Bozza pronta: <strong>{job.title}</strong>
+              <div role="status" className="lily-ai__note lily-ai__note--ok">
+                Bozza pronta: <strong>{job.title}</strong>
                 {job.notes ? (
-                  <div style={{ whiteSpace: 'pre-line', marginTop: 8, opacity: 0.85 }}>
+                  <span style={{ display: 'block', whiteSpace: 'pre-line', marginTop: 8 }}>
                     <strong>Da verificare:</strong>
                     {'\n'}
                     {job.notes}
-                  </div>
+                  </span>
                 ) : null}
-                <div style={{ marginTop: 10 }}>
-                  <Link href={`/admin/collections/articles/${job.id}`} style={{ fontWeight: 600 }}>
-                    Apri la bozza e rileggila →
+                <span style={{ display: 'block', marginTop: 10 }}>
+                  <Link href={`/admin/collections/articles/${job.id}`}>
+                    <strong>Apri la bozza e rileggila →</strong>
                   </Link>
-                </div>
+                </span>
               </div>
             ) : null}
+
             {job.state === 'error' ? (
-              <div
-                role="alert"
-                style={{
-                  fontSize: 14,
-                  padding: 14,
-                  borderRadius: 10,
-                  background: 'var(--theme-error-50)',
-                }}
-              >
-                ⚠️ {job.message}
+              <div role="alert" className="lily-ai__note lily-ai__note--bad">
+                {job.message}
                 {job.id ? (
                   <>
                     {' '}

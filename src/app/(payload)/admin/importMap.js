@@ -31,6 +31,7 @@ import { AiDraftPanel as AiDraftPanel_790295fb1f0bc4aa525b42a9399b563f } from '.
 import { AdminIcon as AdminIcon_db845eae23ef682757f9df5d4893ae70 } from '../../../components/admin/AdminBrand'
 import { AdminLogo as AdminLogo_db845eae23ef682757f9df5d4893ae70 } from '../../../components/admin/AdminBrand'
 import { Welcome as Welcome_72e830871eb26c77002633e2e2cc9dea } from '../../../components/admin/Welcome'
+import { AdminFonts as AdminFonts_1a7dbd9a670a2dd0dc56d863acf43b09 } from '../../../components/admin/AdminFonts'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 /** @type import('payload').ImportMap */
@@ -68,5 +69,6 @@ export const importMap = {
   "/components/admin/AdminBrand#AdminIcon": AdminIcon_db845eae23ef682757f9df5d4893ae70,
   "/components/admin/AdminBrand#AdminLogo": AdminLogo_db845eae23ef682757f9df5d4893ae70,
   "/components/admin/Welcome#Welcome": Welcome_72e830871eb26c77002633e2e2cc9dea,
+  "/components/admin/AdminFonts#AdminFonts": AdminFonts_1a7dbd9a670a2dd0dc56d863acf43b09,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

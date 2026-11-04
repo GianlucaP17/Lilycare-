@@ -1,0 +1,1166 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   LilyCare — veste grafica del pannello di amministrazione
+
+   Il pannello è quello standard di Payload: qui NON si cambia il funzionamento,
+   solo l'aspetto, così chi passa dal sito al pannello ritrova gli stessi colori,
+   gli stessi caratteri e le stesse forme (angoli morbidi, pulsanti a pillola).
+
+   Come funziona: Payload mette i suoi stili dentro @layer payload-default e
+   @layer payload. Le regole di questo file sono fuori da ogni layer, quindi
+   hanno sempre la precedenza senza bisogno di "!important".
+
+   I colori sono gli stessi del sito, definiti in src/app/(frontend)/globals.css:
+   blu LilyCare (navy), rosa LilyCare (orchid), neutri caldi (sand/cream).
+   ───────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ---- Palette del marchio (identica a quella del sito) ---- */
+  --lily-ink: #1c2540;
+  --lily-muted: #586178;
+  --lily-line: #e6e2dc;
+  --lily-cream: #fbf9f6;
+
+  --lily-sand-50: #fdfcfa;
+  --lily-sand-100: #f6f3ee;
+  --lily-sand-200: #ece6dc;
+  --lily-sand-300: #ddd3c3;
+
+  --lily-navy-50: #f3f6fc;
+  --lily-navy-100: #e5ecf8;
+  --lily-navy-200: #cad8f1;
+  --lily-navy-300: #a3bbe5;
+  --lily-navy-400: #7393d4;
+  --lily-navy-500: #4c71c4;
+  --lily-navy-600: #3a5fbb;
+  --lily-navy-700: #2f55b4;
+  --lily-navy-800: #284a9f;
+  --lily-navy-900: #1f3a7e;
+  --lily-navy-950: #152856;
+
+  --lily-orchid-50: #fcf5fa;
+  --lily-orchid-100: #f8e7f2;
+  --lily-orchid-200: #f1cde5;
+  --lily-orchid-300: #e6acd2;
+  --lily-orchid-400: #d98fc1;
+  --lily-orchid-500: #cf7eb4;
+  --lily-orchid-600: #b5609a;
+  --lily-orchid-700: #934b7d;
+
+  /* Colore delle azioni principali: sul tema scuro resta saturo mentre i blu
+     usati per i testi vengono schiariti, quindi sta in una variabile a parte. */
+  --lily-primary: #284a9f;
+  --lily-primary-hover: #2f55b4;
+
+  --lily-shadow-soft: 0 1px 2px rgb(21 40 86 / 0.04), 0 10px 30px -14px rgb(21 40 86 / 0.14);
+  --lily-shadow-lift: 0 2px 6px rgb(21 40 86 / 0.05), 0 28px 56px -22px rgb(21 40 86 / 0.24);
+
+  /* Caratteri: le due variabili sono fornite da AdminFonts (gli stessi file del sito) */
+  --lily-sans:
+    var(--lily-font-sans, ui-sans-serif), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --lily-serif: var(--lily-font-serif, ui-serif), Georgia, 'Times New Roman', serif;
+
+  /* ---- Rimappatura delle variabili di Payload ---- */
+  --font-body: var(--lily-sans);
+  --font-serif: var(--lily-serif);
+
+  /* Il testo è grande 14px invece di 13: con --base-body-size allineato,
+     le spaziature del pannello restano identiche a quelle originali. */
+  --base-body-size: 14;
+
+  /* Angoli morbidi come sul sito */
+  --style-radius-s: 8px;
+  --style-radius-m: 10px;
+  --style-radius-l: 16px;
+
+  --theme-bg: var(--lily-cream);
+  --theme-text: var(--lily-ink);
+  --theme-input-bg: #ffffff;
+  --theme-overlay: rgb(21 40 86 / 0.42);
+  --theme-border-color: var(--lily-line);
+  --accessibility-outline: 2px solid var(--lily-navy-600);
+  --accessibility-outline-offset: 3px;
+
+  /* Scala dei grigi → neutri caldi in basso, blu-grigi in alto (testi e icone) */
+  --theme-elevation-0: #ffffff;
+  --theme-elevation-50: #faf8f5;
+  --theme-elevation-100: #f4f1eb;
+  --theme-elevation-150: #e6e2dc;
+  --theme-elevation-200: #d9d3c9;
+  --theme-elevation-250: #c7c0b4;
+  --theme-elevation-300: #b0a99e;
+  --theme-elevation-350: #9a948c;
+  --theme-elevation-400: #857f7c;
+  --theme-elevation-450: #726d72;
+  --theme-elevation-500: #656169;
+  --theme-elevation-600: #586178;
+  --theme-elevation-650: #4b5470;
+  --theme-elevation-700: #3d4866;
+  --theme-elevation-750: #2e3a58;
+  --theme-elevation-800: #1f2a45;
+  --theme-elevation-850: #192238;
+  --theme-elevation-900: #141b2c;
+  --theme-elevation-950: #0d1220;
+  --theme-elevation-1000: #000000;
+
+  /* "success" in Payload colora gli anelli di focus e lo stato "pubblicato": lo portiamo sul blu */
+  --theme-success-50: var(--lily-navy-50);
+  --theme-success-100: var(--lily-navy-100);
+  --theme-success-150: var(--lily-navy-200);
+  --theme-success-200: var(--lily-navy-200);
+  --theme-success-250: var(--lily-navy-300);
+  --theme-success-300: var(--lily-navy-300);
+  --theme-success-350: var(--lily-navy-400);
+  --theme-success-400: var(--lily-navy-500);
+  --theme-success-450: var(--lily-navy-600);
+  --theme-success-500: var(--lily-navy-700);
+  --theme-success-550: var(--lily-navy-800);
+  --theme-success-600: var(--lily-navy-800);
+  --theme-success-650: var(--lily-navy-900);
+  --theme-success-700: var(--lily-navy-900);
+  --theme-success-750: var(--lily-navy-950);
+  --theme-success-800: var(--lily-navy-950);
+  --theme-success-850: var(--lily-navy-950);
+  --theme-success-900: var(--lily-navy-950);
+  --theme-success-950: var(--lily-navy-950);
+}
+
+/* ---- Tema scuro: stessa identità, fondo blu notte invece che grigio ---- */
+html[data-theme='dark'] {
+  --theme-bg: #11172a;
+  --theme-text: #e9ecf4;
+  --theme-input-bg: #1a2138;
+  --theme-overlay: rgb(5 9 20 / 0.72);
+  --theme-border-color: #2b3453;
+
+  --theme-elevation-0: #171e33;
+  --theme-elevation-50: #1c2440;
+  --theme-elevation-100: #222b4a;
+  --theme-elevation-150: #2b3453;
+  --theme-elevation-200: #354061;
+  --theme-elevation-250: #3f4a6d;
+  --theme-elevation-300: #4b5779;
+  --theme-elevation-350: #5a6688;
+  --theme-elevation-400: #6b7798;
+  --theme-elevation-450: #7d88a6;
+  --theme-elevation-500: #8d97b2;
+  --theme-elevation-550: #9da6bd;
+  --theme-elevation-600: #adb5c9;
+  --theme-elevation-650: #bcc3d4;
+  --theme-elevation-700: #cbd1de;
+  --theme-elevation-750: #d8dce7;
+  --theme-elevation-800: #e4e7ef;
+  --theme-elevation-850: #edeff4;
+  --theme-elevation-900: #f5f6f9;
+  --theme-elevation-950: #fafbfc;
+  --theme-elevation-1000: #ffffff;
+
+  --lily-line: #2b3453;
+  --lily-cream: #11172a;
+  --lily-sand-100: #1c2440;
+  --lily-sand-200: #222b4a;
+  --lily-navy-50: #1d2a4d;
+  --lily-navy-100: #24345c;
+  --lily-navy-200: #2d4070;
+  --lily-ink: #e9ecf4;
+  --lily-muted: #a3abc0;
+  --lily-shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 30px -14px rgb(0 0 0 / 0.6);
+  --lily-shadow-lift: 0 2px 6px rgb(0 0 0 / 0.35), 0 28px 56px -22px rgb(0 0 0 / 0.7);
+
+  /* I blu scuri servono per scrivere su fondo chiaro: sul fondo notte vanno
+     schiariti, altrimenti i testi spariscono. L'azione resta satura. */
+  --lily-primary: #3a5fbb;
+  --lily-primary-hover: #4c71c4;
+  --lily-navy-300: #41598f;
+  --lily-navy-700: #9db8f0;
+  --lily-navy-800: #b6caf6;
+  --lily-navy-900: #d2defb;
+  --lily-navy-950: #eaf0fc;
+
+  --lily-orchid-50: #38223a;
+  --lily-orchid-100: #482c4a;
+  --lily-orchid-200: #5c3a5e;
+  --lily-orchid-500: #d98fc1;
+  --lily-orchid-600: #e6acd2;
+  --lily-orchid-700: #f1cde5;
+}
+
+/* ─────────────────────────────  BASE E TIPOGRAFIA  ───────────────────────── */
+
+html {
+  font-size: 14px;
+  line-height: 1.55;
+  background: var(--theme-bg);
+}
+
+body {
+  font-family: var(--lily-sans);
+  color: var(--theme-text);
+  letter-spacing: -0.003em;
+}
+
+h1,
+h2,
+h3,
+h4,
+.doc-controls__label,
+.nav__label {
+  font-family: var(--lily-serif);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  color: var(--lily-navy-950);
+  font-optical-sizing: auto;
+}
+
+html[data-theme='dark'] h1,
+html[data-theme='dark'] h2,
+html[data-theme='dark'] h3,
+html[data-theme='dark'] h4 {
+  color: var(--theme-elevation-900);
+}
+
+h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+h3 {
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+
+a {
+  color: var(--lily-navy-700);
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--lily-navy-900);
+}
+
+::selection {
+  background: var(--lily-orchid-200);
+  color: var(--lily-navy-950);
+}
+
+/* ─────────────────────────────  BARRA LATERALE  ──────────────────────────── */
+
+.nav {
+  background: var(--lily-sand-100);
+  border-right: 1px solid var(--lily-line);
+}
+
+.nav__wrap {
+  padding-inline: 14px;
+}
+
+.nav__header {
+  padding-inline: 14px;
+}
+
+/* Titolo di gruppo (Contenuti, Notizie, Sistema…) */
+.nav-group__toggle {
+  font-family: var(--lily-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lily-muted);
+  padding: 10px 10px 6px;
+  border-radius: var(--style-radius-s);
+}
+
+.nav-group__toggle:hover,
+.nav-group__toggle:focus-visible {
+  color: var(--lily-navy-800);
+  background: transparent;
+}
+
+.nav__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 9px 12px;
+  margin-block: 1px;
+  border-radius: 999px;
+  font-weight: 500;
+  color: var(--lily-ink);
+  text-decoration: none;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.nav a.nav__link:hover,
+.nav a.nav__link:focus-visible {
+  background: var(--lily-navy-50);
+  color: var(--lily-navy-900);
+  text-decoration: none;
+}
+
+.nav__link.active {
+  background: var(--lily-navy-100);
+  color: var(--lily-navy-950);
+  font-weight: 600;
+}
+
+/* Puntino rosa sulla voce aperta, come il filo rosa del menu del sito */
+.nav__link.active::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 2px;
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--lily-orchid-500);
+}
+
+.nav__controls {
+  border-top: 1px solid var(--lily-line);
+  padding-top: 10px;
+}
+
+.nav__log-out {
+  color: var(--lily-muted);
+}
+
+/* ────────────────────────────  INTESTAZIONE  ─────────────────────────────── */
+
+.app-header__bg {
+  background: var(--theme-bg);
+}
+
+.app-header--show-bg .app-header__bg {
+  border-bottom: 1px solid var(--lily-line);
+  box-shadow: 0 1px 0 rgb(21 40 86 / 0.02);
+}
+
+.app-header__content {
+  font-size: 0.86rem;
+}
+
+.step-nav {
+  color: var(--lily-muted);
+}
+
+.step-nav a {
+  color: var(--lily-muted);
+  text-decoration: none;
+}
+
+.step-nav a:hover {
+  color: var(--lily-navy-800);
+}
+
+/* ──────────────────────────────  PULSANTI  ───────────────────────────────── */
+
+.btn {
+  border-radius: 999px;
+  font-family: var(--lily-sans);
+  font-weight: 500;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.btn--style-primary {
+  --bg-color: var(--lily-primary);
+  --color: #ffffff;
+  --hover-bg: var(--lily-primary-hover);
+  --hover-color: #ffffff;
+  box-shadow: var(--lily-shadow-soft);
+}
+
+.btn--style-primary.btn--disabled {
+  --bg-color: var(--lily-sand-200);
+  --color: var(--lily-muted);
+  --hover-bg: var(--lily-sand-200);
+  --hover-color: var(--lily-muted);
+  box-shadow: none;
+}
+
+.btn--style-secondary {
+  --color: var(--lily-navy-900);
+  --btn-border: 1px solid var(--lily-line);
+  --bg-color: var(--theme-elevation-0);
+  --hover-color: var(--lily-navy-900);
+  --hover-bg: var(--lily-navy-50);
+  --hover-btn-border: 1px solid var(--lily-navy-300);
+}
+
+.btn--style-pill,
+.btn--style-subtle {
+  --bg-color: var(--theme-elevation-0);
+  --color: var(--lily-navy-900);
+  --btn-border: 1px solid var(--lily-line);
+  --hover-bg: var(--lily-navy-50);
+  --hover-color: var(--lily-navy-900);
+  --hover-btn-border: 1px solid var(--lily-navy-200);
+}
+
+.btn--style-icon-label {
+  --color: var(--lily-navy-800);
+  --hover-color: var(--lily-navy-950);
+}
+
+.btn--style-tab {
+  border-radius: 999px;
+}
+
+/* ───────────────────────────────  CAMPI  ────────────────────────────────── */
+
+.field-label {
+  font-weight: 600;
+  font-size: 0.86rem;
+  color: var(--lily-navy-950);
+  letter-spacing: -0.005em;
+}
+
+html[data-theme='dark'] .field-label {
+  color: var(--theme-elevation-800);
+}
+
+.field-description {
+  color: var(--lily-muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='number'],
+input[type='password'],
+input[type='date'],
+input[type='search'],
+textarea,
+.textarea-outer,
+.rs__control,
+.code-editor,
+.date-time-picker__input-wrapper {
+  border-radius: var(--style-radius-m);
+  border-color: var(--lily-line);
+  background: var(--theme-input-bg);
+  box-shadow: none;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='number'],
+input[type='password'],
+input[type='search'] {
+  padding-block: 10px;
+}
+
+input:hover,
+textarea:hover,
+.rs__control:hover {
+  border-color: var(--lily-navy-300);
+  box-shadow: none;
+}
+
+input:focus,
+textarea:focus,
+.rs__control--is-focused,
+.rs__control--menu-is-open {
+  border-color: var(--lily-navy-600);
+  box-shadow: 0 0 0 3px rgb(47 85 180 / 0.14);
+  outline: none;
+}
+
+.textarea-outer:focus-within {
+  border-color: var(--lily-navy-600);
+  box-shadow: 0 0 0 3px rgb(47 85 180 / 0.14);
+}
+
+::placeholder {
+  color: var(--theme-elevation-400);
+}
+
+/* Elenchi a tendina */
+.rs__menu {
+  border-radius: var(--style-radius-l);
+  border: 1px solid var(--lily-line);
+  box-shadow: var(--lily-shadow-lift);
+  overflow: hidden;
+}
+
+.rs__option {
+  border-radius: 0;
+}
+
+.rs__option--is-focused {
+  background: var(--lily-navy-50);
+}
+
+.rs__option--is-selected {
+  background: var(--lily-navy-100);
+  color: var(--lily-navy-950);
+}
+
+.rs__multi-value {
+  border-radius: 999px;
+  background: var(--lily-navy-50);
+  border: 1px solid var(--lily-navy-200);
+  padding-inline: 2px;
+}
+
+/* Caselle di spunta */
+.checkbox-input__input {
+  border-radius: 6px;
+  border-color: var(--theme-elevation-300);
+}
+
+.checkbox-input--checked .checkbox-input__input {
+  background: var(--lily-primary);
+  border-color: var(--lily-primary);
+}
+
+/* ───────────────────  RIQUADRI, SCHEDE, GRUPPI DI CAMPI  ─────────────────── */
+
+.collapsible__toggle-wrap,
+.collapsible__header-wrap {
+  border-radius: var(--style-radius-l) var(--style-radius-l) 0 0;
+}
+
+.collapsible--style-default > .collapsible__toggle-wrap {
+  background: var(--lily-sand-100);
+}
+
+.collapsible__content {
+  border-radius: 0 0 var(--style-radius-l) var(--style-radius-l);
+}
+
+.array-field__draggable-rows .collapsible,
+.blocks-field__rows .collapsible {
+  border-radius: var(--style-radius-l);
+  overflow: hidden;
+}
+
+.doc-tabs__tabs {
+  gap: 6px;
+}
+
+.doc-tab {
+  border-radius: 999px;
+}
+
+.doc-tab--active .doc-tab__label,
+.doc-tab--active {
+  color: var(--lily-navy-900);
+}
+
+/* ──────────────────────────  ELENCHI E TABELLE  ─────────────────────────── */
+
+.table-wrap,
+.collection-list__tables {
+  border-radius: var(--style-radius-l);
+  border: 1px solid var(--lily-line);
+  background: var(--theme-elevation-0);
+  overflow: hidden;
+  box-shadow: var(--lily-shadow-soft);
+}
+
+.table table {
+  border-collapse: collapse;
+}
+
+.table thead th {
+  background: var(--lily-sand-100);
+  color: var(--lily-muted);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--lily-line);
+  padding-block: 12px;
+}
+
+.table tbody td {
+  border-bottom: 1px solid var(--lily-sand-200);
+  padding-block: 13px;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:hover td {
+  background: var(--lily-sand-50);
+}
+
+html[data-theme='dark'] .table tbody tr:hover td {
+  background: var(--theme-elevation-50);
+}
+
+.table a {
+  font-weight: 500;
+  color: var(--lily-navy-800);
+}
+
+.collection-list__search-input,
+.search-filter input {
+  border-radius: 999px;
+}
+
+.list-controls {
+  gap: 10px;
+}
+
+/* ─────────────────────────────  BARRA AZIONI  ───────────────────────────── */
+
+.doc-controls {
+  border-bottom: 1px solid var(--lily-line);
+}
+
+.doc-controls__label {
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lily-muted);
+  font-family: var(--lily-sans);
+  font-weight: 600;
+}
+
+.doc-controls__value {
+  color: var(--lily-ink);
+}
+
+/* ───────────────────────  ETICHETTE DI STATO (pill)  ────────────────────── */
+
+.pill {
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.pill--style-light {
+  background: var(--theme-elevation-0);
+  border: 1px solid var(--lily-line);
+  color: var(--lily-navy-900);
+}
+
+.pill--style-light:hover {
+  background: var(--lily-navy-50);
+  border-color: var(--lily-navy-200);
+}
+
+.pill--style-success {
+  background: var(--lily-navy-100);
+  color: var(--lily-navy-900);
+}
+
+.pill--style-warning {
+  background: var(--lily-orchid-100);
+  color: var(--lily-orchid-700);
+}
+
+/* ───────────────────────────  FINESTRE E AVVISI  ────────────────────────── */
+
+.popup__content {
+  border-radius: var(--style-radius-l);
+  border: 1px solid var(--lily-line);
+  box-shadow: var(--lily-shadow-lift);
+  overflow: hidden;
+}
+
+.popup-button-list__button:hover {
+  background: var(--lily-navy-50);
+}
+
+.tooltip-content {
+  border-radius: var(--style-radius-s);
+  font-size: 0.78rem;
+}
+
+.drawer__content,
+.payload__modal-item .drawer__content {
+  border-radius: var(--style-radius-l) 0 0 var(--style-radius-l);
+}
+
+.Toastify__toast {
+  border-radius: var(--style-radius-l);
+  font-family: var(--lily-sans);
+  box-shadow: var(--lily-shadow-lift);
+}
+
+/* ─────────────────────────────  ACCESSO  ────────────────────────────────── */
+
+.template-minimal {
+  background: var(--lily-cream);
+}
+
+/* Alone rosa/blu appena accennato dietro al riquadro di accesso */
+.login,
+.template-minimal:has(.login__form) {
+  background:
+    radial-gradient(60rem 40rem at 12% -12%, var(--lily-navy-50), transparent 62%),
+    radial-gradient(52rem 36rem at 96% 112%, var(--lily-orchid-50), transparent 62%),
+    var(--lily-cream);
+}
+
+.login .template-minimal__wrap {
+  background: var(--theme-elevation-0);
+  border: 1px solid var(--lily-line);
+  border-radius: 24px;
+  box-shadow: var(--lily-shadow-lift);
+  padding: 42px 38px 38px;
+  max-width: 430px;
+  width: 100%;
+}
+
+.login__brand {
+  margin-bottom: 30px;
+}
+
+.login__form__inputWrap .field-type {
+  margin-bottom: 18px;
+}
+
+.login .form-submit {
+  margin-top: 22px;
+}
+
+.login .form-submit .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.login .form-submit .btn__content {
+  justify-content: center;
+}
+
+/* ───────────────────  COMPONENTI NOSTRI (dashboard, AI)  ────────────────── */
+
+.lily-card {
+  display: block;
+  padding: 18px 20px;
+  border-radius: var(--style-radius-l);
+  border: 1px solid var(--lily-line);
+  background: var(--theme-elevation-0);
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--lily-shadow-soft);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+a.lily-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--lily-shadow-lift);
+  border-color: var(--lily-navy-200);
+  text-decoration: none;
+  color: inherit;
+}
+
+.lily-card--accent {
+  border-color: var(--lily-orchid-200);
+  background: var(--lily-orchid-50);
+}
+
+.lily-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lily-orchid-600);
+}
+
+.lily-panel {
+  border: 1px solid var(--lily-line);
+  border-radius: 20px;
+  background: var(--theme-elevation-0);
+  box-shadow: var(--lily-shadow-soft);
+  padding: 22px 24px;
+  margin-bottom: 28px;
+}
+
+/* Marchio nella barra laterale: fiore + nome, come nell'intestazione del sito */
+.lily-nav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.lily-nav-brand__mark {
+  width: 28px;
+  height: auto;
+  flex: none;
+}
+
+/* Il nome resta nel documento solo per i lettori di schermo: nell'intestazione
+   di Payload c'è spazio per il solo fiore, e senza testo il collegamento alla
+   pagina iniziale non avrebbe nome. */
+.lily-nav-brand__name {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Marchio nella pagina di accesso */
+.lily-login-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.lily-login-brand__logo {
+  width: 210px;
+  height: auto;
+}
+
+.lily-login-brand__label {
+  font-size: 0.82rem;
+  color: var(--lily-muted);
+  letter-spacing: 0.04em;
+}
+
+/* Benvenuto in cima alla dashboard */
+.lily-welcome {
+  margin-bottom: 36px;
+}
+
+.lily-welcome__title {
+  margin: 8px 0 10px;
+  font-family: var(--lily-serif);
+  font-size: 2.1rem;
+  line-height: 1.15;
+  color: var(--lily-navy-950);
+}
+
+html[data-theme='dark'] .lily-welcome__title {
+  color: var(--theme-elevation-900);
+}
+
+.lily-welcome__intro {
+  margin: 0 0 24px;
+  max-width: 54ch;
+  color: var(--lily-muted);
+  line-height: 1.65;
+}
+
+.lily-welcome__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 14px;
+}
+
+.lily-card__title {
+  display: block;
+  font-weight: 600;
+  color: var(--lily-navy-950);
+  margin-bottom: 4px;
+}
+
+html[data-theme='dark'] .lily-card__title {
+  color: var(--theme-elevation-850);
+}
+
+.lily-card__text {
+  display: block;
+  font-size: 0.86rem;
+  color: var(--lily-muted);
+}
+
+.lily-card--accent .lily-card__title {
+  color: var(--lily-orchid-700);
+}
+
+.lily-card--accent .lily-card__text {
+  color: var(--lily-orchid-700);
+  opacity: 0.85;
+}
+
+/* Riquadro dell'assistente AI (src/components/admin/AiDraftPanel.tsx) */
+.lily-ai__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.lily-ai__title {
+  margin: 0;
+  font-family: var(--lily-serif);
+  font-size: 1.35rem;
+  line-height: 1.2;
+  color: var(--lily-navy-950);
+}
+
+html[data-theme='dark'] .lily-ai__title {
+  color: var(--theme-elevation-900);
+}
+
+.lily-ai__subtitle {
+  margin: 6px 0 0;
+  font-size: 0.88rem;
+  color: var(--lily-muted);
+  max-width: 62ch;
+}
+
+.lily-ai__form {
+  margin-top: 20px;
+  display: grid;
+  gap: 16px;
+}
+
+.lily-ai__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.lily-ai__label {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--lily-navy-950);
+  margin-bottom: 7px;
+}
+
+html[data-theme='dark'] .lily-ai__label {
+  color: var(--theme-elevation-800);
+}
+
+.lily-ai__input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--style-radius-m);
+  border: 1px solid var(--lily-line);
+  background: var(--theme-input-bg);
+  color: var(--theme-text);
+  font: inherit;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.lily-ai__input:hover:not(:disabled) {
+  border-color: var(--lily-navy-300);
+}
+
+.lily-ai__input:focus {
+  outline: none;
+  border-color: var(--lily-navy-600);
+  box-shadow: 0 0 0 3px rgb(47 85 180 / 0.14);
+}
+
+.lily-ai__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lily-ai__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--lily-line);
+  background: var(--theme-elevation-0);
+  font-size: 0.84rem;
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.lily-ai__chip:hover {
+  border-color: var(--lily-navy-300);
+}
+
+.lily-ai__chip--on {
+  background: var(--lily-navy-50);
+  border-color: var(--lily-navy-300);
+  color: var(--lily-navy-900);
+  font-weight: 500;
+}
+
+.lily-ai__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.lily-ai__go {
+  padding: 11px 24px;
+  border-radius: 999px;
+  border: none;
+  background: var(--lily-primary);
+  color: #fff;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--lily-shadow-soft);
+  transition: background-color 0.18s ease;
+}
+
+.lily-ai__go:hover:not(:disabled) {
+  background: var(--lily-primary-hover);
+}
+
+.lily-ai__go:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.lily-ai__meta {
+  font-size: 0.8rem;
+  color: var(--lily-muted);
+  line-height: 1.6;
+}
+
+.lily-ai__warn {
+  color: var(--lily-orchid-600);
+  font-weight: 600;
+}
+
+.lily-ai__note {
+  margin: 0;
+  font-size: 0.88rem;
+  padding: 14px 16px;
+  border-radius: var(--style-radius-l);
+  line-height: 1.6;
+}
+
+.lily-ai__note--wait {
+  background: var(--lily-navy-50);
+  color: var(--lily-navy-900);
+}
+
+.lily-ai__note--ok {
+  background: var(--lily-navy-50);
+  color: var(--lily-navy-900);
+}
+
+.lily-ai__note--bad {
+  background: var(--lily-orchid-50);
+  color: var(--lily-orchid-700);
+}
+
+.lily-ai__note strong {
+  font-weight: 600;
+}
+
+.lily-ai__toggle {
+  flex: none;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--lily-line);
+  background: transparent;
+  color: var(--lily-navy-900);
+  font: inherit;
+  font-size: 0.86rem;
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.lily-ai__toggle:hover {
+  background: var(--lily-navy-50);
+  border-color: var(--lily-navy-200);
+}
+
+.lily-ai__chips-wrap {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lily-ai__chips-wrap .lily-ai__label {
+  padding: 0;
+}
+
+/* ───────────────────────  CORREZIONI DOPO LA PROVA A VIDEO  ─────────────── */
+
+/* Editor del testo: il corpo è lo stesso carattere che leggerà il paziente
+   (Inter); restano in Fraunces soltanto i titoli, come sul sito. */
+.ContentEditable__root,
+.rich-text-lexical .ContentEditable__root p,
+.rich-text-lexical .ContentEditable__root li {
+  font-family: var(--lily-sans);
+}
+
+.ContentEditable__root h1,
+.ContentEditable__root h2,
+.ContentEditable__root h3,
+.ContentEditable__root h4 {
+  font-family: var(--lily-serif);
+}
+
+/* Schede della dashboard di Payload: bianche come le nostre scorciatoie */
+.card {
+  background: var(--theme-elevation-0);
+  border: 1px solid var(--lily-line);
+  border-radius: var(--style-radius-l);
+  box-shadow: var(--lily-shadow-soft);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.card--has-onclick:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--lily-shadow-lift);
+  border-color: var(--lily-navy-200);
+}
+
+.card__title {
+  font-family: var(--lily-serif);
+  color: var(--lily-navy-950);
+}
+
+html[data-theme='dark'] .card__title {
+  color: var(--theme-elevation-900);
+}
+
+/* Fiore nell'intestazione: più piccolo che nella barra laterale */
+.app-header .lily-nav-brand__mark {
+  width: 24px;
+}
+
+/* Scheda attiva ("Modifica"/"Versioni"): deve staccare su entrambi i temi */
+.doc-tab--active,
+.doc-tab--active .doc-tab__label {
+  background: var(--lily-navy-50);
+  color: var(--lily-navy-950);
+  font-weight: 600;
+}
+
+.doc-tab--active .doc-tab__label {
+  background: transparent;
+}
+
+/* Accesso: il riquadro non deve avere un vuoto in fondo */
+.login .form-submit {
+  margin-top: 12px;
+}
+
+.login .template-minimal__wrap {
+  padding-bottom: 32px;
+}

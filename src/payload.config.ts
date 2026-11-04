@@ -75,6 +75,8 @@ export default buildConfig({
       icons: [{ rel: 'icon', type: 'image/svg+xml', url: '/icon.svg' }],
     },
     components: {
+      // Carica i caratteri del sito nel pannello (vedi (payload)/custom.scss)
+      providers: ['/components/admin/AdminFonts#AdminFonts'],
       graphics: {
         Logo: '/components/admin/AdminBrand#AdminLogo',
         Icon: '/components/admin/AdminBrand#AdminIcon',
@@ -85,6 +87,19 @@ export default buildConfig({
   i18n: {
     supportedLanguages: { it, en },
     fallbackLanguage: 'it',
+    // Qualche parola della traduzione italiana di Payload suona da programmatore
+    // ("Modificare", "Crea Nuovo"): qui usiamo quelle che userebbe lo staff.
+    translations: {
+      it: {
+        authentication: { login: 'Accedi' },
+        general: {
+          createNew: 'Crea nuovo',
+          dashboard: 'Pannello',
+          edit: 'Modifica',
+        },
+        upload: { bulkUpload: 'Carica più file', addFiles: 'Aggiungi file' },
+      },
+    },
   },
   collections: [
     Pages,
