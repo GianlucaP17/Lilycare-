@@ -26,5 +26,7 @@ export async function GET() {
     // Copertine: "attive", "disattivate" dal pannello, oppure "senza chiave" sul server
     coverImages: ai.coverImages === false ? 'off' : coverImagesEnabled() ? 'on' : 'no-key',
     coverImageModel: process.env.OPENAI_IMAGE_MODEL || 'gpt-image-2',
+    // Ultima chiamata del cron (null = il cron non ha mai raggiunto il sito)
+    lastDaily: ai.lastDailyAt ? { at: ai.lastDailyAt, outcome: ai.lastDailyOutcome || '' } : null,
   })
 }

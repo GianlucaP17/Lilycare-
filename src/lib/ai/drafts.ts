@@ -13,6 +13,7 @@ import {
   writeArticleDraft,
 } from './article-writer'
 import { CoverImageError, coverImagesEnabled, generateCoverImage } from './cover-image'
+import { recordDailyCall } from './daily-log'
 
 /**
  * Flusso delle bozze AI:
@@ -342,6 +343,9 @@ export async function generateIntoDraft(
        <p style="margin:0;font-size:13px;color:#586178;">La bozza non è visibile sul sito finché non viene riletta e pubblicata.</p>`,
     )
     payload.logger.info(`[AI] Bozza pronta: ${updated.title} (id ${id})`)
+    if (opts.source === 'daily') {
+      await recordDailyCall(payload, `Bozza pronta da rileggere: ${updated.title}`)
+    }
   } catch (error) {
     const message =
       error instanceof AiWriterError
@@ -364,6 +368,7 @@ export async function generateIntoDraft(
       payload.logger.error({ err: updateError, msg: `[AI] Impossibile aggiornare la bozza ${id}` })
     }
     if (opts.source === 'daily') {
+      await recordDailyCall(payload, `Bozza non riuscita: ${message}`)
       await notify(
         payload,
         'Bozza automatica non riuscita',

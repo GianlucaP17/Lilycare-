@@ -1926,6 +1926,8 @@ export interface AiAssistant {
    * Richiede il "Cron Job" giornaliero di cPanel descritto nel README. Ogni giorno viene usato il primo argomento "da fare" del piano editoriale; se il piano è vuoto, l’assistente sceglie un tema utile ai pazienti.
    */
   dailyEnabled?: boolean | null;
+  lastDailyAt?: string | null;
+  lastDailyOutcome?: string | null;
   defaultLength?: ('breve' | 'media' | 'lunga') | null;
   /**
    * Indirizzi separati da virgola. Se vuoto: le email che ricevono le richieste.
@@ -2074,6 +2076,8 @@ export interface NavigationSelect<T extends boolean = true> {
  */
 export interface AiAssistantSelect<T extends boolean = true> {
   dailyEnabled?: T;
+  lastDailyAt?: T;
+  lastDailyOutcome?: T;
   defaultLength?: T;
   notifyEmails?: T;
   styleGuide?: T;

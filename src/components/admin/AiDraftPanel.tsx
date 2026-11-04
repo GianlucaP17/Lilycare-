@@ -13,6 +13,7 @@ type Status = {
   defaultLength: 'breve' | 'media' | 'lunga'
   coverImages?: 'on' | 'off' | 'no-key'
   coverImageModel?: string
+  lastDaily?: { at: string; outcome: string } | null
 }
 type Job =
   | { state: 'idle' }
@@ -312,7 +313,6 @@ export function AiDraftPanel() {
                   <Link href="/admin/globals/ai-assistant">
                     piano editoriale e bozza giornaliera
                   </Link>
-                  {status.dailyEnabled ? ' (attiva)' : ''}
                   {status.coverImages === 'on' ? (
                     <> · immagine di copertina: attiva ({status.coverImageModel})</>
                   ) : status.coverImages === 'no-key' ? (
@@ -329,6 +329,39 @@ export function AiDraftPanel() {
                 </span>
               ) : null}
             </div>
+
+            {status ? (
+              <p style={{ margin: 0, fontSize: 12, opacity: 0.75, lineHeight: 1.6 }}>
+                <strong>Bozza automatica giornaliera:</strong>{' '}
+                {status.dailyEnabled ? 'attiva' : 'disattivata'}
+                {!status.cronConfigured ? (
+                  <>
+                    {' · '}
+                    <strong style={{ color: '#b5609a' }}>
+                      manca CRON_SECRET fra le variabili del server
+                    </strong>
+                  </>
+                ) : null}
+                {' · '}
+                {status.lastDaily ? (
+                  <>
+                    ultima chiamata del cron:{' '}
+                    {new Date(status.lastDaily.at).toLocaleString('it-CH', {
+                      day: '2-digit',
+                      month: '2-digit',
+                      year: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                    {status.lastDaily.outcome ? ` — ${status.lastDaily.outcome}` : ''}
+                  </>
+                ) : (
+                  <strong style={{ color: '#b5609a' }}>
+                    il cron di cPanel non ha mai chiamato il sito
+                  </strong>
+                )}
+              </p>
+            ) : null}
 
             {job.state === 'generating' ? (
               <p role="status" style={{ margin: 0, fontSize: 14 }}>

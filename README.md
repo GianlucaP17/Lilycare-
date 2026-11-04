@@ -111,7 +111,9 @@ In **Notizie → Articoli**, sopra l’elenco, c’è il riquadro **✨ Assisten
 **Bozza automatica ogni giorno**: in **Notizie → Assistente AI** attiva l’opzione e compila il
 **piano editoriale** (elenco di argomenti). Ogni mattina l’assistente prepara una bozza con il primo
 argomento “da fare” (o, se il piano è vuoto, con un tema scelto da lui) e avvisa via email. Serve il
-cron di cPanel descritto più sotto. Lo stesso riquadro contiene le _linee guida di stile_.
+cron di cPanel descritto più sotto. Lo stesso riquadro contiene le _linee guida di stile_ e, sotto
+_«Controllo della bozza automatica»_, **quando il cron ha chiamato l’ultima volta e com’è andata**:
+se non arrivano bozze si parte da lì (vedi “Se la bozza automatica non arriva”).
 
 Le regole seguite dall’assistente: italiano chiaro, nessuna promessa di risultato né testimonianze
 (come richiesto in Svizzera per la comunicazione delle professioni mediche), nessun dato inventato
@@ -222,13 +224,45 @@ Controlla in cPanel → _SSL/TLS Status_ che il certificato HTTPS sia attivo.
 
 ### 5. Bozza AI giornaliera (cron)
 
-**cPanel → Cron Jobs → Add New Cron Job**, una volta al giorno (es. alle 6:00), comando:
+Servono **due cose**, e se ne manca una non arriva nessuna bozza:
 
-```bash
-curl -fsS -X POST -H "Authorization: Bearer IL_TUO_CRON_SECRET" https://lilycare.ch/next/ai/daily > /dev/null
-```
+1. **cPanel → Cron Jobs → Add New Cron Job**, una volta al giorno (es. alle 6:00), comando:
 
-e attiva l’opzione in _Notizie → Assistente AI_ nel pannello.
+   ```bash
+   curl -fsS -X POST -H "Authorization: Bearer IL_TUO_CRON_SECRET" https://lilycare.ch/next/ai/daily > /dev/null
+   ```
+
+   Il token va fra **apici doppi** come sopra: se `CRON_SECRET` contiene caratteri come `&`, `!`
+   o `$`, un comando senza apici viene spezzato dalla shell e la chiamata parte sbagliata.
+
+2. Nel pannello, **Notizie → Assistente AI**: spunta _«Prepara automaticamente una bozza ogni
+   giorno»_ e salva. L’opzione è **disattivata** di serie, quindi dopo una nuova installazione va
+   rimessa.
+
+#### Se la bozza automatica non arriva
+
+Le bozze dell’assistente **non compaiono mai sul sito**: restano in _Notizie → Articoli_ come
+bozze da rileggere, e arriva un’email. Guarda prima lì.
+
+Poi apri **Notizie → Assistente AI**: il riquadro _«Controllo della bozza automatica»_ mostra
+quando il cron ha chiamato il sito l’ultima volta e com’è andata. La stessa riga compare in cima a
+_Notizie → Articoli_.
+
+| Cosa c’è scritto                                | Cosa fare                                                                                                                                                 |
+| ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| la data è **vuota**                             | il cron non ha mai raggiunto il sito: controlla che il Cron Job esista e che l’indirizzo sia `https://lilycare.ch/next/ai/daily` (non `demo.lilycare.ch`) |
+| «il token del cron non corrisponde»             | il `Bearer` nel comando è diverso da `CRON_SECRET` in _Setup Node.js App_ (tipico dopo aver cambiato la chiave)                                           |
+| «manca l’intestazione Authorization»            | nel comando manca la parte `-H "Authorization: Bearer …"`                                                                                                 |
+| «manca la variabile CRON_SECRET»                | aggiungi `CRON_SECRET` alle variabili in _Setup Node.js App_ e riavvia l’applicazione                                                                     |
+| «la variabile CRON_SECRET è troppo corta»       | scegline una di almeno 16 caratteri (in _Setup Node.js App_), aggiornala anche nel comando del cron e riavvia                                             |
+| «manca ANTHROPIC_API_KEY»                       | aggiungi la chiave di Anthropic alle variabili e riavvia                                                                                                  |
+| «la bozza automatica giornaliera è disattivata» | spunta l’opzione qui sopra e salva                                                                                                                        |
+| «una bozza era già stata creata»                | tutto bene: si fa una sola bozza automatica ogni 20 ore                                                                                                   |
+| «Bozza pronta da rileggere: …»                  | tutto bene: la trovi in _Notizie → Articoli_                                                                                                              |
+
+**Per provare subito senza aspettare domani**: in cPanel metti il cron su `* * * * *` (ogni
+minuto), aspetta due minuti, ricarica _Notizie → Assistente AI_ e leggi la riga; poi rimetti
+l’orario giornaliero.
 
 ### Demo su un sottodominio (prima della messa online)
 

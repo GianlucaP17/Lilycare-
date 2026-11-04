@@ -33,6 +33,32 @@ export const AiAssistant: GlobalConfig = {
       },
     },
     {
+      type: 'collapsible',
+      label: 'Controllo della bozza automatica',
+      admin: {
+        initCollapsed: false,
+        description:
+          'Ogni volta che il cron di cPanel chiama il sito, qui viene annotato quando è successo e com’è andata. Se la data resta vuota il cron non sta arrivando: in cPanel → Cron Jobs controlla che il comando esista e che l’indirizzo sia https://lilycare.ch/next/ai/daily (non demo.lilycare.ch).',
+      },
+      fields: [
+        {
+          name: 'lastDailyAt',
+          label: 'Ultima chiamata del cron',
+          type: 'date',
+          admin: {
+            readOnly: true,
+            date: { pickerAppearance: 'dayAndTime', displayFormat: 'dd/MM/yyyy HH:mm' },
+          },
+        },
+        {
+          name: 'lastDailyOutcome',
+          label: 'Esito dell’ultima chiamata',
+          type: 'text',
+          admin: { readOnly: true },
+        },
+      ],
+    },
+    {
       type: 'row',
       fields: [
         {
