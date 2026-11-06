@@ -121,10 +121,14 @@ Le regole seguite dall’assistente: italiano chiaro, nessuna promessa di risult
 
 **Immagine di copertina**: se sul server è impostata la variabile `OPENAI_API_KEY`, l'assistente
 descrive anche l'immagine mentre scrive l'articolo e un servizio esterno la disegna. Sono
-**fotografie di ambienti e apparecchiature**: stanza, lettino preparato, apparecchio, postazione.
-**Mai persone, nemmeno le mani**: una persona inventata verrebbe scambiata per il personale dello
-studio, e i generatori di immagini sbagliano spesso l'anatomia (mani con sei dita, arti impossibili),
-errore che su un sito medico si nota subito. Va comunque guardata prima di pubblicare: fra i
+**fotografie realistiche**: l'apparecchio di cui si parla, l'ambiente (sala, lettino, postazione)
+oppure **la parte del corpo interessata** dall'esame o dal trattamento — mano, piede, ginocchio,
+spalla, schiena, addome. Regole fisse: **nessun volto** (una persona inventata verrebbe scambiata
+per il personale dello studio), **nessuna nudità** (mai seno, glutei, inguine: si vede solo la zona
+di cui parla l'articolo, il resto è vestito o coperto), niente sangue, ferite o aghi nella pelle,
+nessuna immagine medica sugli schermi. **Va sempre guardata ingrandita prima di pubblicare**: i
+generatori sbagliano spesso mani e arti (dita in più, pose impossibili) e su un sito medico si nota
+subito; fra i punti da verificare compare un promemoria. Va comunque guardata prima di pubblicare: fra i
 punti da verificare compare un promemoria. Si disattiva dal riquadro _Notizie → Assistente AI_. Se
 la generazione non riesce (per esempio perché il modello indicato è stato dismesso), la bozza viene
 creata lo stesso e il motivo compare fra i punti da verificare.
