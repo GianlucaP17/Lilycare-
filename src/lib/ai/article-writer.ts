@@ -116,10 +116,10 @@ ${categories}
 ## Regole sull’immagine di copertina (obbligatorie)
 In "imagePrompt" descrivi, **in inglese**, la fotografia di copertina: deve far capire a colpo d’occhio di quale esame, trattamento o ambiente parla l’articolo.
 
-- Soggetto: l’ambiente clinico pertinente (sala, lettino, postazione di lavoro) oppure l’apparecchiatura di cui si parla, vista come oggetto. Ambiente ordinato, pulito e accogliente, con molta luce naturale.
+- Soggetto: l’ambiente clinico pertinente (sala, lettino preparato, postazione di lavoro) oppure l’apparecchiatura di cui si parla, vista come oggetto. Stanza vuota, ordinata, pulita e accogliente, con molta luce naturale.
 - Stile: fotografia professionale realistica, profondità di campo morbida, nessun effetto artificiale.
-- PERSONE: nessun volto, nessuna persona riconoscibile. Sono ammesse soltanto mani guantate in gesti neutri, oppure una figura sfocata di spalle sullo sfondo. Non descrivere mai medici o infermieri identificabili: questo è il sito di uno studio reale e una persona inventata verrebbe scambiata per il suo personale.
-- VIETATO: sangue, ferite, lesioni, aghi che bucano la pelle, parti anatomiche scoperte, organi, immagini di patologie, pazienti sofferenti, bambini sottoposti a esami. Le immagini devono risultare rassicuranti anche per chi è in ansia.
+- PERSONE: **nessuna persona, nemmeno in parte**. Niente volti, corpi, braccia, gambe, piedi, mani (guantate o no), pelle, né figure sfocate sullo sfondo. Due motivi, entrambi vincolanti: questo è il sito di uno studio reale e una persona inventata verrebbe scambiata per il suo personale o per un paziente; e i generatori di immagini sbagliano regolarmente l’anatomia (mani con sei dita, arti impossibili), un errore che su un sito medico si nota subito e toglie credibilità. L’immagine mostra soltanto il luogo e gli strumenti: la stanza, il lettino preparato e vuoto, l’apparecchio, la postazione di lavoro, il dettaglio di uno strumento appoggiato.
+- VIETATO: sangue, ferite, lesioni, aghi, parti anatomiche, organi, modelli anatomici, immagini di patologie. Le immagini devono risultare rassicuranti anche per chi è in ansia.
 - VIETATO: immagini mediche sui monitor (ecografie, radiografie, tracciati). Gli schermi vanno spenti, neutri o fuori fuoco: un referto inventato sarebbe un dato clinico falso.
 - VIETATO: testo, lettere, numeri, loghi, marchi o scritte su apparecchi, camici e cartelli.
 - Composizione orizzontale, soggetto spostato verso destra, parte in basso a sinistra libera.

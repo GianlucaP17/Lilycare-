@@ -93,7 +93,7 @@ export const AiAssistant: GlobalConfig = {
       type: 'textarea',
       admin: {
         description:
-          'Si aggiungono alle regole fisse (ambiente clinico realistico, nessun volto, niente sangue, nessuna immagine medica sugli schermi). Esempi: “inquadrature più ravvicinate sull’apparecchio”, “ambienti più luminosi”, “mostrare anche la sala d’attesa”.',
+          'Si aggiungono alle regole fisse (ambiente clinico realistico, nessuna persona, niente sangue, nessuna immagine medica sugli schermi). Esempi: “inquadrature più ravvicinate sull’apparecchio”, “ambienti più luminosi”, “mostrare anche la sala d’attesa”.',
       },
     },
     {
@@ -103,7 +103,7 @@ export const AiAssistant: GlobalConfig = {
       defaultValue: true,
       admin: {
         description:
-          'L’assistente descrive l’illustrazione mentre scrive l’articolo e un servizio esterno la disegna (richiede la variabile OPENAI_API_KEY sul server, circa 3–8 centesimi per immagine). Sono illustrazioni astratte: mai persone, anatomia o apparecchiature. Controlla sempre il risultato prima di pubblicare.',
+          'L’assistente descrive l’immagine mentre scrive l’articolo e un servizio esterno la disegna (richiede la variabile OPENAI_API_KEY sul server, circa 3–8 centesimi per immagine). Sono fotografie di ambienti e apparecchiature: mai persone, nemmeno le mani, perché l’anatomia inventata viene spesso sbagliata. Controlla sempre il risultato prima di pubblicare.',
       },
     },
     {

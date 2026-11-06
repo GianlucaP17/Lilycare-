@@ -297,7 +297,7 @@ export async function generateIntoDraft(
     const reviewPoints = [...draft.reviewNotes]
     if (coverImage) {
       reviewPoints.push(
-        'L’immagine di copertina è generata da un’intelligenza artificiale e mostra un ambiente generico, non lo studio di LilyCare: controlla che sia adatta e, se preferisci, sostituiscila con una foto vera.',
+        'L’immagine di copertina è generata da un’intelligenza artificiale e mostra un ambiente generico, non lo studio di LilyCare. Guardala ingrandita prima di pubblicare: se compaiono persone, mani o oggetti deformi, sostituiscila con una foto vera dello studio (Immagini e file).',
       )
     }
     if (coverNote) reviewPoints.push(`Immagine di copertina non creata: ${coverNote}`)

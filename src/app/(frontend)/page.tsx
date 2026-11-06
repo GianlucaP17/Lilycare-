@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import React from 'react'
 
 import { RenderBlocks } from '@/blocks/RenderBlocks'
+import { InaugurazioneBanner } from '@/components/home/InaugurazioneBanner'
 import { stripEmphasis } from '@/components/ui/Emphasis'
 import { getPage, getSettings } from '@/lib/data'
 import { buildMetadata } from '@/lib/seo'
@@ -41,5 +42,11 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function HomePage() {
   const page = await getPage('home')
-  return <RenderBlocks blocks={page?.layout?.length ? page.layout : fallbackLayout} />
+  return (
+    <>
+      {/* Avviso a tempo: sparisce da solo a fine evento (src/lib/evento.ts) */}
+      <InaugurazioneBanner />
+      <RenderBlocks blocks={page?.layout?.length ? page.layout : fallbackLayout} />
+    </>
+  )
 }
