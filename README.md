@@ -154,6 +154,21 @@ Nei titoli puoi evidenziare parole scrivendole tra asterischi: `Diagnosi e cura,
 **Prenotazioni → Richieste di appuntamento**: elenco delle richieste con nome, telefono, prestazione
 e stato (Nuova → In lavorazione → Appuntamento fissato → Archiviata). Puoi aggiungere note interne.
 
+### Candidature (Lavora con noi)
+
+**Prenotazioni → Candidature**: chi si candida dalla pagina _Lavora con noi_ compila il modulo e
+allega il curriculum. Lo stesso curriculum arriva **in allegato all'email** di avviso, e nella scheda
+della candidatura si legge con il pulsante **«Apri il curriculum»**.
+
+Il curriculum non è pubblico: l'indirizzo non si può indovinare né aprire senza essere collegati al
+pannello. Candidatura e file vengono cancellati insieme dopo 30 giorni.
+
+> Il pulsante passa da `/next/candidature/<id>/cv` e non dal collegamento sul nome del file generato
+> da Payload. Quel collegamento porta a `/api/application-files/file/...`, che accetta il cookie
+> dell'accesso solo se la richiesta contiene l'intestazione `Origin` oppure `Sec-Fetch-Site`: il clic
+> su un collegamento non manda la prima e alcuni browser non mandano la seconda, e la risposta era
+> «Non sei autorizzato» anche a chi era regolarmente collegato.
+
 ### Utenti
 
 **Sistema → Utenti**: un _Amministratore_ gestisce tutto (anche gli utenti); un _Redattore_ gestisce
@@ -455,6 +470,11 @@ scripts/package-namecheap.mjs   crea il pacchetto per cPanel
 
 **Colori e caratteri**: sono definiti in un unico punto, `src/app/(frontend)/globals.css`
 (blocco `@theme`). Il blu (`navy`) e il rosa orchidea (`orchid`) sono ricavati dal logo ufficiale.
+
+**Un solo indirizzo**: `src/proxy.ts` manda chi arriva su `www.lilycare.ch` sull'indirizzo indicato
+da `SERVER_URL` (`https://lilycare.ch`), conservando percorso e parametri. Serve per il
+posizionamento su Google, ma soprattutto perché il pannello costruisce i collegamenti ai file
+usando `SERVER_URL`: da un indirizzo diverso il cookie dell'accesso non viene inviato.
 
 **Veste grafica del pannello admin**: il pannello usa gli stessi colori, caratteri e forme del
 sito. Tutto sta in `src/app/(payload)/custom.scss`: in cima ci sono le variabili del marchio e la

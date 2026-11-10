@@ -1164,3 +1164,51 @@ html[data-theme='dark'] .card__title {
 .login .template-minimal__wrap {
   padding-bottom: 32px;
 }
+
+/* Collegamento per aprire il curriculum di una candidatura */
+.lily-cv {
+  margin-bottom: calc(var(--base) * 0.6);
+}
+
+.lily-cv__etichetta {
+  display: block;
+  font-weight: 600;
+  font-size: 0.86rem;
+  color: var(--lily-navy-950);
+  margin-bottom: 8px;
+}
+
+html[data-theme='dark'] .lily-cv__etichetta {
+  color: var(--theme-elevation-800);
+}
+
+.lily-cv__riga {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.lily-cv__link {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: var(--lily-primary);
+  color: #fff;
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: var(--lily-shadow-soft);
+  transition: background-color 0.18s ease;
+}
+
+.lily-cv__link:hover {
+  background: var(--lily-primary-hover);
+  color: #fff;
+  text-decoration: none;
+}
+
+.lily-cv__nota {
+  font-size: 0.82rem;
+  color: var(--lily-muted);
+}

@@ -166,13 +166,21 @@ export const JobApplications: CollectionConfig = {
       ],
     },
     {
-      name: 'cv',
+      // Il collegamento sul nome del file, generato da Payload, viene rifiutato da alcuni
+      // browser (vedi src/app/(frontend)/next/candidature/[id]/cv/route.ts): questo no.
+      name: 'cvApri',
+      type: 'ui',
       label: 'Curriculum',
+      admin: { components: { Field: '/components/admin/CvLink#CvLink' } },
+    },
+    {
+      name: 'cv',
+      label: 'File allegato',
       type: 'upload',
       relationTo: 'application-files',
       admin: {
         description:
-          'Allegato dal candidato. Viene cancellato insieme alla candidatura dopo 30 giorni.',
+          'Allegato dal candidato. Per leggerlo usa il pulsante qui sopra. Viene cancellato insieme alla candidatura dopo 30 giorni.',
       },
     },
     { name: 'message', label: 'Presentazione', type: 'textarea' },

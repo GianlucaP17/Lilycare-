@@ -966,7 +966,7 @@ export interface JobApplication {
   collaboration?: ('dipendente' | 'indipendente' | 'da-valutare') | null;
   availability?: ('pieno' | 'parziale' | 'giorni' | 'da-concordare') | null;
   /**
-   * Allegato dal candidato. Viene cancellato insieme alla candidatura dopo 30 giorni.
+   * Allegato dal candidato. Per leggerlo usa il pulsante qui sopra. Viene cancellato insieme alla candidatura dopo 30 giorni.
    */
   cv?: (number | null) | ApplicationFile;
   message?: string | null;
@@ -1938,11 +1938,11 @@ export interface AiAssistant {
    */
   styleGuide?: string | null;
   /**
-   * Si aggiungono alle regole fisse (ambiente clinico realistico, nessun volto, niente sangue, nessuna immagine medica sugli schermi). Esempi: “inquadrature più ravvicinate sull’apparecchio”, “ambienti più luminosi”, “mostrare anche la sala d’attesa”.
+   * Si aggiungono alle regole fisse (fotografia realistica, nessun volto, nessuna nudità, niente sangue, nessuna immagine medica sugli schermi). Esempi: “inquadrature più ravvicinate sull’apparecchio”, “ambienti più luminosi”, “mostrare la parte del corpo di cui parla l’articolo”.
    */
   imageStyle?: string | null;
   /**
-   * L’assistente descrive l’illustrazione mentre scrive l’articolo e un servizio esterno la disegna (richiede la variabile OPENAI_API_KEY sul server, circa 3–8 centesimi per immagine). Sono illustrazioni astratte: mai persone, anatomia o apparecchiature. Controlla sempre il risultato prima di pubblicare.
+   * L’assistente descrive l’immagine mentre scrive l’articolo e un servizio esterno la disegna (richiede la variabile OPENAI_API_KEY sul server, circa 3–8 centesimi per immagine). Sono fotografie dell’apparecchio, dell’ambiente o della parte del corpo interessata: mai volti, mai nudità. Guarda sempre il risultato ingrandito prima di pubblicare, soprattutto mani e arti.
    */
   coverImages?: boolean | null;
   /**
