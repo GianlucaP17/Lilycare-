@@ -49,6 +49,45 @@ export function motivo(errore: unknown): string {
   return testo.slice(0, 180)
 }
 
+/**
+ * Legge la risposta del server di posta.
+ *
+ * nodemailer restituisce accepted/rejected/response: senza guardarli si scriverebbe
+ * "inviata" anche quando il server ha preso in carico zero destinatari.
+ */
+type RisultatoInvio = {
+  accepted?: unknown
+  rejected?: unknown
+  response?: unknown
+}
+
+const indirizzi = (valore: unknown): string[] =>
+  Array.isArray(valore)
+    ? valore.map((v) =>
+        typeof v === 'string' ? v : String((v as { address?: string })?.address ?? v),
+      )
+    : []
+
+export function rispostaServer(risultato: unknown): string {
+  const r = (risultato ?? {}) as RisultatoInvio
+  return typeof r.response === 'string' ? r.response.replace(/\s+/g, ' ').slice(0, 120) : ''
+}
+
+export function esitoInvio(risultato: unknown, destinatari: string[]): string {
+  const r = (risultato ?? {}) as RisultatoInvio
+  const rifiutati = indirizzi(r.rejected)
+  if (rifiutati.length) {
+    return nonInviata(`il server di posta ha rifiutato ${rifiutati.join(', ')}.`)
+  }
+  const accettati = indirizzi(r.accepted)
+  const risposta = rispostaServer(risultato)
+  if (!accettati.length && !risposta) {
+    return `${inviata(destinatari)} · il server di posta non ha dato conferma`
+  }
+  const base = inviata(accettati.length ? accettati : destinatari)
+  return risposta ? `${base} · risposta del server: ${risposta.slice(0, 60)}` : base
+}
+
 /** Scrive l'esito sulla richiesta o sulla candidatura, così si vede dal pannello. */
 export async function annota(
   req: PayloadRequest,

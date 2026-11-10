@@ -5,7 +5,7 @@ import { clinicNotificationEmail, patientConfirmationEmail } from '@/emails/book
 import { dayOptions, statusOptions, timeOptions } from '@/lib/booking-options'
 import {
   annota,
-  inviata,
+  esitoInvio,
   motivo,
   nonInviata,
   postaConfigurata,
@@ -53,14 +53,14 @@ const sendBookingEmails: CollectionAfterChangeHook = async ({ doc, operation, re
   } else {
     try {
       const toClinic = clinicNotificationEmail(data, clinic)
-      await req.payload.sendEmail({
+      const info = await req.payload.sendEmail({
         to: recipients,
         replyTo: doc.email,
         subject: toClinic.subject,
         html: toClinic.html,
         text: toClinic.text,
       })
-      esito = inviata(recipients)
+      esito = esitoInvio(info, recipients)
     } catch (error) {
       req.payload.logger.error({ err: error, msg: 'Invio email allo studio non riuscito' })
       esito = nonInviata(motivo(error))

@@ -12,7 +12,7 @@ import {
 } from '@/lib/job-options'
 import {
   annota,
-  inviata,
+  esitoInvio,
   motivo,
   nonInviata,
   postaConfigurata,
@@ -74,7 +74,7 @@ const sendApplicationEmails: CollectionAfterChangeHook = async ({ doc, operation
   } else {
     try {
       const toClinic = clinicApplicationEmail(data, clinic)
-      await req.payload.sendEmail({
+      const info = await req.payload.sendEmail({
         to: recipients,
         replyTo: doc.email,
         subject: toClinic.subject,
@@ -82,7 +82,7 @@ const sendApplicationEmails: CollectionAfterChangeHook = async ({ doc, operation
         text: toClinic.text,
         attachments: allegati,
       })
-      esito = inviata(recipients)
+      esito = esitoInvio(info, recipients)
     } catch (error) {
       req.payload.logger.error({ err: error, msg: 'Invio candidatura allo studio non riuscito' })
       esito = nonInviata(motivo(error))

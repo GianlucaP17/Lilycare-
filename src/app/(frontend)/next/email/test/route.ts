@@ -3,7 +3,13 @@ import { cookies, headers } from 'next/headers'
 import { emailLayout } from '@/emails/layout'
 import { json, sameOrigin } from '@/lib/ai/route-helpers'
 import { getPayloadClient } from '@/lib/data'
-import { motivo, postaConfigurata, SENZA_DESTINATARI, SENZA_POSTA } from '@/lib/notifiche'
+import {
+  motivo,
+  postaConfigurata,
+  rispostaServer,
+  SENZA_DESTINATARI,
+  SENZA_POSTA,
+} from '@/lib/notifiche'
 
 export const dynamic = 'force-dynamic'
 
@@ -37,7 +43,7 @@ export async function POST(request: Request) {
   if (!postaConfigurata()) return json({ error: `Impossibile: ${SENZA_POSTA}` }, 503)
 
   try {
-    await payload.sendEmail({
+    const info = await payload.sendEmail({
       to: destinatari,
       subject: 'Prova di invio – sito LilyCare',
       html: emailLayout(
@@ -48,7 +54,13 @@ export async function POST(request: Request) {
       ),
       text: 'Email di prova inviata dal pannello di amministrazione del sito LilyCare. Se la stai leggendo, la posta funziona.',
     })
-    return json({ ok: true, to: destinatari })
+    // Si riporta la risposta del server di posta: "inviata" senza conferma non vuol dire molto
+    const risultato = (info ?? {}) as { rejected?: unknown }
+    const rifiutati = Array.isArray(risultato.rejected) ? risultato.rejected.map(String) : []
+    if (rifiutati.length) {
+      return json({ error: `il server di posta ha rifiutato ${rifiutati.join(', ')}.` }, 502)
+    }
+    return json({ ok: true, to: destinatari, risposta: rispostaServer(info) })
   } catch (error) {
     payload.logger.error({ err: error, msg: '[posta] email di prova non inviata' })
     return json({ error: motivo(error), to: destinatari }, 502)
