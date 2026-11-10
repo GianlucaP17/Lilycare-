@@ -904,6 +904,10 @@ export interface BookingRequest {
   preferredDays?: ('lun' | 'mar' | 'mer' | 'gio' | 'ven' | 'sab')[] | null;
   preferredTime?: ('mattina' | 'pomeriggio' | 'indifferente') | null;
   message?: string | null;
+  /**
+   * Se qui c’è scritto “NON inviata”, nessuno in studio ha ricevuto l’email.
+   */
+  notifica?: string | null;
   consent?: boolean | null;
   sourcePage?: string | null;
   updatedAt: string;
@@ -970,6 +974,10 @@ export interface JobApplication {
    */
   cv?: (number | null) | ApplicationFile;
   message?: string | null;
+  /**
+   * Se qui c’è scritto “NON inviata”, nessuno in studio ha ricevuto l’email.
+   */
+  notifica?: string | null;
   consent?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -1571,6 +1579,7 @@ export interface BookingRequestsSelect<T extends boolean = true> {
   preferredDays?: T;
   preferredTime?: T;
   message?: T;
+  notifica?: T;
   consent?: T;
   sourcePage?: T;
   updatedAt?: T;
@@ -1660,6 +1669,7 @@ export interface JobApplicationsSelect<T extends boolean = true> {
   availability?: T;
   cv?: T;
   message?: T;
+  notifica?: T;
   consent?: T;
   updatedAt?: T;
   createdAt?: T;

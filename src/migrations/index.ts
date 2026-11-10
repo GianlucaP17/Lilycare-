@@ -5,6 +5,7 @@ import * as migration_20261102_174302_image_style from './20261102_174302_image_
 import * as migration_20261102_182729_job_applications from './20261102_182729_job_applications';
 import * as migration_20261102_190728_cv_candidature from './20261102_190728_cv_candidature';
 import * as migration_20261104_075941_cron_diagnostica from './20261104_075941_cron_diagnostica';
+import * as migration_20261110_101012_avviso_email from './20261110_101012_avviso_email';
 
 export const migrations = [
   {
@@ -40,6 +41,11 @@ export const migrations = [
   {
     up: migration_20261104_075941_cron_diagnostica.up,
     down: migration_20261104_075941_cron_diagnostica.down,
-    name: '20261104_075941_cron_diagnostica'
+    name: '20261104_075941_cron_diagnostica',
+  },
+  {
+    up: migration_20261110_101012_avviso_email.up,
+    down: migration_20261110_101012_avviso_email.down,
+    name: '20261110_101012_avviso_email'
   },
 ];

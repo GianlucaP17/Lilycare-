@@ -154,6 +154,25 @@ Nei titoli puoi evidenziare parole scrivendole tra asterischi: `Diagnosi e cura,
 **Prenotazioni → Richieste di appuntamento**: elenco delle richieste con nome, telefono, prestazione
 e stato (Nuova → In lavorazione → Appuntamento fissato → Archiviata). Puoi aggiungere note interne.
 
+### Le email arrivano davvero?
+
+Ogni richiesta e ogni candidatura fa partire **due email**: l'avviso allo studio (con il curriculum
+in allegato, per le candidature) e la conferma a chi ha scritto. Se la posta non funziona, il
+contenuto **resta comunque salvato nel pannello**: non si perde niente, ma nessuno viene avvisato.
+
+Perché non passi inosservato, l'esito dell'avviso allo studio viene scritto sulla richiesta stessa,
+nella colonna **Avviso allo studio** dell'elenco e nella barra laterale della scheda:
+
+- `Inviata il 10.11.2026, 11:12 a info@lilycare.ch` → tutto a posto;
+- `NON inviata: la casella ha rifiutato nome utente o password` → controlla `SMTP_USER` e
+  `SMTP_PASS` in _Setup Node.js App_;
+- `NON inviata: il server di posta non è raggiungibile` → controlla `SMTP_HOST` e `SMTP_PORT`;
+- `NON inviata: sul server manca la configurazione della posta` → manca `SMTP_HOST`;
+- `NON inviata: manca l'indirizzo dello studio` → compila _Impostazioni studio → Contatti e sede_.
+
+Per provarlo **senza aspettare** una richiesta vera: _Impostazioni studio → Contatti e sede_,
+pulsante **«Invia un'email di prova»**. Parte solo verso gli indirizzi configurati lì.
+
 ### Candidature (Lavora con noi)
 
 **Prenotazioni → Candidature**: chi si candida dalla pagina _Lavora con noi_ compila il modulo e

@@ -1212,3 +1212,76 @@ html[data-theme='dark'] .lily-cv__etichetta {
   font-size: 0.82rem;
   color: var(--lily-muted);
 }
+
+/* Prova della posta, in Impostazioni studio */
+.lily-posta {
+  margin-bottom: var(--base);
+}
+
+.lily-posta__etichetta {
+  display: block;
+  font-weight: 600;
+  font-size: 0.86rem;
+  color: var(--lily-navy-950);
+  margin-bottom: 8px;
+}
+
+html[data-theme='dark'] .lily-posta__etichetta {
+  color: var(--theme-elevation-800);
+}
+
+.lily-posta__riga {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.lily-posta__bottone {
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--lily-line);
+  background: var(--theme-elevation-0);
+  color: var(--lily-navy-900);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.lily-posta__bottone:hover:not(:disabled) {
+  background: var(--lily-navy-50);
+  border-color: var(--lily-navy-200);
+}
+
+.lily-posta__bottone:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.lily-posta__nota {
+  flex: 1 1 18rem;
+  font-size: 0.82rem;
+  color: var(--lily-muted);
+  line-height: 1.5;
+}
+
+.lily-posta__esito {
+  margin: 12px 0 0;
+  padding: 12px 16px;
+  border-radius: var(--style-radius-l);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.lily-posta__esito--ok {
+  background: var(--lily-navy-50);
+  color: var(--lily-navy-900);
+}
+
+.lily-posta__esito--ko {
+  background: var(--lily-orchid-50);
+  color: var(--lily-orchid-700);
+}

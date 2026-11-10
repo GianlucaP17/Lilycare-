@@ -174,6 +174,11 @@ export const Settings: GlobalConfig = {
               },
             },
             {
+              name: 'provaPosta',
+              type: 'ui',
+              admin: { components: { Field: '/components/admin/EmailTest#EmailTest' } },
+            },
+            {
               name: 'address',
               label: 'Indirizzo',
               type: 'group',

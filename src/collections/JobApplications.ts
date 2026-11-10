@@ -10,6 +10,15 @@ import {
   collaborationOptions,
   roleOptions,
 } from '@/lib/job-options'
+import {
+  annota,
+  inviata,
+  motivo,
+  nonInviata,
+  postaConfigurata,
+  SENZA_DESTINATARI,
+  SENZA_POSTA,
+} from '@/lib/notifiche'
 import { formatAddress } from '@/lib/settings-helpers'
 import { getServerUrl } from '@/lib/utils'
 
@@ -56,7 +65,13 @@ const sendApplicationEmails: CollectionAfterChangeHook = async ({ doc, operation
     cvFilename: cv?.filename ?? null,
   }
 
-  if (recipients.length) {
+  // L'esito viene annotato sulla candidatura: un invio fallito non deve passare inosservato
+  let esito: string
+  if (!recipients.length) {
+    esito = nonInviata(SENZA_DESTINATARI)
+  } else if (!postaConfigurata()) {
+    esito = nonInviata(SENZA_POSTA)
+  } else {
     try {
       const toClinic = clinicApplicationEmail(data, clinic)
       await req.payload.sendEmail({
@@ -67,10 +82,13 @@ const sendApplicationEmails: CollectionAfterChangeHook = async ({ doc, operation
         text: toClinic.text,
         attachments: allegati,
       })
+      esito = inviata(recipients)
     } catch (error) {
       req.payload.logger.error({ err: error, msg: 'Invio candidatura allo studio non riuscito' })
+      esito = nonInviata(motivo(error))
     }
   }
+  await annota(req, 'job-applications', doc.id, esito)
 
   try {
     const toCandidate = candidateConfirmationEmail(data, clinic)
@@ -93,7 +111,7 @@ export const JobApplications: CollectionConfig = {
   labels: { singular: 'Candidatura', plural: 'Candidature' },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'roleLabel', 'status', 'createdAt'],
+    defaultColumns: ['name', 'roleLabel', 'status', 'notifica', 'createdAt'],
     group: 'Prenotazioni',
     description:
       'Candidature inviate dalla pagina “Lavora con noi”, con il curriculum allegato. Candidature e curriculum vengono cancellati automaticamente dopo 30 giorni, come indicato nell’informativa privacy.',
@@ -184,6 +202,16 @@ export const JobApplications: CollectionConfig = {
       },
     },
     { name: 'message', label: 'Presentazione', type: 'textarea' },
+    {
+      name: 'notifica',
+      label: 'Avviso allo studio',
+      type: 'text',
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+        description: 'Se qui c’è scritto “NON inviata”, nessuno in studio ha ricevuto l’email.',
+      },
+    },
     {
       name: 'consent',
       label: 'Consenso al trattamento dei dati',

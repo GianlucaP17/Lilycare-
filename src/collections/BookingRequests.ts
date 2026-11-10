@@ -3,6 +3,15 @@ import type { CollectionAfterChangeHook, CollectionConfig } from 'payload'
 import { authenticated, isAdmin } from '@/access'
 import { clinicNotificationEmail, patientConfirmationEmail } from '@/emails/booking'
 import { dayOptions, statusOptions, timeOptions } from '@/lib/booking-options'
+import {
+  annota,
+  inviata,
+  motivo,
+  nonInviata,
+  postaConfigurata,
+  SENZA_DESTINATARI,
+  SENZA_POSTA,
+} from '@/lib/notifiche'
 import { formatAddress } from '@/lib/settings-helpers'
 import { getServerUrl } from '@/lib/utils'
 
@@ -35,18 +44,29 @@ const sendBookingEmails: CollectionAfterChangeHook = async ({ doc, operation, re
     message: doc.message,
   }
 
-  try {
-    const toClinic = clinicNotificationEmail(data, clinic)
-    await req.payload.sendEmail({
-      to: recipients,
-      replyTo: doc.email,
-      subject: toClinic.subject,
-      html: toClinic.html,
-      text: toClinic.text,
-    })
-  } catch (error) {
-    req.payload.logger.error({ err: error, msg: 'Invio email allo studio non riuscito' })
+  // L'esito viene annotato sulla richiesta: un invio fallito non deve passare inosservato
+  let esito: string
+  if (!recipients.length) {
+    esito = nonInviata(SENZA_DESTINATARI)
+  } else if (!postaConfigurata()) {
+    esito = nonInviata(SENZA_POSTA)
+  } else {
+    try {
+      const toClinic = clinicNotificationEmail(data, clinic)
+      await req.payload.sendEmail({
+        to: recipients,
+        replyTo: doc.email,
+        subject: toClinic.subject,
+        html: toClinic.html,
+        text: toClinic.text,
+      })
+      esito = inviata(recipients)
+    } catch (error) {
+      req.payload.logger.error({ err: error, msg: 'Invio email allo studio non riuscito' })
+      esito = nonInviata(motivo(error))
+    }
   }
+  await annota(req, 'booking-requests', doc.id, esito)
 
   try {
     const toPatient = patientConfirmationEmail(data, clinic, settings.responseTimeText)
@@ -72,7 +92,7 @@ export const BookingRequests: CollectionConfig = {
   labels: { singular: 'Richiesta di appuntamento', plural: 'Richieste di appuntamento' },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'phone', 'serviceLabel', 'status', 'createdAt'],
+    defaultColumns: ['name', 'phone', 'serviceLabel', 'status', 'notifica', 'createdAt'],
     group: 'Prenotazioni',
     description:
       'Richieste inviate dal modulo "Prenota una visita". Ogni richiesta arriva anche via email. Aggiorna lo stato dopo aver contattato il paziente.',
@@ -158,6 +178,16 @@ export const BookingRequests: CollectionConfig = {
       ],
     },
     { name: 'message', label: 'Messaggio', type: 'textarea' },
+    {
+      name: 'notifica',
+      label: 'Avviso allo studio',
+      type: 'text',
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+        description: 'Se qui c’è scritto “NON inviata”, nessuno in studio ha ricevuto l’email.',
+      },
+    },
     {
       type: 'row',
       fields: [
